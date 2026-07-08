@@ -1,0 +1,63 @@
+/* Hero section */
+.hero {
+  /* Background image */
+  background-image: url("/images/header.jpg");
+
+  /* Image settings */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  /* Height of the header */
+  height: 500px;
+
+  /* Center the content */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* Text color */
+  color: white;
+  text-align: center;
+}
+
+/* Dark overlay effect */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+/* Keep text above the overlay */
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Main heading */
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+/* Subtitle */
+.hero p {
+  font-size: 1.3rem;
+  margin-bottom: 30px;
+}
+
+/* Button */
+.hero-button {
+  padding: 12px 30px;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  background: #2d6cdf;
+  color: white;
+  cursor: pointer;
+}
+
+.hero-button:hover {
+  background: #1f55b8;
+}

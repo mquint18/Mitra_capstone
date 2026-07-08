@@ -1,0 +1,33 @@
+/* Navbar container */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2d6cdf;
+  padding: 15px 30px;
+}
+
+/* Logo */
+.logo {
+  color: white;
+  font-size: 28px;
+}
+
+/* Navigation list */
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+}
+
+/* Links */
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Hover effect */
+.nav-links a:hover {
+  color: #ffd54f;
+}
