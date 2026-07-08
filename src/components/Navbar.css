@@ -3,8 +3,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #2d6cdf;
+  background-color: #b9ef5a;
   padding: 15px 30px;
+  position: relative;
+  z-index: 1000;
 }
 
 /* Logo */

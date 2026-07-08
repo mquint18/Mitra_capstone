@@ -5,7 +5,7 @@
 
   /* Image settings */
   background-size: cover;
-  background-position: center;
+  background-position: left;
   background-repeat: no-repeat;
 
   /* Height of the header */
@@ -14,7 +14,7 @@
   /* Center the content */
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: left;
 
   /* Text color */
   color: white;

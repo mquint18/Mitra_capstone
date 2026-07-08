@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import About from "./Pages/About";
 import GetStarted from "./Pages/GetStarted";
 import UserLoginPage from "./Pages/UserLoginPage";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -20,6 +21,8 @@ function App() {
         <Route path="/get-started" element={<GetStarted />} />
         <Route path="/login" element={<UserLoginPage />} />
       </Routes>
+
+      <Footer />
     </>
   );
 }

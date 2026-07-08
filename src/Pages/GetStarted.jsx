@@ -1,7 +1,13 @@
 //GetStarted.jsx
 
 function GetStarted() {
-  return <h1>GetStarted Page</h1>;
+  return (
+    <div>
+      <h1>Get Started With mitra!</h1>
+      <button>I am a resident</button>
+      <button>I am a business</button>
+    </div>
+  );
 }
 
 export default GetStarted;
