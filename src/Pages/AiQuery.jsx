@@ -7,12 +7,12 @@ function AiQuery() {
   const [response, setResponse] = useState("");
 
   async function askClaude() {
-    const res = await fetch("http://localhost:3000/api/chat", {
+    const res = await fetch("http://localhost:5001/api/ai-job", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ prompt }),
+      body: JSON.stringify({ job, expertise }),
     });
 
     const data = await res.json();
