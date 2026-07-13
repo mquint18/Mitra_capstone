@@ -9,6 +9,7 @@ import GetStarted from "./Pages/GetStarted";
 import UserLoginPage from "./Pages/UserLoginPage";
 import Footer from "./components/Footer";
 import SignUp from "./Pages/SignUp";
+import AiAsk from "./Pages/AiAsk";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/get-started" element={<GetStarted />} />
         <Route path="/login" element={<UserLoginPage />} />
         <Route path="sign-up" element={<SignUp />} />
+        <Route path="ai-ask" element={<AiAsk />} />
       </Routes>
 
       <Footer />

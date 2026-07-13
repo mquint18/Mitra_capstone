@@ -39,7 +39,7 @@ function Header() {
           <a href="/search" className="nav-link">
             Find a business
           </a>
-          <a href="/ai" className="nav-link">
+          <a href="/ai-ask" className="nav-link">
             AI advisor
           </a>
           <a href="/about" className="nav-link">

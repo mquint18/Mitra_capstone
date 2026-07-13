@@ -49,6 +49,7 @@ app.post("/api/ai-job", async (req, res) => {
         3. Estimated time
         4. Safety concerns
         5. Whether they should hire a professional
+        6. How much should a professional cost on average
 
         `;
 

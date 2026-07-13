@@ -13,6 +13,17 @@
   margin: 0 auto 10px;
 }
 
+.ai-response {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  line-height: 1.6;
+}
+
 @keyframes spin {
   from {
     transform: rotate(0deg);

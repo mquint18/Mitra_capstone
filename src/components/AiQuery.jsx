@@ -59,8 +59,6 @@ function AiQuery() {
       <br />
       <br />
 
-      {/* Add this line temporarily, right before the button */}
-
       <button onClick={askClaude} disabled={loading}>
         {loading ? "Thinking..." : "Ask Claude AI"}
       </button>
@@ -75,7 +73,7 @@ function AiQuery() {
 
       <h3>AI Recommendation:</h3>
 
-      <p>{response}</p>
+      <pre className="ai-response">{response}</pre>
     </div>
   );
 }
