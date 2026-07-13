@@ -4,8 +4,6 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-console.log(Object.keys(process.env).filter((key) => key.includes("ANTH")));
-
 console.log("=== THIS IS MY SERVER.JS ===");
 console.log(import.meta.url);
 
