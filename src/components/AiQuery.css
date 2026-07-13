@@ -1,4 +1,4 @@
-.spinner-container {
+.loading-box {
   margin-top: 20px;
   text-align: center;
 }
@@ -17,7 +17,6 @@
   from {
     transform: rotate(0deg);
   }
-
   to {
     transform: rotate(360deg);
   }

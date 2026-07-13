@@ -11,6 +11,7 @@ function AiQuery() {
 
   async function askClaude() {
     setLoading(true);
+    setLoading(true);
 
     try {
       const res = await fetch("http://localhost:5001/api/ai-job", {
@@ -58,6 +59,8 @@ function AiQuery() {
       <br />
       <br />
 
+      {/* Add this line temporarily, right before the button */}
+
       <button onClick={askClaude} disabled={loading}>
         {loading ? "Thinking..." : "Ask Claude AI"}
       </button>
@@ -69,6 +72,10 @@ function AiQuery() {
           <p>Estimating difficulty, tools, time, and safety.</p>
         </div>
       )}
+
+      <h3>AI Recommendation:</h3>
+
+      <p>{response}</p>
     </div>
   );
 }

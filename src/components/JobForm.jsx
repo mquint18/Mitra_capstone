@@ -6,24 +6,31 @@ function JobForm() {
   const [job, setJob] = useState("");
   const [expertise, setExpertise] = useState("");
   const [response, setResponse] = useState("");
+  const [loading, setLoading] = useState(false);
 
   async function submitJob(e) {
     e.preventDefault();
+    try {
+      const result = await fetch("http://localhost:5001/api/ai-job", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          job,
+          expertise,
+        }),
+      });
 
-    const result = await fetch("http://localhost:5001/api/ai-job", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        job,
-        expertise,
-      }),
-    });
+      const data = await result.json();
 
-    const data = await result.json();
-
-    setResponse(data.answer);
+      setResponse(data.answer);
+    } catch (err) {
+      console.error(err);
+      setResponse("Unable to contact the AI server.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -51,7 +58,7 @@ function JobForm() {
           <option value="Professional">Professional</option>
         </select>
 
-        <button>Ask AI</button>
+        <button disabled={loading}>{loading ? "Thinking..." : "Ask AI"}</button>
       </form>
 
       <h3>AI Recommendation:</h3>

@@ -1,14 +1,17 @@
 //GetStarted.jsx
 
-import SignUp from "./SignUp";
+import { useNavigate } from "react-router-dom";
+import AiQuery from "../components/AiQuery";
 
 function GetStarted() {
+  const navigate = useNavigate();
+
   return (
     <div>
       <h1>Get Started With mitra!</h1>
-      <button>I am a resident</button>
-      <button>I am a business</button>
-      <SignUp></SignUp>
+      <button onClick={() => navigate("/sign-up")}>I am a resident</button>
+
+      <AiQuery></AiQuery>
     </div>
   );
 }
