@@ -13,6 +13,7 @@ import SignUp from "./Pages/SignUp";
 function App() {
   return (
     <>
+      <Header></Header>
       <Navbar />
 
       <Routes>
