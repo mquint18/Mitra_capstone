@@ -10,7 +10,7 @@ function JobForm() {
   async function submitJob(e) {
     e.preventDefault();
 
-    const result = await fetch("http://localhost:5000/api/ai-job", {
+    const result = await fetch("http://localhost:5001/api/ai-job", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -16,7 +16,13 @@ import Anthropic from "@anthropic-ai/sdk";
 const app = express();
 
 // Allow React to communicate with Node
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST"],
+    credentials: false,
+  }),
+);
 
 // Allow JSON requests
 app.use(express.json());
@@ -49,7 +55,7 @@ app.post("/api/ai-job", async (req, res) => {
         `;
 
     const message = await anthropic.messages.create({
-      model: "claude-sonnet-4",
+      model: "claude-sonnet-4-6",
 
       max_tokens: 500,
 
