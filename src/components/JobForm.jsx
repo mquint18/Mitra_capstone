@@ -1,6 +1,7 @@
 //JobForm.jsx
 
 import { useState } from "react";
+import ReactMarkdown from "react-markdown";
 
 function JobForm() {
   const [job, setJob] = useState("");
@@ -64,6 +65,9 @@ function JobForm() {
       <h3>AI Recommendation:</h3>
 
       <p>{response}</p>
+      <div className="ai-response">
+        <ReactMarkdown>{response}</ReactMarkdown>
+      </div>
     </div>
   );
 }

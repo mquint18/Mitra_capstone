@@ -24,6 +24,33 @@
   line-height: 1.6;
 }
 
+.ai-response {
+  margin-top: 20px;
+  padding: 20px;
+  background: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  line-height: 1.7;
+}
+
+.ai-response h2,
+.ai-response h3 {
+  margin-top: 15px;
+  color: #1f2937;
+}
+
+.ai-response ul {
+  padding-left: 20px;
+}
+
+.ai-response li {
+  margin-bottom: 8px;
+}
+
+.ai-response strong {
+  color: #2563eb;
+}
+
 @keyframes spin {
   from {
     transform: rotate(0deg);

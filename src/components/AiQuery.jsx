@@ -1,6 +1,7 @@
 // AiQuery.jsx
 
 import { useState } from "react";
+import ReactMarkdown from "react-markdown";
 import "./AiQuery.css";
 
 function AiQuery() {
@@ -73,7 +74,9 @@ function AiQuery() {
 
       <h3>AI Recommendation:</h3>
 
-      <pre className="ai-response">{response}</pre>
+      <div className="ai-response">
+        <ReactMarkdown>{response}</ReactMarkdown>
+      </div>
     </div>
   );
 }

@@ -40,7 +40,7 @@ function Header() {
             Find a business
           </a>
           <a href="/ai-ask" className="nav-link">
-            AI advisor
+            AI Advisor
           </a>
           <a href="/about" className="nav-link">
             About

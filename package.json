@@ -11,12 +11,15 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.110.0",
+    "bcrypt": "^6.0.0",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "mongodb": "^7.5.0",
+    "mongoose": "^9.7.4",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
+    "react-markdown": "^10.1.0",
     "react-router-dom": "^7.18.1"
   },
   "devDependencies": {

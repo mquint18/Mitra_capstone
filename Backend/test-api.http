@@ -1,0 +1,24 @@
+POST http://localhost:5002/api/business/register
+Content-Type: application/json
+
+{
+  "businessName": "Mike's Plumbing5",
+  "businessType": "Plumbing",
+  "address": {
+    "street": "123 Main St",
+    "city": "Newark",
+    "state": "NJ",
+    "zip": "07101"
+  },
+  "website": "https://mikesplumbing.com",
+  "phone": "555-123-4567",
+  "email": "mike5@test.com",
+  "description": "Residential plumbing",
+  "keywords": [
+    "plumbing",
+    "pipes",
+    "repair"
+  ],
+  "username": "mikeplumber5",
+  "password": "password1235"
+}
