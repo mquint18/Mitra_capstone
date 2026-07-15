@@ -1,5 +1,7 @@
 // HomePage.jsx
 
+import "./HomePage.css";
+
 function HomePage() {
   return (
     <div>
@@ -15,7 +17,21 @@ function HomePage() {
         asperiores ipsum reiciendis modi! Consequatur.
       </p>
 
-      <img src="src/assets/images/town.webp" alt="small town" />
+      <img
+        className="welcome-image"
+        src="src/assets/images/town.webp"
+        alt="small town"
+      />
+
+      <p>
+        Mitra is a Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+        Quibusdam, doloribus. Iure, illo. Vel possimus aut, quidem atque aperiam
+        quae sit facere dolorem maiores necessitatibus ducimus. Saepe explicabo
+        doloremque porro quibusdam. Lorem, ipsum dolor sit amet consectetur
+        adipisicing elit. Quidem iusto quod perspiciatis odit natus maxime cum
+        saepe, doloremque, ullam, dolores sint dolorum minima ab doloribus
+        asperiores ipsum reiciendis modi! Consequatur.
+      </p>
     </div>
   );
 }

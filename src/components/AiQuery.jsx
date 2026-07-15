@@ -40,6 +40,12 @@ function AiQuery() {
   return (
     <div>
       <h2>Ask Mitra AI</h2>
+      <h4>
+        Type in the task or job you need to complete ex. "I need to trim a
+        tree". Then select your level of expertise in this type of work.
+        ClaudeAI will tell you if this is a task you can take on yourself or if
+        you should hire a professional.
+      </h4>
 
       <input
         type="text"
