@@ -73,7 +73,9 @@ function AiQuery() {
       {loading && (
         <div className="loading-box">
           <div className="spinner"></div>
-          <h3>Mitra AI is evaluating your project...</h3>
+          <h3>
+            Mitra AI is evaluating your project... This may take a few seconds
+          </h3>
           <p>Estimating difficulty, tools, time, and safety.</p>
         </div>
       )}

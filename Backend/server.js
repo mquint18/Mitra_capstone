@@ -127,7 +127,10 @@ Use this format:
 - Concern 2
 
 ## Recommendation
-...`;
+...
+
+## Approximate cost`;
+
     const message = await anthropic.messages.create({
       model: "claude-sonnet-4-6",
 
