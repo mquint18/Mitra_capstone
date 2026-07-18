@@ -4,7 +4,7 @@ import "./Footer.css";
 function Footer() {
   return (
     <div className="footer">
-      <h6>©2026 Michael Quint</h6>
+      <h4>©2026 Michael Quint</h4>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-/* BusinessDashboard.css */
+/* BusinessDashboard.css 
 :root {
   --green:  #639922;
   --dark:   #27500A;
@@ -17,13 +17,13 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); }
 
-/* ── Layout ── */
+/* ── Layout ── 
 .dash-wrap {
   display: flex;
   min-height: 100vh;
 }
 
-/* ── Sidebar ── */
+/* ── Sidebar ── 
 .sidebar {
   width: 220px;
   background: var(--mid);
@@ -86,7 +86,7 @@ body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--t
   color: var(--sage);
 }
 
-/* Nav */
+/* Nav 
 .sidebar-nav {
   display: flex;
   flex-direction: column;
@@ -144,7 +144,7 @@ body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--t
 
 .sidebar-logout:hover { background: rgba(255,255,255,0.1); color: white; }
 
-/* ── Main ── */
+/* ── Main ── 
 .dash-main {
   flex: 1;
   overflow-y: auto;
@@ -175,7 +175,7 @@ body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--t
   color: var(--muted);
 }
 
-/* ── Stats ── */
+/* ── Stats ── 
 .stats-row {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -216,7 +216,7 @@ body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--t
   margin-bottom: 1rem;
 }
 
-/* ── Bookings ── */
+/* ── Bookings ── 
 .bookings-list {
   display: flex;
   flex-direction: column;
@@ -290,7 +290,7 @@ body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--t
 
 .btn-decline:hover { background: #FCEBEB; }
 
-/* Badges */
+/* Badges 
 .badge {
   font-size: 11px;
   font-weight: 500;
@@ -316,7 +316,7 @@ body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--t
 
 .see-all:hover { text-decoration: underline; }
 
-/* ── Calendar ── */
+/* ── Calendar ── 
 .calendar-wrap {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -436,7 +436,7 @@ body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--t
 .today-demo       { border: 1.5px solid var(--sage); background: none; }
 .sel-demo         { background: var(--dark); }
 
-/* Day panel */
+/* Day panel 
 .day-panel {
   background: var(--white);
   border: 0.5px solid var(--border);
@@ -531,7 +531,7 @@ body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--t
 
 .empty-day { font-size: 13px; color: var(--muted); margin-top: 1rem; }
 
-/* ── Toggle ── */
+/* ── Toggle ── 
 .tog { position: relative; width: 38px; height: 22px; flex-shrink: 0; display: inline-block; }
 .tog input { opacity: 0; width: 0; height: 0; position: absolute; }
 .tog-track { position: absolute; inset: 0; background: var(--border); border-radius: 11px; transition: background .2s; cursor: pointer; }
@@ -539,7 +539,7 @@ body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--t
 .tog-thumb { position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; background: white; border-radius: 50%; transition: transform .2s; pointer-events: none; }
 .tog input:checked ~ .tog-thumb { transform: translateX(16px); }
 
-/* ── Profile ── */
+/* ── Profile ── 
 .profile-card {
   background: var(--white);
   border: 0.5px solid var(--border);
@@ -588,7 +588,7 @@ body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--t
   font-weight: 500;
 }
 
-/* ── Settings ── */
+/* ── Settings ── 
 .settings-card {
   background: var(--white);
   border: 0.5px solid var(--border);
@@ -608,7 +608,7 @@ body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--t
 
 .setting-row:last-child { border-bottom: none; }
 
-/* ── Buttons ── */
+/* ── Buttons ── 
 .btn-primary {
   padding: 9px 20px;
   background: var(--green);
@@ -645,7 +645,7 @@ body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--t
 
 .filter-btn:hover { border-color: var(--green); color: var(--dark); }
 
-/* ── Toast ── */
+/* ── Toast ── 
 .toast {
   position: fixed;
   bottom: 1.5rem;
@@ -666,9 +666,10 @@ body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--t
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ── Responsive ── */
+/* ── Responsive ── 
 @media (max-width: 640px) {
   .sidebar   { display: none; }
   .dash-main { padding: 1rem; }
   .stats-row { grid-template-columns: 1fr 1fr; }
 }
+*/

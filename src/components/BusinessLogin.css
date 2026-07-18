@@ -1,21 +1,27 @@
+/*
+
 :root {
-  --green:  #639922;
-  --dark:   #27500A;
-  --mid:    #3B6D11;
-  --light:  #EAF3DE;
-  --sage:   #97C459;
-  --gold:   #EF9F27;
-  --muted:  #888780;
-  --border: #D3D1C7;
-  --error:  #E24B4A;
-  --error-bg: #FCEBEB;
+  --green: #639922;
+  --dark: #27500a;
+  --mid: #3b6d11;
+  --light: #eaf3de;
+  --sage: #97c459;
+  --gold: #ef9f27;
+  --muted: #888780;
+  --border: #d3d1c7;
+  --error: #e24b4a;
+  --error-bg: #fcebeb;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 .bl-wrap {
   min-height: 100vh;
-  background: #F7F6F2;
+  background: #f7f6f2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -23,7 +29,7 @@
   font-family: system-ui, sans-serif;
 }
 
-/* Card */
+/* Card 
 .bl-card {
   background: white;
   border: 0.5px solid var(--border);
@@ -33,7 +39,7 @@
   max-width: 420px;
 }
 
-/* Logo */
+/* Logo 
 .bl-logo {
   display: flex;
   align-items: center;
@@ -49,7 +55,7 @@
   letter-spacing: 0.03em;
 }
 
-/* Badge */
+/* Badge 
 .bl-badge {
   display: inline-block;
   background: var(--light);
@@ -77,18 +83,18 @@
   line-height: 1.5;
 }
 
-/* Error banner */
+/* Error banner 
 .bl-error-banner {
   background: var(--error-bg);
   border: 0.5px solid var(--error);
   border-radius: 8px;
   padding: 10px 14px;
   font-size: 13px;
-  color: #791F1F;
+  color: #791f1f;
   margin-bottom: 1.25rem;
 }
 
-/* Fields */
+/* Fields 
 .bl-field {
   margin-bottom: 1.1rem;
 }
@@ -108,7 +114,9 @@
   margin-bottom: 5px;
 }
 
-.bl-password-row label { margin-bottom: 0; }
+.bl-password-row label {
+  margin-bottom: 0;
+}
 
 .bl-forgot {
   font-size: 12px;
@@ -117,7 +125,9 @@
   font-weight: 500;
 }
 
-.bl-forgot:hover { text-decoration: underline; }
+.bl-forgot:hover {
+  text-decoration: underline;
+}
 
 .bl-field input {
   width: 100%;
@@ -127,9 +137,11 @@
   font-size: 14px;
   font-family: inherit;
   outline: none;
-  transition: border 0.15s, box-shadow 0.15s;
+  transition:
+    border 0.15s,
+    box-shadow 0.15s;
   background: white;
-  color: #2C2C2A;
+  color: #2c2c2a;
 }
 
 .bl-field input:focus {
@@ -137,7 +149,9 @@
   box-shadow: 0 0 0 3px #63992220;
 }
 
-.bl-input-error { border-color: var(--error) !important; }
+.bl-input-error {
+  border-color: var(--error) !important;
+}
 
 .bl-field-error {
   display: block;
@@ -146,7 +160,7 @@
   margin-top: 4px;
 }
 
-/* Submit button */
+/* Submit button 
 .bl-btn {
   width: 100%;
   padding: 12px 0;
@@ -166,8 +180,13 @@
   gap: 8px;
 }
 
-.bl-btn:hover:not(:disabled) { background: var(--dark); }
-.bl-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+.bl-btn:hover:not(:disabled) {
+  background: var(--dark);
+}
+.bl-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
 
 .bl-btn-loading {
   display: flex;
@@ -178,16 +197,20 @@
 .bl-spinner {
   width: 16px;
   height: 16px;
-  border: 2px solid rgba(255,255,255,0.35);
+  border: 2px solid rgba(255, 255, 255, 0.35);
   border-top-color: white;
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
   flex-shrink: 0;
 }
 
-@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 
-/* Divider */
+/* Divider 
 .bl-divider {
   display: flex;
   align-items: center;
@@ -197,15 +220,18 @@
 
 .bl-divider::before,
 .bl-divider::after {
-  content: '';
+  content: "";
   flex: 1;
   height: 1px;
   background: var(--border);
 }
 
-.bl-divider span { font-size: 12px; color: var(--muted); }
+.bl-divider span {
+  font-size: 12px;
+  color: var(--muted);
+}
 
-/* Register CTA */
+/* Register CTA 
 .bl-register-btn {
   display: block;
   width: 100%;
@@ -221,9 +247,11 @@
   margin-bottom: 1.25rem;
 }
 
-.bl-register-btn:hover { background: var(--light); }
+.bl-register-btn:hover {
+  background: var(--light);
+}
 
-/* Resident link */
+/* Resident link 
 .bl-resident-link {
   text-align: center;
   font-size: 13px;
@@ -236,8 +264,14 @@
   text-decoration: none;
 }
 
-.bl-resident-link a:hover { text-decoration: underline; }
+.bl-resident-link a:hover {
+  text-decoration: underline;
+}
 
 @media (max-width: 480px) {
-  .bl-card { padding: 1.5rem 1rem; }
+  .bl-card {
+    padding: 1.5rem 1rem;
+  }
 }
+
+*/

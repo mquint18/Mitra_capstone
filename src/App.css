@@ -1,0 +1,27 @@
+/* Make the page take up the full browser height */
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+/* Main app layout */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Content grows to fill available space */
+.content {
+  flex: 1;
+}
+
+/* Footer stays at the bottom */
+footer {
+  background-color: #222;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}

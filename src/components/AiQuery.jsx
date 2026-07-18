@@ -12,7 +12,6 @@ function AiQuery() {
 
   async function askClaude() {
     setLoading(true);
-    setLoading(true);
 
     try {
       const res = await fetch("http://localhost:5001/api/ai-job", {
@@ -79,12 +78,14 @@ function AiQuery() {
           <p>Estimating difficulty, tools, time, and safety.</p>
         </div>
       )}
-
-      <h3>AI Recommendation:</h3>
-
-      <div className="ai-response">
-        <ReactMarkdown>{response}</ReactMarkdown>
-      </div>
+      {response && (
+        <>
+          <h3>AI Recommendation:</h3>
+          <div className="ai-response">
+            <ReactMarkdown>{response}</ReactMarkdown>
+          </div>
+        </>
+      )}
     </div>
   );
 }

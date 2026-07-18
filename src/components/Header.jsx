@@ -52,8 +52,8 @@ function Header() {
           <a href="/login" className="btn-ghost">
             Sign in
           </a>
-          <a href="/sign-up" className="btn-primary">
-            Join free
+          <a href="/sign-up" className="btn-join">
+            Join Free
           </a>
         </div>
 
