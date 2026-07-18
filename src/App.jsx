@@ -11,12 +11,15 @@ import Footer from "./components/Footer";
 import SignUp from "./Pages/SignUp";
 import AiAsk from "./Pages/AiAsk";
 import BusinessRegister from "./Pages/BusinessRegister";
+import BusinessLogin from "./components/BusinessLogin";
+import BusinessDashboard from "./components/BusinessDashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
     <>
       <Header></Header>
-
+      <Navbar></Navbar>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<About />} />
@@ -25,6 +28,15 @@ function App() {
         <Route path="sign-up" element={<SignUp />} />
         <Route path="ai-ask" element={<AiAsk />} />
         <Route path="/business-register" element={<BusinessRegister />} />
+        <Route path="/business/login" element={<BusinessLogin />} />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute role="business">
+              <BusinessDashboard />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
 
       <Footer />
