@@ -14,7 +14,6 @@ import cors from "cors";
 import Anthropic from "@anthropic-ai/sdk";
 import Business from "./models/Business.js";
 import authRoutes from "./routes/auth.js";
-app.use("/api/auth", authRoutes);
 
 const app = express();
 
@@ -167,3 +166,5 @@ const PORT2 = 5002;
 app.listen(PORT2, () => {
   console.log(`Server running on port ${PORT2} `);
 });
+
+app.use("/api/auth", authRoutes);
