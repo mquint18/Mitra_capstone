@@ -112,7 +112,7 @@ function SignupForm() {
         <p className="signup-sub">Join your neighborhood on Mitra</p>
 
         {/* Role toggle */}
-        <div className="role-toggle">
+        {/* <div className="role-toggle">
           <button
             type="button"
             className={`role-btn ${form.role === "resident" ? "active" : ""}`}
@@ -120,14 +120,14 @@ function SignupForm() {
           >
             I'm a resident
           </button>
-          <button
+          {/* <button
             type="button"
             className={`role-btn ${form.role === "business" ? "active" : ""}`}
             onClick={() => setForm((p) => ({ ...p, role: "business" }))}
           >
             I'm a business
-          </button>
-        </div>
+          </button> 
+        </div> */}
 
         {/* Server error */}
         {errors.server && <div className="error-banner">{errors.server}</div>}

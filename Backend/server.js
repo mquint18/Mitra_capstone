@@ -13,6 +13,8 @@ import express from "express";
 import cors from "cors";
 import Anthropic from "@anthropic-ai/sdk";
 import Business from "./models/Business.js";
+import authRoutes from "./routes/auth.js";
+app.use("/api/auth", authRoutes);
 
 const app = express();
 

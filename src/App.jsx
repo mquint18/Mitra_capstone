@@ -15,6 +15,7 @@ import BusinessRegister from "./Pages/BusinessRegister";
 import BusinessLogin from "./components/BusinessLogin";
 import BusinessDashboard from "./components/BusinessDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ResidentLogin from "./pages/ResidentLogin";
 
 function App() {
   return (
@@ -40,6 +41,8 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            <Route path="/login" element={<ResidentLogin />} />
+            <Route path="/signup" element={<SignUp />} />
           </Routes>
         </main>
 
