@@ -10,23 +10,23 @@ router.get("/", requireAuth, async (req, res) => {
   try {
     const { q, category, page = 1, limit = 10 } = req.query;
 
-    const query = { active: true };
+    const query = {};
 
-    // Full-text search across name, description, keywords
+    // Full-text search across businessName, description, keywords
     if (q && q.trim()) {
       query.$text = { $search: q.trim() };
     }
 
-    // Optional category filter
+    // Optional business type filter
     if (category && category !== "all") {
-      query.category = category;
+      query.businessType = category;
     }
 
     const skip = (Number(page) - 1) * Number(limit);
 
     const businesses = await Business.find(query, {
-      // exclude password from results
-      password: 0,
+      password: 0, // never return password
+      username: 0, // never return username
     })
       .sort(q ? { score: { $meta: "textScore" } } : { createdAt: -1 })
       .skip(skip)
@@ -46,10 +46,10 @@ router.get("/", requireAuth, async (req, res) => {
   }
 });
 
-// GET /api/search/categories — distinct category list for filter dropdown
+// GET /api/search/categories — distinct businessType list for filter dropdown
 router.get("/categories", requireAuth, async (req, res) => {
   try {
-    const categories = await Business.distinct("category", { active: true });
+    const categories = await Business.distinct("businessType");
     res.json({ categories: ["all", ...categories.sort()] });
   } catch (error) {
     console.error("Categories error:", error);
@@ -60,8 +60,10 @@ router.get("/categories", requireAuth, async (req, res) => {
 // GET /api/search/:id — single business profile
 router.get("/:id", requireAuth, async (req, res) => {
   try {
-    const business = await Business.findById(req.params.id).select("-password");
-    if (!business || !business.active) {
+    const business = await Business.findById(req.params.id).select(
+      "-password -username",
+    );
+    if (!business) {
       return res.status(404).json({ message: "Business not found" });
     }
     res.json({ business });

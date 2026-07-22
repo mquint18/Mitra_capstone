@@ -50,5 +50,10 @@ const businessSchema = new mongoose.Schema(
     timestamps: true,
   },
 );
+businessSchema.index({
+  businessName: "text",
+  description: "text",
+  keywords: "text",
+});
 
 export default mongoose.model("Business", businessSchema);

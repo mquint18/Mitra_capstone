@@ -14,7 +14,7 @@ export function useBusinessSearch() {
 
   const token = localStorage.getItem("token");
 
-  // Load categories once on mount
+  // Fetch distinct businessTypes for the category dropdown
   useEffect(() => {
     async function fetchCategories() {
       try {
@@ -24,7 +24,7 @@ export function useBusinessSearch() {
         const data = await res.json();
         if (res.ok) setCategories(data.categories);
       } catch {
-        // silently fail — default "all" still works
+        // silently fail — "all" still works
       }
     }
     fetchCategories();
@@ -36,7 +36,7 @@ export function useBusinessSearch() {
       setError(null);
 
       const params = new URLSearchParams();
-      if (q) params.set("q", q);
+      if (q.trim()) params.set("q", q.trim());
       if (category !== "all") params.set("category", category);
       params.set("page", pageNum);
       params.set("limit", 10);

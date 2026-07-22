@@ -20,7 +20,16 @@ function BusinessCard({ business, onBook }) {
           <p className="bs-name">{business.businessName || business.name}</p>
           <p className="bs-category">{business.category}</p>
           {business.address && (
-            <p className="bs-address">📍 {business.address}</p>
+            <p className="bs-address">
+              📍{" "}
+              {[
+                business.address.street,
+                business.address.city,
+                business.address.state,
+              ]
+                .filter(Boolean)
+                .join(", ")}
+            </p>
           )}
           <div className="bs-keywords">
             {(business.keywords || []).slice(0, 4).map((k) => (

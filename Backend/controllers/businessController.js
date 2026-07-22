@@ -1,7 +1,7 @@
 // controllers/businessController.js  — add this login function
 
 import bcrypt from "bcrypt";
-import jwt    from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import Business from "../models/Business.js";
 
 // ── Register ──────────────────────────────────────────────
@@ -14,7 +14,9 @@ export async function registerBusiness(req, res) {
 
     const existing = await Business.findOne({ email: rest.email });
     if (existing)
-      return res.status(409).json({ message: "A business with this email already exists" });
+      return res
+        .status(409)
+        .json({ message: "A business with this email already exists" });
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const business = new Business({ ...rest, password: hashedPassword });
@@ -22,7 +24,11 @@ export async function registerBusiness(req, res) {
 
     res.status(201).json({
       message: "Business registered successfully!",
-      business: { id: business._id, name: business.businessName, type: business.businessType },
+      business: {
+        id: business._id,
+        name: business.businessName,
+        type: business.businessType,
+      },
     });
   } catch (error) {
     console.error("Business registration error:", error);
@@ -36,7 +42,9 @@ export async function loginBusiness(req, res) {
     const { email, password } = req.body;
 
     if (!email || !password)
-      return res.status(400).json({ message: "Email and password are required" });
+      return res
+        .status(400)
+        .json({ message: "Email and password are required" });
 
     // Find business by email, explicitly include password field
     const business = await Business.findOne({ email }).select("+password");
@@ -51,20 +59,20 @@ export async function loginBusiness(req, res) {
     const token = jwt.sign(
       { id: business._id, role: "business" },
       process.env.JWT_SECRET,
-      { expiresIn: "7d" }
+      { expiresIn: "7d" },
     );
 
     // Return token + safe business profile (no password)
     res.json({
       token,
       business: {
-        id:           business._id,
+        id: business._id,
         businessName: business.businessName,
         businessType: business.businessType,
-        email:        business.email,
-        phone:        business.phone,
-        address:      business.address,
-        keywords:     business.keywords,
+        email: business.email,
+        phone: business.phone,
+        address: business.address,
+        keywords: business.keywords,
         availability: business.availability,
       },
     });
