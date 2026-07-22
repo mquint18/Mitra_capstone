@@ -51,8 +51,8 @@ function ResidentLogin() {
       localStorage.setItem("token", data.token);
       localStorage.setItem("resident", JSON.stringify(data.user));
 
-      // Redirect to resident home
-      window.location.href = "/";
+      // After successful login, redirect to:
+      window.location.href = "/resident-dashboard";
     } catch (err) {
       setErrors({ server: "Unable to connect to the server." });
     } finally {
