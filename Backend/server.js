@@ -14,6 +14,7 @@ import cors from "cors";
 import Anthropic from "@anthropic-ai/sdk";
 import Business from "./models/Business.js";
 import authRoutes from "./routes/auth.js";
+import searchRoutes from "./routes/search-route.js";
 
 const app = express();
 
@@ -168,3 +169,4 @@ app.listen(PORT2, () => {
 });
 
 app.use("/api/auth", authRoutes);
+app.use("/api/search", searchRoutes);

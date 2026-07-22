@@ -2,6 +2,7 @@
 import { useState } from "react";
 import "./ResidentDashboard.css";
 import AiQuery from "../components/AiQuery";
+import BusinessSearch from "./BusinessSearch";
 
 // ── Mock data — replace with real API calls ──────────────
 const mockResident = {
@@ -341,42 +342,7 @@ export default function ResidentDashboard() {
         )}
 
         {/* ── Search ── */}
-        {tab === "search" && (
-          <div className="rd-section">
-            <div className="rd-header">
-              <div>
-                <h1 className="rd-title">Find a business</h1>
-                <p className="rd-sub">
-                  Search local services by name, category, or keyword.
-                </p>
-              </div>
-            </div>
-            <input
-              className="rd-search"
-              type="text"
-              placeholder="Search — e.g. lawn care, plumbing, tutoring…"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-            <p className="rd-results-count">
-              {filtered.length} business{filtered.length !== 1 ? "es" : ""}{" "}
-              found
-            </p>
-            <div className="rd-biz-list">
-              {filtered.map((b) => (
-                <BusinessCard key={b.id} business={b} onBook={handleBook} />
-              ))}
-              {filtered.length === 0 && (
-                <div className="rd-empty">
-                  <p>No businesses match "{search}"</p>
-                  <button className="rd-link" onClick={() => setSearch("")}>
-                    Clear search
-                  </button>
-                </div>
-              )}
-            </div>
-          </div>
-        )}
+        {tab === "search" && <BusinessSearch />}
 
         {/* ── Bookings ── */}
         {tab === "bookings" && (
