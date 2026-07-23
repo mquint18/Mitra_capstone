@@ -1,6 +1,7 @@
 // BusinessRegister.jsx
 
 import { useState } from "react";
+import "./BusinessRegister.css";
 
 function BusinessRegister() {
   const [business, setBusiness] = useState({
@@ -80,7 +81,7 @@ function BusinessRegister() {
     }
   }
   return (
-    <div>
+    <div className="br-wrap">
       <h1>Business Registration</h1>
 
       <form onSubmit={registerBusiness}>

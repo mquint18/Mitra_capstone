@@ -217,6 +217,9 @@ function SignupForm() {
         <p className="signin-link">
           Already have an account? <a href="/login">Sign in</a>
         </p>
+        <p className="business-link">
+          Sign up as a business <a href="/business-register">Sign up</a>
+        </p>
       </div>
     </div>
   );

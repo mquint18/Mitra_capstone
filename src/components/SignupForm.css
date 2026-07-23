@@ -184,6 +184,13 @@ input.input-error {
   margin-top: 1.25rem;
   margin-bottom: 0;
 }
+.business-link {
+  text-align: center;
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 1.25rem;
+  margin-bottom: 0;
+}
 
 .signin-link a {
   color: var(--green);

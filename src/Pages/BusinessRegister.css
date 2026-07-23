@@ -1,0 +1,140 @@
+/* BusinessRegister.css */
+:root {
+  --green: #639922;
+  --dark: #27500a;
+  --mid: #3b6d11;
+  --light: #eaf3de;
+  --sage: #97c459;
+  --gold: #ef9f27;
+  --muted: #888780;
+  --border: #d3d1c7;
+  --bg: #f7f6f2;
+  --white: #ffffff;
+  --text: #2c2c2a;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Wrapper ── */
+.br-wrap {
+  font-family: system-ui, sans-serif;
+  background: var(--bg);
+  min-height: 100vh;
+  padding: 2.5rem 1rem;
+  color: var(--text);
+}
+
+/* ── Card ── */
+form {
+  background: var(--white);
+  border: 0.5px solid var(--border);
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* ── Title ── */
+h1 {
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--dark);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── Inputs & textarea ── */
+input,
+textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  background: var(--white);
+  color: var(--text);
+  transition:
+    border 0.15s,
+    box-shadow 0.15s;
+}
+
+input:focus,
+textarea:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px #63992220;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #b4b2a9;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+  line-height: 1.5;
+}
+
+/* ── Section dividers via placeholder grouping ── */
+input[name="street"] {
+  border-top: 2px solid var(--light);
+  padding-top: 14px;
+  margin-top: 6px;
+}
+
+input[name="username"] {
+  border-top: 2px solid var(--light);
+  padding-top: 14px;
+  margin-top: 6px;
+}
+
+/* ── Submit button ── */
+button[type="submit"] {
+  width: 100%;
+  padding: 12px 0;
+  background: var(--green);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s;
+  margin-top: 0.5rem;
+}
+
+button[type="submit"]:hover {
+  background: var(--mid);
+}
+
+/* ── Message ── */
+p {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 1rem;
+  color: var(--green);
+  font-weight: 500;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  form {
+    padding: 1.25rem 1rem;
+  }
+}
