@@ -15,6 +15,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import Business from "./models/Business.js";
 import authRoutes from "./routes/auth.js";
 import searchRoutes from "./routes/search-route.js";
+import businessRoutes from "./routes/business-routes.js";
 
 const app = express();
 
@@ -170,3 +171,4 @@ app.listen(PORT2, () => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/search", searchRoutes);
+app.use("/api/business", businessRoutes);
