@@ -61,9 +61,6 @@ function App() {
             }
           />
 
-          {/* ── Fallback ── */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-
           <Route
             path="/search"
             element={
@@ -72,6 +69,9 @@ function App() {
               </ProtectedRoute>
             }
           />
+
+          {/* ── Fallback ── */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
 
