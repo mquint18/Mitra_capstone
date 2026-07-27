@@ -37,7 +37,7 @@ function AiQuery() {
     }
   }
   return (
-    <div>
+    <div className="ai-query-wrap">
       <h2>Ask Mitra AI</h2>
       <h4>
         Type in the task or job you need to complete ex. "I need to trim a

@@ -4,7 +4,7 @@ import "./HomePage.css";
 
 function HomePage() {
   return (
-    <div>
+    <div className="home-wrap">
       <h1>Welcome to Mitra</h1>
       <h2>How it Works</h2>
       <p>

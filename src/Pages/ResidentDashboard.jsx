@@ -217,7 +217,7 @@ export default function ResidentDashboard() {
   return (
     <div className="rd-wrap">
       {/* Toast */}
-      {toast && <div className="toast">{toast}</div>}
+      {toast && <div className="rd-toast">{toast}</div>}
 
       {/* Sidebar */}
       <aside className="rd-sidebar">

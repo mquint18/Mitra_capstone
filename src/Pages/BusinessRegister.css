@@ -1,4 +1,4 @@
-/* BusinessRegister.css */
+/* BusinessRegister.css — all scoped to .br-wrap */
 :root {
   --green: #639922;
   --dark: #27500a;
@@ -13,12 +13,6 @@
   --text: #2c2c2a;
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
 /* ── Wrapper ── */
 .br-wrap {
   font-family: system-ui, sans-serif;
@@ -28,8 +22,24 @@
   color: var(--text);
 }
 
-/* ── Card ── */
-form {
+.br-wrap *,
+.br-wrap *::before,
+.br-wrap *::after {
+  box-sizing: border-box;
+}
+
+/* ── Title ── */
+.br-wrap h1 {
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--dark);
+  text-align: center;
+  margin: 0 auto 1.5rem;
+  max-width: 600px;
+}
+
+/* ── Card / form ── */
+.br-wrap form {
   background: var(--white);
   border: 0.5px solid var(--border);
   border-radius: 16px;
@@ -41,21 +51,9 @@ form {
   gap: 1rem;
 }
 
-/* ── Title ── */
-h1 {
-  font-size: 24px;
-  font-weight: 500;
-  color: var(--dark);
-  text-align: center;
-  margin-bottom: 1.5rem;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 /* ── Inputs & textarea ── */
-input,
-textarea {
+.br-wrap input,
+.br-wrap textarea {
   width: 100%;
   padding: 10px 12px;
   border: 1px solid var(--border);
@@ -70,38 +68,38 @@ textarea {
     box-shadow 0.15s;
 }
 
-input:focus,
-textarea:focus {
+.br-wrap input:focus,
+.br-wrap textarea:focus {
   border-color: var(--green);
   box-shadow: 0 0 0 3px #63992220;
 }
 
-input::placeholder,
-textarea::placeholder {
+.br-wrap input::placeholder,
+.br-wrap textarea::placeholder {
   color: #b4b2a9;
 }
 
-textarea {
+.br-wrap textarea {
   resize: vertical;
   min-height: 100px;
   line-height: 1.5;
 }
 
-/* ── Section dividers via placeholder grouping ── */
-input[name="street"] {
+/* ── Section dividers ── */
+.br-wrap input[name="street"] {
   border-top: 2px solid var(--light);
   padding-top: 14px;
   margin-top: 6px;
 }
 
-input[name="username"] {
+.br-wrap input[name="username"] {
   border-top: 2px solid var(--light);
   padding-top: 14px;
   margin-top: 6px;
 }
 
 /* ── Submit button ── */
-button[type="submit"] {
+.br-wrap button[type="submit"] {
   width: 100%;
   padding: 12px 0;
   background: var(--green);
@@ -116,25 +114,23 @@ button[type="submit"] {
   margin-top: 0.5rem;
 }
 
-button[type="submit"]:hover {
+.br-wrap button[type="submit"]:hover {
   background: var(--mid);
 }
 
 /* ── Message ── */
-p {
+.br-wrap p {
   text-align: center;
   font-size: 14px;
-  margin-top: 1rem;
+  margin: 1rem auto 0;
   color: var(--green);
   font-weight: 500;
   max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 /* ── Responsive ── */
 @media (max-width: 480px) {
-  form {
+  .br-wrap form {
     padding: 1.25rem 1rem;
   }
 }
