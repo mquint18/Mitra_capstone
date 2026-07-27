@@ -5,9 +5,8 @@
   font-family: system-ui, sans-serif;
   color: #2c2c2a;
   max-width: auto;
-  padding: 2rem 1.5rem;
+  padding: 2rem 15rem;
   background: #f7f6f2;
-  min-height: 100vh;
 }
 
 .ai-query-wrap *,

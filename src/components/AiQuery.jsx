@@ -38,12 +38,13 @@ function AiQuery() {
   }
   return (
     <div className="ai-query-wrap">
-      <h2>Ask Mitra AI</h2>
+      <h2>Ask Mitra</h2>
+      <h3>Ask Mitra is powered by Claude AI</h3>
       <h4>
-        Type in the task or job you need to complete ex. "I need to trim a
-        tree". Then select your level of expertise in this type of work.
-        ClaudeAI will tell you if this is a task you can take on yourself or if
-        you should hire a professional.
+        Type in the task or job you need to complete; ex. "I need to trim a
+        tree". Then select your level of expertise in this type of work. Mitra
+        will use ClaudeAI to tell you if this is a task you can take on yourself
+        or if you should hire a professional.
       </h4>
 
       <input
@@ -54,15 +55,6 @@ function AiQuery() {
       />
 
       <br />
-      {/* <br />
-      <select value={expertise} onChange={(e) => setExpertise(e.target.value)}>
-        <option value="">Select Expertise</option>
-        <option value="Beginner">Beginner</option>
-        <option value="Intermediate">Intermediate</option>
-        <option value="Professional">Professional</option>
-      </select>
-
-      <br /> */}
 
       <div className="expertise-options">
         {["Beginner", "Intermediate", "Professional"].map((level) => (
@@ -84,14 +76,14 @@ function AiQuery() {
       <br />
 
       <button onClick={askClaude} disabled={loading}>
-        {loading ? "Thinking..." : "Ask Claude AI"}
+        {loading ? "Thinking..." : "Ask Mitra"}
       </button>
 
       {loading && (
         <div className="loading-box">
           <div className="spinner"></div>
           <h3>
-            Mitra AI is evaluating your project... This may take a few seconds
+            Mitra is evaluating your project... This may take a few seconds
           </h3>
           <p>Estimating difficulty, tools, time, and safety.</p>
         </div>

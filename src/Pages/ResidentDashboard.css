@@ -16,7 +16,6 @@
 /* ── Layout ── */
 .rd-wrap {
   display: flex;
-  min-height: 100vh;
   font-family: system-ui, sans-serif;
   color: var(--text);
   background: var(--bg);

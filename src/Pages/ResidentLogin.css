@@ -1,44 +1,32 @@
-/* ResidentLogin.css */
-:root {
-  --green: #639922;
-  --dark: #27500a;
-  --mid: #3b6d11;
-  --light: #eaf3de;
-  --sage: #97c459;
-  --gold: #ef9f27;
-  --muted: #888780;
-  --border: #d3d1c7;
-  --error: #e24b4a;
-  --error-bg: #fcebeb;
-}
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+/* ResidentLogin.css — scoped to .rl-wrap */
 
 .rl-wrap {
-  min-height: 100vh;
   background: #f7f6f2;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem 1rem;
+  padding: 2.5rem 1rem 3rem;
   font-family: system-ui, sans-serif;
 }
 
-/* Card */
+.rl-wrap *,
+.rl-wrap *::before,
+.rl-wrap *::after {
+  box-sizing: border-box;
+}
+
+/* ── Card ── */
 .rl-card {
   background: white;
-  border: 0.5px solid var(--border);
+  border: 0.5px solid #d3d1c7;
   border-radius: 16px;
   padding: 2.5rem 2rem;
   width: 100%;
   max-width: 420px;
+  /* removed margin-top: 10rem */
 }
 
-/* Logo */
+/* ── Logo ── */
 .rl-logo {
   display: flex;
   align-items: center;
@@ -50,15 +38,15 @@
 .rl-logo-text {
   font-size: 22px;
   font-weight: 500;
-  color: var(--dark);
+  color: #27500a;
   letter-spacing: 0.03em;
 }
 
-/* Badge */
+/* ── Badge ── */
 .rl-badge {
   display: inline-block;
-  background: var(--light);
-  color: var(--dark);
+  background: #eaf3de;
+  color: #27500a;
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.1em;
@@ -71,21 +59,21 @@
 .rl-title {
   font-size: 22px;
   font-weight: 500;
-  color: var(--dark);
+  color: #27500a;
   margin-bottom: 4px;
 }
 
 .rl-sub {
   font-size: 14px;
-  color: var(--muted);
+  color: #888780;
   margin-bottom: 1.5rem;
   line-height: 1.5;
 }
 
-/* Error banner */
+/* ── Error banner ── */
 .rl-error-banner {
-  background: var(--error-bg);
-  border: 0.5px solid var(--error);
+  background: #fcebeb;
+  border: 0.5px solid #e24b4a;
   border-radius: 8px;
   padding: 10px 14px;
   font-size: 13px;
@@ -93,7 +81,7 @@
   margin-bottom: 1.25rem;
 }
 
-/* Fields */
+/* ── Fields ── */
 .rl-field {
   margin-bottom: 1.1rem;
 }
@@ -102,7 +90,7 @@
   display: block;
   font-size: 13px;
   font-weight: 500;
-  color: var(--dark);
+  color: #27500a;
   margin-bottom: 5px;
 }
 
@@ -119,11 +107,10 @@
 
 .rl-forgot {
   font-size: 12px;
-  color: var(--green);
+  color: #639922;
   text-decoration: none;
   font-weight: 500;
 }
-
 .rl-forgot:hover {
   text-decoration: underline;
 }
@@ -131,7 +118,7 @@
 .rl-field input {
   width: 100%;
   padding: 10px 12px;
-  border: 1px solid var(--border);
+  border: 1px solid #d3d1c7;
   border-radius: 8px;
   font-size: 14px;
   font-family: inherit;
@@ -144,26 +131,25 @@
 }
 
 .rl-field input:focus {
-  border-color: var(--green);
+  border-color: #639922;
   box-shadow: 0 0 0 3px #63992220;
 }
 
 .rl-input-error {
-  border-color: var(--error) !important;
+  border-color: #e24b4a !important;
 }
-
 .rl-field-error {
   display: block;
   font-size: 12px;
-  color: var(--error);
+  color: #e24b4a;
   margin-top: 4px;
 }
 
-/* Submit button */
+/* ── Submit button ── */
 .rl-btn {
   width: 100%;
   padding: 12px 0;
-  background: var(--green);
+  background: #639922;
   color: white;
   border: none;
   border-radius: 10px;
@@ -179,7 +165,7 @@
 }
 
 .rl-btn:hover:not(:disabled) {
-  background: var(--mid);
+  background: #3b6d11;
 }
 .rl-btn:disabled {
   opacity: 0.55;
@@ -208,7 +194,7 @@
   }
 }
 
-/* Divider */
+/* ── Divider ── */
 .rl-divider {
   display: flex;
   align-items: center;
@@ -221,15 +207,14 @@
   content: "";
   flex: 1;
   height: 1px;
-  background: var(--border);
+  background: #d3d1c7;
 }
-
 .rl-divider span {
   font-size: 12px;
-  color: var(--muted);
+  color: #888780;
 }
 
-/* Sign up CTA */
+/* ── Sign up CTA ── */
 .rl-signup-btn {
   display: block;
   width: 100%;
@@ -237,31 +222,28 @@
   text-align: center;
   font-size: 14px;
   font-weight: 500;
-  color: var(--dark);
-  border: 1.5px solid var(--green);
+  color: #27500a;
+  border: 1.5px solid #639922;
   border-radius: 10px;
   text-decoration: none;
   transition: background 0.15s;
   margin-bottom: 1.25rem;
 }
-
 .rl-signup-btn:hover {
-  background: var(--light);
+  background: #eaf3de;
 }
 
-/* Business link */
+/* ── Business link ── */
 .rl-business-link {
   text-align: center;
   font-size: 13px;
-  color: var(--muted);
+  color: #888780;
 }
-
 .rl-business-link a {
-  color: var(--green);
+  color: #639922;
   font-weight: 500;
   text-decoration: none;
 }
-
 .rl-business-link a:hover {
   text-decoration: underline;
 }

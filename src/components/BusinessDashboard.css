@@ -17,7 +17,6 @@
 /* ── Layout ── */
 .dash-wrap {
   display: flex;
-  min-height: 100vh;
   font-family: system-ui, sans-serif;
   color: var(--text);
   box-sizing: border-box;

@@ -144,30 +144,34 @@ function BookingModal({ business, onClose, onConfirm }) {
               required
             />
           </div>
-
           <div className="bs-modal-field">
-            <label>Time slot</label>
-            {slots.length > 0 ? (
-              <div className="bs-slot-grid">
-                {slots.map((s) => (
-                  <button
-                    key={s}
-                    type="button"
-                    className={`bs-slot ${time === s ? "bs-slot-active" : ""}`}
-                    onClick={() => setTime(s)}
-                  >
-                    {s}
-                  </button>
-                ))}
-              </div>
-            ) : (
-              <input
-                type="time"
-                value={time}
-                onChange={(e) => setTime(e.target.value)}
-                required
-              />
-            )}
+            <label>Preferred time</label>
+            <select
+              value={time}
+              onChange={(e) => setTime(e.target.value)}
+              required
+            >
+              <option value="">Select a time</option>
+              {Array.from({ length: 96 }).map((_, i) => {
+                const totalMinutes = i * 15;
+                const hours = Math.floor(totalMinutes / 60);
+
+                // Only show 8 AM (480 min) to 7 PM (1140 min)
+                if (totalMinutes < 480 || totalMinutes > 1140) return null;
+
+                const minutes = totalMinutes % 60;
+                const period = hours < 12 ? "AM" : "PM";
+                const displayHour =
+                  hours === 0 ? 12 : hours > 12 ? hours - 12 : hours;
+                const displayMins = minutes.toString().padStart(2, "0");
+                const display = `${displayHour}:${displayMins} ${period}`;
+                return (
+                  <option key={i} value={display}>
+                    {display}
+                  </option>
+                );
+              })}
+            </select>
           </div>
 
           <div className="bs-modal-field">

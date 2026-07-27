@@ -5,7 +5,8 @@ html,
 body,
 #root {
   height: 100%;
-  margin: 30;
+  margin: 0;
+  padding: 0;
 }
 
 /* Main app layout */
@@ -13,11 +14,13 @@ body,
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background: #f7f6f2; /* ← add this */
 }
 
 /* Content grows to fill available space */
 .content {
   flex: 1;
+  background: #f7f6f2; /* ← add this */
 }
 
 /* Footer stays at the bottom */
@@ -25,5 +28,5 @@ footer {
   background-color: #222;
   color: white;
   text-align: center;
-  padding: 20px;
+  padding: 10px;
 }

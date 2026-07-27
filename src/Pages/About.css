@@ -1,12 +1,11 @@
-/* About.css — scoped to .about-wrap */
+/* About.css â€” scoped to .about-wrap */
 
 .about-wrap {
   font-family: system-ui, sans-serif;
   color: #2c2c2a;
   background: #f7f6f2;
-  min-height: 100vh;
-  padding: 3rem 1.5rem;
-  max-width: auto;
+  padding: 2.5rem 1.5rem 3rem;
+  max-width: 900px;
   margin: 0 auto;
 }
 
@@ -16,41 +15,112 @@
   box-sizing: border-box;
 }
 
-/* ── Title ── */
-.about-wrap h1 {
+/* â”€â”€ Hero â”€â”€ */
+.about-hero {
+  margin-bottom: 2rem;
+}
+
+.about-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #639922;
+  margin: 0 0 8px;
+}
+
+.about-title {
   font-size: 36px;
   font-weight: 500;
   color: #27500a;
-  margin: 0 0 6px;
-  letter-spacing: -0.01em;
+  margin: 0 0 1rem;
+  letter-spacing: -0.02em;
 }
 
-/* ── Section heading ── */
-.about-wrap h2 {
-  font-size: 13px;
-  font-weight: 600;
-  color: #888780;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin: 2rem 0 10px;
-}
-
-/* ── Body text ── */
-.about-wrap p {
+.about-lead {
   font-size: 15px;
   color: #5f5e5a;
   line-height: 1.75;
-  margin: 0 0 1.5rem;
-  max-width: auto;
+  max-width: 640px;
+  background: white;
+  border: 0.5px solid #d3d1c7;
+  border-left: 3px solid #97c459;
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  margin: 0;
+}
+
+/* â”€â”€ Mission section â”€â”€ */
+.about-section {
+  background: white;
+  border: 0.5px solid #d3d1c7;
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.about-section-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #639922;
+  margin: 0 0 6px;
+}
+
+.about-section-title {
+  font-size: 22px;
+  font-weight: 500;
+  color: #27500a;
+  margin: 0 0 1rem;
+}
+
+.about-body {
+  font-size: 15px;
+  color: #5f5e5a;
+  line-height: 1.75;
+  margin: 0;
+}
+
+/* â”€â”€ Values â”€â”€ */
+.about-values {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.about-value {
   background: white;
   border: 0.5px solid #d3d1c7;
   border-radius: 12px;
-  padding: 1.25rem 1.5rem;
-  border-left: 3px solid #97c459;
+  padding: 1.5rem;
 }
 
-@media (max-width: 520px) {
-  .about-wrap h1 {
+.about-value-icon {
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+
+.about-value h3 {
+  font-size: 14px;
+  font-weight: 500;
+  color: #27500a;
+  margin: 0 0 6px;
+}
+
+.about-value p {
+  font-size: 13px;
+  color: #5f5e5a;
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* â”€â”€ Responsive â”€â”€ */
+@media (max-width: 640px) {
+  .about-title {
     font-size: 28px;
+  }
+  .about-values {
+    grid-template-columns: 1fr;
   }
 }

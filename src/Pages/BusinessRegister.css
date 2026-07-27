@@ -17,7 +17,6 @@
 .br-wrap {
   font-family: system-ui, sans-serif;
   background: var(--bg);
-  min-height: 100vh;
   padding: 2.5rem 1rem;
   color: var(--text);
 }
