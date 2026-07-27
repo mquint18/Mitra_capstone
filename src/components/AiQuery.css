@@ -32,7 +32,7 @@
   color: #888780;
   line-height: 1.65;
   margin: 0 0 1.75rem;
-  max-width: 520px;
+  max-width: auto;
   padding: 12px 16px;
   background: white;
   border: 0.5px solid #d3d1c7;
@@ -235,4 +235,43 @@
   to {
     transform: rotate(360deg);
   }
+}
+/* ── Expertise radio selector ── */
+.ai-query-wrap .expertise-options {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 1rem;
+}
+
+.ai-query-wrap .expertise-option {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 12px;
+  border: 1px solid #d3d1c7;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: system-ui, sans-serif;
+  color: #888780;
+  cursor: pointer;
+  transition: all 0.15s;
+  background: white;
+  user-select: none;
+}
+
+.ai-query-wrap .expertise-option input[type="radio"] {
+  display: none;
+}
+
+.ai-query-wrap .expertise-option:hover {
+  border-color: #97c459;
+  color: #27500a;
+}
+
+.ai-query-wrap .expertise-option.selected {
+  background: #27500a;
+  border-color: #27500a;
+  color: white;
+  font-weight: 500;
 }

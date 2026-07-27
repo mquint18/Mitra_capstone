@@ -1,0 +1,56 @@
+/* About.css — scoped to .about-wrap */
+
+.about-wrap {
+  font-family: system-ui, sans-serif;
+  color: #2c2c2a;
+  background: #f7f6f2;
+  min-height: 100vh;
+  padding: 3rem 1.5rem;
+  max-width: auto;
+  margin: 0 auto;
+}
+
+.about-wrap *,
+.about-wrap *::before,
+.about-wrap *::after {
+  box-sizing: border-box;
+}
+
+/* ── Title ── */
+.about-wrap h1 {
+  font-size: 36px;
+  font-weight: 500;
+  color: #27500a;
+  margin: 0 0 6px;
+  letter-spacing: -0.01em;
+}
+
+/* ── Section heading ── */
+.about-wrap h2 {
+  font-size: 13px;
+  font-weight: 600;
+  color: #888780;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 2rem 0 10px;
+}
+
+/* ── Body text ── */
+.about-wrap p {
+  font-size: 15px;
+  color: #5f5e5a;
+  line-height: 1.75;
+  margin: 0 0 1.5rem;
+  max-width: auto;
+  background: white;
+  border: 0.5px solid #d3d1c7;
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  border-left: 3px solid #97c459;
+}
+
+@media (max-width: 520px) {
+  .about-wrap h1 {
+    font-size: 28px;
+  }
+}

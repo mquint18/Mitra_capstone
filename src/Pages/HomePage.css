@@ -1,11 +1,120 @@
-/* HomePage.css */
+/* HomePage.css — scoped to .home-wrap */
 
+.home-wrap {
+  font-family: system-ui, sans-serif;
+  color: #2c2c2a;
+  background: #f7f6f2;
+  min-height: 100vh;
+  padding: 3rem 1.5rem;
+  max-width: auto;
+  margin: 0 auto;
+}
+
+.home-wrap *,
+.home-wrap *::before,
+.home-wrap *::after {
+  box-sizing: border-box;
+}
+
+/* ── Title ── */
+.home-wrap h1 {
+  font-size: 36px;
+  font-weight: 500;
+  color: #27500a;
+  margin: 0 0 6px;
+  letter-spacing: -0.01em;
+}
+
+/* ── Section heading ── */
+.home-wrap h2 {
+  font-size: 13px;
+  font-weight: 600;
+  color: #888780;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 2rem 0 10px;
+}
+
+/* ── Body text ── */
+.home-wrap p {
+  font-size: 15px;
+  color: #5f5e5a;
+  line-height: 1.75;
+  margin: 0 0 1.5rem;
+  max-width: auto;
+  background: white;
+  border: 0.5px solid #d3d1c7;
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  border-left: 3px solid #97c459;
+}
+
+/* ── Image ── */
 .home-wrap img {
   width: 100%;
-  max-width: 400px;
-  height: auto;
+  max-width: 640px;
+  height: 280px;
+  object-fit: cover;
   display: block;
-  margin: 0 auto;
-  width: 300px;
-  height: auto;
+  margin: 1.5rem auto;
+  border-radius: 12px;
+  border: 0.5px solid #d3d1c7;
+}
+
+/* ── CTA buttons ── */
+.home-wrap .home-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.home-wrap .btn-primary {
+  padding: 12px 28px;
+  background: #639922;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s;
+  display: inline-block;
+}
+
+.home-wrap .btn-primary:hover {
+  background: #3b6d11;
+}
+
+.home-wrap .btn-outline {
+  padding: 12px 28px;
+  background: transparent;
+  color: #27500a;
+  border: 1.5px solid #639922;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s;
+  display: inline-block;
+}
+
+.home-wrap .btn-outline:hover {
+  background: #eaf3de;
+}
+
+@media (max-width: 520px) {
+  .home-wrap h1 {
+    font-size: 28px;
+  }
+  .home-wrap img {
+    height: 200px;
+  }
+  .home-wrap .home-actions {
+    flex-direction: column;
+  }
 }

@@ -54,7 +54,7 @@ function AiQuery() {
       />
 
       <br />
-      <br />
+      {/* <br />
       <select value={expertise} onChange={(e) => setExpertise(e.target.value)}>
         <option value="">Select Expertise</option>
         <option value="Beginner">Beginner</option>
@@ -62,7 +62,25 @@ function AiQuery() {
         <option value="Professional">Professional</option>
       </select>
 
-      <br />
+      <br /> */}
+
+      <div className="expertise-options">
+        {["Beginner", "Intermediate", "Professional"].map((level) => (
+          <label
+            key={level}
+            className={`expertise-option ${expertise === level ? "selected" : ""}`}
+          >
+            <input
+              type="radio"
+              name="expertise"
+              value={level}
+              checked={expertise === level}
+              onChange={(e) => setExpertise(e.target.value)}
+            />
+            {level}
+          </label>
+        ))}
+      </div>
       <br />
 
       <button onClick={askClaude} disabled={loading}>

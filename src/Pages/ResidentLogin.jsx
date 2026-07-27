@@ -152,7 +152,7 @@ function ResidentLogin() {
           <span>or</span>
         </div>
 
-        <a href="/signup" className="rl-signup-btn">
+        <a href="/sign-up" className="rl-signup-btn">
           Create a resident account
         </a>
 

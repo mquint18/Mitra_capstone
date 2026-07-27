@@ -1,9 +1,11 @@
-//About.jsx
+// About.jsx
+import "./About.css";
 
 function About() {
   return (
-    <div>
-      <h2>About Mitra</h2>
+    <div className="about-wrap">
+      <h1>About Mitra</h1>
+      <h2>Our story</h2>
       <p>
         Mitra was created in 2026 Lorem ipsum dolor sit amet, consectetur
         adipisicing elit. Temporibus veniam tempora autem necessitatibus est, ex
