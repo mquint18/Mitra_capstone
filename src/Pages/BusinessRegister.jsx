@@ -167,6 +167,7 @@ function BusinessRegister() {
           placeholder="Username"
           value={business.username}
           onChange={handleChange}
+          autoComplete="username"
         />
 
         <input
@@ -175,6 +176,7 @@ function BusinessRegister() {
           placeholder="Password"
           value={business.password}
           onChange={handleChange}
+          autoComplete="new-password"
         />
 
         <button type="submit">Register Business</button>

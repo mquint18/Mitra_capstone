@@ -63,7 +63,7 @@ function Header() {
             Find a business
           </a>
           <a href="/ai-ask" className="nav-link">
-            AI Advisor
+            Ask Mitra
           </a>
           <a href="/about" className="nav-link">
             About
@@ -203,7 +203,7 @@ function Header() {
             className="mobile-link"
             onClick={() => setMenuOpen(false)}
           >
-            AI advisor
+            Ask Mitra
           </a>
           <a
             href="/about"

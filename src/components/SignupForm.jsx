@@ -66,6 +66,7 @@ function SignupForm() {
 
       setSuccess(true);
     } catch (err) {
+      console.error(err);
       setErrors({ server: "Unable to connect to the server." });
     } finally {
       setLoading(false);
@@ -173,6 +174,7 @@ function SignupForm() {
               value={form.email}
               onChange={set("email")}
               className={errors.email ? "input-error" : ""}
+              autoComplete="email"
             />
             {errors.email && (
               <span className="field-error">{errors.email}</span>
@@ -188,6 +190,7 @@ function SignupForm() {
               value={form.password}
               onChange={set("password")}
               className={errors.password ? "input-error" : ""}
+              autoComplete="new-password"
             />
             {errors.password && (
               <span className="field-error">{errors.password}</span>
@@ -203,6 +206,7 @@ function SignupForm() {
               value={form.confirmPassword}
               onChange={set("confirmPassword")}
               className={errors.confirmPassword ? "input-error" : ""}
+              autoComplete="new-password"
             />
             {errors.confirmPassword && (
               <span className="field-error">{errors.confirmPassword}</span>
