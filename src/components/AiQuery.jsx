@@ -1,5 +1,4 @@
 // AiQuery.jsx
-
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import "./AiQuery.css";
@@ -11,92 +10,116 @@ function AiQuery() {
   const [loading, setLoading] = useState(false);
 
   async function askClaude() {
+    if (!job.trim() || !expertise) return;
     setLoading(true);
+    setResponse("");
 
     try {
       const res = await fetch("http://localhost:5001/api/ai/job", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          job,
-          expertise,
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ job, expertise }),
       });
-
       const data = await res.json();
-
-      // Extract the text from Claude's response
       setResponse(data.answer || data.error || "No response");
-    } catch (err) {
-      console.error(err);
+    } catch (_) {
       setResponse("Unable to connect to the server.");
     } finally {
       setLoading(false);
     }
   }
+
   return (
-    <div className="ai-query-wrap">
-      <h2>Ask Mitra</h2>
-      <h3>Ask Mitra is powered by Claude AI</h3>
-      <h4>
-        Type in the task or job you need to complete; ex. "I need to trim a
-        tree". Then select your level of expertise in this type of work. Mitra
-        will use ClaudeAI to tell you if this is a task you can take on yourself
-        or if you should hire a professional.
-      </h4>
+    <div className="ai-wrap">
+      {/* ── Left panel: input ── */}
+      <div className="ai-panel-left">
+        <p className="ai-eyebrow">Powered by Claude AI</p>
+        <h2 className="ai-title">Ask Mitra</h2>
+        <p className="ai-lead">
+          Describe a household task and we'll tell you what's involved — and
+          whether to DIY or call a professional.
+        </p>
 
-      <input
-        type="text"
-        placeholder="Describe the household job"
-        value={job}
-        onChange={(e) => setJob(e.target.value)}
-      />
-
-      <br />
-
-      <div className="expertise-options">
-        {["Beginner", "Intermediate", "Professional"].map((level) => (
-          <label
-            key={level}
-            className={`expertise-option ${expertise === level ? "selected" : ""}`}
-          >
-            <input
-              type="radio"
-              name="expertise"
-              value={level}
-              checked={expertise === level}
-              onChange={(e) => setExpertise(e.target.value)}
-            />
-            {level}
-          </label>
-        ))}
-      </div>
-      <br />
-
-      <button onClick={askClaude} disabled={loading}>
-        {loading ? "Thinking..." : "Ask Mitra"}
-      </button>
-
-      {loading && (
-        <div className="loading-box">
-          <div className="spinner"></div>
-          <h3>
-            Mitra is evaluating your project... This may take a few seconds
-          </h3>
-          <p>Estimating difficulty, tools, time, and safety.</p>
+        <div className="ai-field">
+          <label htmlFor="job-input">What do you need help with?</label>
+          <input
+            id="job-input"
+            type="text"
+            placeholder='e.g. "I need to trim a large tree"'
+            value={job}
+            onChange={(e) => setJob(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && askClaude()}
+          />
         </div>
-      )}
-      {response && (
-        <>
-          <h3>AI Recommendation:</h3>
-          <div className="ai-response">
-            <ReactMarkdown>{response}</ReactMarkdown>
+
+        <div className="ai-field">
+          <label>Your experience level</label>
+          <div className="expertise-options">
+            {["Beginner", "Intermediate", "Professional"].map((level) => (
+              <label
+                key={level}
+                className={`expertise-option ${expertise === level ? "selected" : ""}`}
+              >
+                <input
+                  type="radio"
+                  name="expertise"
+                  value={level}
+                  checked={expertise === level}
+                  onChange={(e) => setExpertise(e.target.value)}
+                />
+                {level}
+              </label>
+            ))}
           </div>
-        </>
-      )}
+        </div>
+
+        <button
+          className="ai-btn"
+          onClick={askClaude}
+          disabled={loading || !job.trim() || !expertise}
+        >
+          {loading ? "Thinking…" : "Ask Mitra"}
+        </button>
+
+        {/* Tips */}
+        <div className="ai-tips">
+          <p className="ai-tips-label">Tips for better results</p>
+          <ul>
+            <li>Be specific — "fix a leaky tap under the kitchen sink"</li>
+            <li>Mention any tools you already have</li>
+            <li>Include any safety concerns you have</li>
+          </ul>
+        </div>
+      </div>
+
+      {/* ── Right panel: response ── */}
+      <div className="ai-panel-right">
+        {loading && (
+          <div className="loading-box">
+            <div className="spinner" />
+            <h3>Mitra is evaluating your project…</h3>
+            <p>Estimating difficulty, tools, time, and safety.</p>
+          </div>
+        )}
+
+        {!loading && !response && (
+          <div className="ai-empty">
+            <div className="ai-empty-icon">✦</div>
+            <p>Your assessment will appear here once you submit a job.</p>
+          </div>
+        )}
+
+        {!loading && response && (
+          <>
+            <p className="ai-response-label">AI Recommendation</p>
+            <div className="ai-response">
+              <ReactMarkdown>{response}</ReactMarkdown>
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 }
+
 export default AiQuery;

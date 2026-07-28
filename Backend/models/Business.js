@@ -46,6 +46,11 @@ const businessSchema = new mongoose.Schema(
       required: true,
       select: false,
     },
+    availability: {
+      days: { type: [String], default: [] },
+      timeSlots: { type: [String], default: [] },
+      appointmentDuration: { type: Number, default: 60 },
+    },
   },
   {
     timestamps: true,

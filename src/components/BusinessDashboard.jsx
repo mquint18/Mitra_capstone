@@ -1,7 +1,11 @@
-import { useState } from "react";
+//BusinessDashboard.jsx
+
+import { useState, useEffect, useCallback } from "react";
 import "./BusinessDashboard.css";
 
-// ── Helpers ────────────────────────────────────────────────
+const API = import.meta.env.VITE_API_URL || "http://localhost:5001";
+
+// ── Helpers ──────────────────────────────────────────────
 const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const MONTHS = [
   "January",
@@ -39,70 +43,14 @@ function getFirstDay(year, month) {
   return new Date(year, month, 1).getDay();
 }
 
-// ── Mock data ──────────────────────────────────────────────
-const mockBusiness = {
-  name: "Green Thumb Landscaping",
-  category: "Home services",
-  email: "hello@greenthumb.com",
-  phone: "(555) 234-5678",
-  address: "Serving the Maplewood area",
-  keywords: [
-    "lawn care",
-    "landscaping",
-    "yard cleanup",
-    "leaf removal",
-    "garden design",
-  ],
-  availability: {
-    days: ["Monday", "Tuesday", "Thursday", "Friday"],
-    timeSlots: [
-      "9:00 AM",
-      "10:00 AM",
-      "11:00 AM",
-      "1:00 PM",
-      "2:00 PM",
-      "3:00 PM",
-    ],
-    appointmentDuration: 60,
-  },
-};
+function authHeaders() {
+  return {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  };
+}
 
-const mockBookings = [
-  {
-    id: 1,
-    resident: "Sara Rodriguez",
-    date: "2026-07-21",
-    time: "9:00 AM",
-    status: "confirmed",
-    job: "Lawn mowing",
-  },
-  {
-    id: 2,
-    resident: "Tom Kim",
-    date: "2026-07-21",
-    time: "1:00 PM",
-    status: "pending",
-    job: "Garden cleanup",
-  },
-  {
-    id: 3,
-    resident: "Priya Tanden",
-    date: "2026-07-24",
-    time: "10:00 AM",
-    status: "confirmed",
-    job: "Hedge trimming",
-  },
-  {
-    id: 4,
-    resident: "Mark Johnson",
-    date: "2026-07-28",
-    time: "2:00 PM",
-    status: "pending",
-    job: "Leaf removal",
-  },
-];
-
-// ── Sub-components ─────────────────────────────────────────
+// ── Sub-components ────────────────────────────────────────
 function StatCard({ label, value, sub }) {
   return (
     <div className="stat-card">
@@ -114,6 +62,10 @@ function StatCard({ label, value, sub }) {
 }
 
 function BookingRow({ booking, onConfirm, onDecline }) {
+  const residentName = booking.residentId
+    ? `${booking.residentId.firstName || ""} ${booking.residentId.lastName || ""}`.trim()
+    : booking.resident || "Unknown";
+
   const statusClass =
     {
       confirmed: "badge-confirmed",
@@ -124,9 +76,9 @@ function BookingRow({ booking, onConfirm, onDecline }) {
   return (
     <div className="booking-row">
       <div className="booking-info">
-        <p className="booking-name">{booking.resident}</p>
+        <p className="booking-name">{residentName}</p>
         <p className="booking-meta">
-          {booking.job} · {booking.date} at {booking.time}
+          {booking.note || "No description"} · {booking.date} at {booking.time}
         </p>
       </div>
       <div className="booking-right">
@@ -135,13 +87,13 @@ function BookingRow({ booking, onConfirm, onDecline }) {
           <div className="booking-actions">
             <button
               className="btn-confirm"
-              onClick={() => onConfirm(booking.id)}
+              onClick={() => onConfirm(booking._id)}
             >
               Confirm
             </button>
             <button
               className="btn-decline"
-              onClick={() => onDecline(booking.id)}
+              onClick={() => onDecline(booking._id)}
             >
               Decline
             </button>
@@ -160,7 +112,6 @@ function Calendar({ bookings, availability, onSlotToggle, onDayToggle }) {
 
   const daysInMonth = getDaysInMonth(year, month);
   const firstDay = getFirstDay(year, month);
-
   const bookingDates = bookings.map((b) => b.date);
 
   function prevMonth() {
@@ -177,7 +128,6 @@ function Calendar({ bookings, availability, onSlotToggle, onDayToggle }) {
     } else setMonth((m) => m + 1);
     setSelected(null);
   }
-
   function dateStr(day) {
     return `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
   }
@@ -185,7 +135,6 @@ function Calendar({ bookings, availability, onSlotToggle, onDayToggle }) {
   const selectedBookings = selected
     ? bookings.filter((b) => b.date === dateStr(selected))
     : [];
-
   const selectedDayName = selected
     ? [
         "Sunday",
@@ -197,15 +146,13 @@ function Calendar({ bookings, availability, onSlotToggle, onDayToggle }) {
         "Saturday",
       ][new Date(year, month, selected).getDay()]
     : null;
-
   const isAvailableDay = selectedDayName
-    ? availability.days.includes(selectedDayName)
+    ? (availability?.days || []).includes(selectedDayName)
     : false;
 
   return (
     <div className="calendar-wrap">
       <div className="cal-panel">
-        {/* Month nav */}
         <div className="cal-header">
           <button
             className="cal-nav"
@@ -225,21 +172,15 @@ function Calendar({ bookings, availability, onSlotToggle, onDayToggle }) {
             ›
           </button>
         </div>
-
-        {/* Day labels */}
         <div className="cal-grid">
           {DAYS.map((d) => (
             <div key={d} className="cal-day-label">
               {d}
             </div>
           ))}
-
-          {/* Empty cells */}
           {Array.from({ length: firstDay }).map((_, i) => (
             <div key={`e${i}`} className="cal-cell empty" />
           ))}
-
-          {/* Day cells */}
           {Array.from({ length: daysInMonth }).map((_, i) => {
             const day = i + 1;
             const ds = dateStr(day);
@@ -248,7 +189,6 @@ function Calendar({ bookings, availability, onSlotToggle, onDayToggle }) {
               new Date(year, month, day) < new Date(today.toDateString());
             const isToday = ds === today.toISOString().slice(0, 10);
             const isSel = selected === day;
-
             return (
               <button
                 key={day}
@@ -270,8 +210,6 @@ function Calendar({ bookings, availability, onSlotToggle, onDayToggle }) {
             );
           })}
         </div>
-
-        {/* Legend */}
         <div className="cal-legend">
           <span>
             <span className="dot-demo booking-dot-demo" />
@@ -288,7 +226,6 @@ function Calendar({ bookings, availability, onSlotToggle, onDayToggle }) {
         </div>
       </div>
 
-      {/* Day detail panel */}
       <div className="day-panel">
         {selected ? (
           <>
@@ -311,13 +248,12 @@ function Calendar({ bookings, availability, onSlotToggle, onDayToggle }) {
                 ? "Available for bookings"
                 : "Closed — toggle to open"}
             </p>
-
             {isAvailableDay && (
               <>
                 <p className="slot-section-label">Time slots</p>
                 <div className="slot-grid">
                   {TIME_SLOTS.map((slot) => {
-                    const on = availability.timeSlots.includes(slot);
+                    const on = (availability?.timeSlots || []).includes(slot);
                     const booked = selectedBookings.some(
                       (b) => b.time === slot,
                     );
@@ -345,7 +281,6 @@ function Calendar({ bookings, availability, onSlotToggle, onDayToggle }) {
                 </div>
               </>
             )}
-
             {selectedBookings.length > 0 && (
               <>
                 <p
@@ -354,23 +289,29 @@ function Calendar({ bookings, availability, onSlotToggle, onDayToggle }) {
                 >
                   Bookings this day
                 </p>
-                {selectedBookings.map((b) => (
-                  <div key={b.id} className="day-booking">
-                    <span className="day-booking-time">{b.time}</span>
-                    <div>
-                      <p className="day-booking-name">{b.resident}</p>
-                      <p className="day-booking-job">{b.job}</p>
+                {selectedBookings.map((b) => {
+                  const name = b.residentId
+                    ? `${b.residentId.firstName || ""} ${b.residentId.lastName || ""}`.trim()
+                    : "Unknown";
+                  return (
+                    <div key={b._id} className="day-booking">
+                      <span className="day-booking-time">{b.time}</span>
+                      <div>
+                        <p className="day-booking-name">{name}</p>
+                        <p className="day-booking-job">
+                          {b.note || "No description"}
+                        </p>
+                      </div>
+                      <span
+                        className={`badge ${b.status === "confirmed" ? "badge-confirmed" : "badge-pending"}`}
+                      >
+                        {b.status}
+                      </span>
                     </div>
-                    <span
-                      className={`badge ${b.status === "confirmed" ? "badge-confirmed" : "badge-pending"}`}
-                    >
-                      {b.status}
-                    </span>
-                  </div>
-                ))}
+                  );
+                })}
               </>
             )}
-
             {selectedBookings.length === 0 && isAvailableDay && (
               <p className="empty-day">No bookings yet for this day.</p>
             )}
@@ -385,30 +326,104 @@ function Calendar({ bookings, availability, onSlotToggle, onDayToggle }) {
   );
 }
 
-// ── Main Dashboard ─────────────────────────────────────────
+// ── Main Dashboard ────────────────────────────────────────
 export default function BusinessDashboard() {
   const [tab, setTab] = useState("overview");
-  const [bookings, setBookings] = useState(mockBookings);
-  const [availability, setAvailability] = useState(mockBusiness.availability);
+  const [business, setBusiness] = useState(null);
+  const [bookings, setBookings] = useState([]);
+  const [availability, setAvailability] = useState({
+    days: [],
+    timeSlots: [],
+    appointmentDuration: 60,
+  });
+  const [loading, setLoading] = useState(true);
   const [toast, setToast] = useState(null);
+  const [filter, setFilter] = useState("all");
+
+  // Load business profile from localStorage
+  const storedBusiness = JSON.parse(localStorage.getItem("business") || "{}");
 
   function showToast(msg) {
     setToast(msg);
     setTimeout(() => setToast(null), 3000);
   }
 
-  function confirmBooking(id) {
-    setBookings((bs) =>
-      bs.map((b) => (b.id === id ? { ...b, status: "confirmed" } : b)),
-    );
-    showToast("Booking confirmed ✓");
+  // ── Fetch business profile from DB ──
+  const fetchBusiness = useCallback(async () => {
+    try {
+      const res = await fetch(`${API}/api/business/${storedBusiness.id}`, {
+        headers: authHeaders(),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setBusiness(data.business);
+        if (data.business.availability) {
+          setAvailability(data.business.availability);
+        }
+      }
+    } catch (_) {
+      // fall back to localStorage
+      setBusiness(storedBusiness);
+    }
+  }, [storedBusiness.id]);
+
+  // ── Fetch bookings from DB ──
+  const fetchBookings = useCallback(async () => {
+    try {
+      const res = await fetch(`${API}/api/bookings/business`, {
+        headers: authHeaders(),
+      });
+      const data = await res.json();
+      if (res.ok) setBookings(data.bookings || []);
+    } catch (_) {
+      console.error("Failed to load bookings");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchBusiness();
+    fetchBookings();
+  }, [fetchBusiness, fetchBookings]);
+
+  // ── Update booking status ──
+  async function updateBooking(id, status) {
+    try {
+      const res = await fetch(`${API}/api/bookings/${id}`, {
+        method: "PUT",
+        headers: authHeaders(),
+        body: JSON.stringify({ status }),
+      });
+      if (res.ok) {
+        setBookings((bs) =>
+          bs.map((b) => (b._id === id ? { ...b, status } : b)),
+        );
+        showToast(
+          status === "confirmed" ? "Booking confirmed ✓" : "Booking declined",
+        );
+      }
+    } catch (_) {
+      showToast("Failed to update booking");
+    }
   }
 
-  function declineBooking(id) {
-    setBookings((bs) =>
-      bs.map((b) => (b.id === id ? { ...b, status: "declined" } : b)),
-    );
-    showToast("Booking declined");
+  // ── Save availability ──
+  async function saveAvailability() {
+    try {
+      const res = await fetch(
+        `${API}/api/business/${storedBusiness.id}/availability`,
+        {
+          method: "PUT",
+          headers: authHeaders(),
+          body: JSON.stringify({ availability }),
+        },
+      );
+      if (res.ok) showToast("Availability saved ✓");
+      else showToast("Failed to save availability");
+    } catch (_) {
+      showToast("Failed to save availability");
+    }
   }
 
   function toggleSlot(slot) {
@@ -432,9 +447,35 @@ export default function BusinessDashboard() {
   const pending = bookings.filter((b) => b.status === "pending").length;
   const confirmed = bookings.filter((b) => b.status === "confirmed").length;
 
+  const filteredBookings =
+    filter === "all" ? bookings : bookings.filter((b) => b.status === filter);
+
+  const displayName =
+    business?.businessName || storedBusiness?.businessName || "My Business";
+  const displayCat =
+    business?.businessType || storedBusiness?.businessType || "";
+
+  function handleLogout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("business");
+    window.location.href = "/business/login";
+  }
+
+  if (loading) {
+    return (
+      <div
+        className="dash-wrap"
+        style={{ alignItems: "center", justifyContent: "center" }}
+      >
+        <p style={{ color: "#888780", fontFamily: "system-ui" }}>
+          Loading dashboard…
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="dash-wrap">
-      {/* Toast */}
       {toast && <div className="toast">{toast}</div>}
 
       {/* Sidebar */}
@@ -452,10 +493,10 @@ export default function BusinessDashboard() {
         </div>
 
         <div className="sidebar-biz">
-          <div className="sidebar-avatar">{mockBusiness.name.charAt(0)}</div>
+          <div className="sidebar-avatar">{displayName.charAt(0)}</div>
           <div>
-            <p className="sidebar-biz-name">{mockBusiness.name}</p>
-            <p className="sidebar-biz-cat">{mockBusiness.category}</p>
+            <p className="sidebar-biz-name">{displayName}</p>
+            <p className="sidebar-biz-cat">{displayCat}</p>
           </div>
         </div>
 
@@ -481,12 +522,12 @@ export default function BusinessDashboard() {
           ))}
         </nav>
 
-        <a href="/logout" className="sidebar-logout">
+        <button className="sidebar-logout" onClick={handleLogout}>
           Sign out
-        </a>
+        </button>
       </aside>
 
-      {/* Main content */}
+      {/* Main */}
       <main className="dash-main">
         {/* ── Overview ── */}
         {tab === "overview" && (
@@ -499,7 +540,6 @@ export default function BusinessDashboard() {
                 </p>
               </div>
             </div>
-
             <div className="stats-row">
               <StatCard
                 label="Pending bookings"
@@ -509,7 +549,7 @@ export default function BusinessDashboard() {
               <StatCard label="Confirmed" value={confirmed} sub="This month" />
               <StatCard
                 label="Keywords"
-                value={mockBusiness.keywords.length}
+                value={(business?.keywords || []).length}
                 sub="Search terms"
               />
               <StatCard
@@ -518,21 +558,27 @@ export default function BusinessDashboard() {
                 sub="Per week"
               />
             </div>
-
             <h2 className="section-title">Recent bookings</h2>
             <div className="bookings-list">
               {bookings.slice(0, 3).map((b) => (
                 <BookingRow
-                  key={b.id}
+                  key={b._id}
                   booking={b}
-                  onConfirm={confirmBooking}
-                  onDecline={declineBooking}
+                  onConfirm={(id) => updateBooking(id, "confirmed")}
+                  onDecline={(id) => updateBooking(id, "declined")}
                 />
               ))}
+              {bookings.length === 0 && (
+                <p style={{ color: "#888780", fontSize: "14px" }}>
+                  No bookings yet.
+                </p>
+              )}
             </div>
-            <button className="see-all" onClick={() => setTab("bookings")}>
-              See all bookings →
-            </button>
+            {bookings.length > 3 && (
+              <button className="see-all" onClick={() => setTab("bookings")}>
+                See all bookings →
+              </button>
+            )}
           </div>
         )}
 
@@ -546,10 +592,7 @@ export default function BusinessDashboard() {
                   Manage your availability and view bookings by day.
                 </p>
               </div>
-              <button
-                className="btn-primary"
-                onClick={() => showToast("Availability saved ✓")}
-              >
+              <button className="btn-primary" onClick={saveAvailability}>
                 Save changes
               </button>
             </div>
@@ -576,8 +619,9 @@ export default function BusinessDashboard() {
                 {["all", "pending", "confirmed", "declined"].map((f) => (
                   <button
                     key={f}
-                    className="filter-btn"
+                    className={`filter-btn ${filter === f ? "filter-btn-active" : ""}`}
                     style={{ textTransform: "capitalize" }}
+                    onClick={() => setFilter(f)}
                   >
                     {f}
                   </button>
@@ -585,14 +629,19 @@ export default function BusinessDashboard() {
               </div>
             </div>
             <div className="bookings-list">
-              {bookings.map((b) => (
+              {filteredBookings.map((b) => (
                 <BookingRow
-                  key={b.id}
+                  key={b._id}
                   booking={b}
-                  onConfirm={confirmBooking}
-                  onDecline={declineBooking}
+                  onConfirm={(id) => updateBooking(id, "confirmed")}
+                  onDecline={(id) => updateBooking(id, "declined")}
                 />
               ))}
+              {filteredBookings.length === 0 && (
+                <p style={{ color: "#888780", fontSize: "14px" }}>
+                  No {filter === "all" ? "" : filter} bookings.
+                </p>
+              )}
             </div>
           </div>
         )}
@@ -607,15 +656,22 @@ export default function BusinessDashboard() {
                   This is how neighbors see your business on Mitra.
                 </p>
               </div>
-              <button className="btn-primary">Save changes</button>
+              <button
+                className="btn-primary"
+                onClick={() => showToast("Profile saved ✓")}
+              >
+                Save changes
+              </button>
             </div>
             <div className="profile-card">
               {[
-                { label: "Business name", value: mockBusiness.name },
-                { label: "Category", value: mockBusiness.category },
-                { label: "Email", value: mockBusiness.email },
-                { label: "Phone", value: mockBusiness.phone },
-                { label: "Service area", value: mockBusiness.address },
+                { label: "Business name", value: business?.businessName || "" },
+                { label: "Business type", value: business?.businessType || "" },
+                { label: "Email", value: business?.email || "" },
+                { label: "Phone", value: business?.phone || "" },
+                { label: "Street", value: business?.address?.street || "" },
+                { label: "City", value: business?.address?.city || "" },
+                { label: "State", value: business?.address?.state || "" },
               ].map(({ label, value }) => (
                 <div key={label} className="profile-field">
                   <label>{label}</label>
@@ -625,7 +681,7 @@ export default function BusinessDashboard() {
               <div className="profile-field">
                 <label>Keywords</label>
                 <div className="keywords-display">
-                  {mockBusiness.keywords.map((k) => (
+                  {(business?.keywords || []).map((k) => (
                     <span key={k} className="keyword-tag">
                       {k}
                     </span>

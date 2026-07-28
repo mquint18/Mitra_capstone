@@ -1,103 +1,17 @@
 // ResidentDashboard.jsx
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import "./ResidentDashboard.css";
 import AiQuery from "../components/AiQuery";
 import BusinessSearch from "./BusinessSearch";
 
-// ── Mock data — replace with real API calls ──────────────
-const mockResident = {
-  firstName: "Jane",
-  lastName: "Smith",
-  email: "jane@example.com",
-  suburb: "Maplewood",
-  phone: "(555) 234-5678",
-};
+const API = import.meta.env.VITE_API_URL || "http://localhost:5001";
 
-const mockBookings = [
-  {
-    id: 1,
-    business: "Green Thumb Landscaping",
-    service: "Lawn mowing",
-    date: "2026-07-24",
-    time: "9:00 AM",
-    status: "confirmed",
-  },
-  {
-    id: 2,
-    business: "Pawsome Pet Services",
-    service: "Dog walking",
-    date: "2026-07-26",
-    time: "10:00 AM",
-    status: "pending",
-  },
-  {
-    id: 3,
-    business: "Clean Home Co.",
-    service: "House cleaning",
-    date: "2026-07-10",
-    time: "1:00 PM",
-    status: "completed",
-  },
-  {
-    id: 4,
-    business: "Fix-It Plumbing",
-    service: "Pipe inspection",
-    date: "2026-07-05",
-    time: "2:00 PM",
-    status: "completed",
-  },
-];
-
-const mockBusinesses = [
-  {
-    id: 1,
-    name: "Green Thumb Landscaping",
-    category: "Home services",
-    keywords: ["lawn care", "landscaping", "garden"],
-    rating: 4.9,
-    reviews: 34,
-  },
-  {
-    id: 2,
-    name: "Pawsome Pet Services",
-    category: "Pet services",
-    keywords: ["dog walking", "pet sitting", "grooming"],
-    rating: 5.0,
-    reviews: 18,
-  },
-  {
-    id: 3,
-    name: "Sparkle Cleaning Co.",
-    category: "Home services",
-    keywords: ["cleaning", "housekeeping", "windows"],
-    rating: 4.7,
-    reviews: 52,
-  },
-  {
-    id: 4,
-    name: "Fix-It Plumbing",
-    category: "Home services",
-    keywords: ["plumbing", "pipes", "leaks"],
-    rating: 4.8,
-    reviews: 29,
-  },
-  {
-    id: 5,
-    name: "Bright Minds Tutoring",
-    category: "Education",
-    keywords: ["tutoring", "maths", "english"],
-    rating: 5.0,
-    reviews: 11,
-  },
-  {
-    id: 6,
-    name: "Fit Life Personal Training",
-    category: "Fitness",
-    keywords: ["personal training", "fitness", "gym"],
-    rating: 4.6,
-    reviews: 23,
-  },
-];
+function authHeaders() {
+  return {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  };
+}
 
 // ── Helpers ──────────────────────────────────────────────
 function statusClass(s) {
@@ -112,16 +26,22 @@ function statusClass(s) {
 }
 
 function initials(first, last) {
-  return `${first[0]}${last[0]}`.toUpperCase();
+  return `${(first || "?")[0]}${(last || "")[0]}`.toUpperCase();
 }
 
 // ── Sub-components ────────────────────────────────────────
 function BookingCard({ booking, onCancel }) {
+  const businessName =
+    booking.businessId?.businessName ||
+    booking.businessName ||
+    "Unknown business";
   return (
     <div className="booking-card">
       <div className="booking-card-left">
-        <p className="booking-business">{booking.business}</p>
-        <p className="booking-service">{booking.service}</p>
+        <p className="booking-business">{businessName}</p>
+        <p className="booking-service">
+          {booking.note || "Service appointment"}
+        </p>
         <p className="booking-datetime">
           {booking.date} at {booking.time}
         </p>
@@ -131,7 +51,7 @@ function BookingCard({ booking, onCancel }) {
           {booking.status}
         </span>
         {(booking.status === "confirmed" || booking.status === "pending") && (
-          <button className="btn-cancel" onClick={() => onCancel(booking.id)}>
+          <button className="btn-cancel" onClick={() => onCancel(booking._id)}>
             Cancel
           </button>
         )}
@@ -141,14 +61,17 @@ function BookingCard({ booking, onCancel }) {
 }
 
 function BusinessCard({ business, onBook }) {
+  const name = business.businessName || business.name || "?";
   return (
     <div className="biz-card">
-      <div className="biz-avatar">{business.name[0]}</div>
+      <div className="biz-avatar">{name[0]}</div>
       <div className="biz-info">
-        <p className="biz-name">{business.name}</p>
-        <p className="biz-category">{business.category}</p>
+        <p className="biz-name">{name}</p>
+        <p className="biz-category">
+          {business.businessType || business.category}
+        </p>
         <div className="biz-keywords">
-          {business.keywords.slice(0, 2).map((k) => (
+          {(business.keywords || []).slice(0, 2).map((k) => (
             <span key={k} className="keyword-pill">
               {k}
             </span>
@@ -156,9 +79,6 @@ function BusinessCard({ business, onBook }) {
         </div>
       </div>
       <div className="biz-right">
-        <p className="biz-rating">
-          ⭐ {business.rating} <span>({business.reviews})</span>
-        </p>
         <button className="btn-book" onClick={() => onBook(business)}>
           Book
         </button>
@@ -170,28 +90,78 @@ function BusinessCard({ business, onBook }) {
 // ── Main Dashboard ────────────────────────────────────────
 export default function ResidentDashboard() {
   const [tab, setTab] = useState("home");
-  const [bookings, setBookings] = useState(mockBookings);
-  const [search, setSearch] = useState("");
+  const [bookings, setBookings] = useState([]);
+  const [businesses, setBusinesses] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [toast, setToast] = useState(null);
 
-  // Load resident from localStorage — falls back to mock
+  // Resident from localStorage
   const stored = localStorage.getItem("resident");
-  const resident = stored ? JSON.parse(stored) : mockResident;
+  const resident = stored
+    ? JSON.parse(stored)
+    : { firstName: "", lastName: "", email: "", suburb: "", phone: "" };
 
   function showToast(msg) {
     setToast(msg);
     setTimeout(() => setToast(null), 3000);
   }
 
-  function cancelBooking(id) {
-    setBookings((bs) =>
-      bs.map((b) => (b.id === id ? { ...b, status: "cancelled" } : b)),
-    );
-    showToast("Booking cancelled");
+  // ── Fetch resident bookings ──
+  const fetchBookings = useCallback(async () => {
+    try {
+      const res = await fetch(`${API}/api/bookings/my`, {
+        headers: authHeaders(),
+      });
+      const data = await res.json();
+      if (res.ok) setBookings(data.bookings || []);
+    } catch (_) {
+      console.error("Failed to load bookings");
+    }
+  }, []);
+
+  // ── Fetch nearby businesses ──
+  const fetchBusinesses = useCallback(async () => {
+    try {
+      const res = await fetch(`${API}/api/search?limit=6`, {
+        headers: authHeaders(),
+      });
+      const data = await res.json();
+      if (res.ok) setBusinesses(data.businesses || []);
+    } catch (_) {
+      console.error("Failed to load businesses");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchBookings();
+    fetchBusinesses();
+  }, [fetchBookings, fetchBusinesses]);
+
+  // ── Cancel booking ──
+  async function cancelBooking(id) {
+    try {
+      const res = await fetch(`${API}/api/bookings/${id}`, {
+        method: "PUT",
+        headers: authHeaders(),
+        body: JSON.stringify({ status: "cancelled" }),
+      });
+      if (res.ok) {
+        setBookings((bs) =>
+          bs.map((b) => (b._id === id ? { ...b, status: "cancelled" } : b)),
+        );
+        showToast("Booking cancelled");
+      }
+    } catch (_) {
+      showToast("Failed to cancel booking");
+    }
   }
 
   function handleBook(business) {
-    showToast(`Booking request sent to ${business.name}`);
+    showToast(
+      `Booking request sent to ${business.businessName || business.name}`,
+    );
   }
 
   function handleLogout() {
@@ -200,13 +170,6 @@ export default function ResidentDashboard() {
     window.location.href = "/login";
   }
 
-  const filtered = mockBusinesses.filter(
-    (b) =>
-      b.name.toLowerCase().includes(search.toLowerCase()) ||
-      b.category.toLowerCase().includes(search.toLowerCase()) ||
-      b.keywords.some((k) => k.includes(search.toLowerCase())),
-  );
-
   const upcoming = bookings.filter(
     (b) => b.status === "confirmed" || b.status === "pending",
   );
@@ -214,9 +177,19 @@ export default function ResidentDashboard() {
     (b) => b.status === "completed" || b.status === "cancelled",
   );
 
+  if (loading) {
+    return (
+      <div
+        className="rd-wrap"
+        style={{ alignItems: "center", justifyContent: "center" }}
+      >
+        <p style={{ color: "#888780", fontFamily: "system-ui" }}>Loading…</p>
+      </div>
+    );
+  }
+
   return (
     <div className="rd-wrap">
-      {/* Toast */}
       {toast && <div className="rd-toast">{toast}</div>}
 
       {/* Sidebar */}
@@ -233,7 +206,6 @@ export default function ResidentDashboard() {
           <span className="rd-sidebar-logo-text">mitra</span>
         </div>
 
-        {/* Avatar */}
         <div className="rd-sidebar-user">
           <div className="rd-avatar">
             {initials(resident.firstName, resident.lastName)}
@@ -243,7 +215,7 @@ export default function ResidentDashboard() {
               {resident.firstName} {resident.lastName}
             </p>
             <p className="rd-sidebar-suburb">
-              {resident.suburb || "Maplewood"}
+              {resident.suburb || resident.address || "Resident"}
             </p>
           </div>
         </div>
@@ -294,7 +266,6 @@ export default function ResidentDashboard() {
               </div>
             </div>
 
-            {/* Stats */}
             <div className="rd-stats">
               <div className="rd-stat">
                 <p className="rd-stat-value">{upcoming.length}</p>
@@ -305,19 +276,18 @@ export default function ResidentDashboard() {
                 <p className="rd-stat-label">Completed services</p>
               </div>
               <div className="rd-stat">
-                <p className="rd-stat-value">{mockBusinesses.length}</p>
+                <p className="rd-stat-value">{businesses.length}</p>
                 <p className="rd-stat-label">Local businesses</p>
               </div>
             </div>
 
-            {/* Upcoming bookings */}
             {upcoming.length > 0 && (
               <>
                 <h2 className="rd-section-title">Upcoming bookings</h2>
                 <div className="rd-bookings">
                   {upcoming.map((b) => (
                     <BookingCard
-                      key={b.id}
+                      key={b._id}
                       booking={b}
                       onCancel={cancelBooking}
                     />
@@ -326,14 +296,18 @@ export default function ResidentDashboard() {
               </>
             )}
 
-            {/* Quick find */}
             <h2 className="rd-section-title" style={{ marginTop: "1.75rem" }}>
               Businesses near you
             </h2>
             <div className="rd-biz-list">
-              {mockBusinesses.slice(0, 3).map((b) => (
-                <BusinessCard key={b.id} business={b} onBook={handleBook} />
+              {businesses.slice(0, 3).map((b) => (
+                <BusinessCard key={b._id} business={b} onBook={handleBook} />
               ))}
+              {businesses.length === 0 && (
+                <p style={{ color: "#888780", fontSize: "14px" }}>
+                  No businesses found yet.
+                </p>
+              )}
             </div>
             <button className="rd-see-all" onClick={() => setTab("search")}>
               See all businesses →
@@ -358,7 +332,7 @@ export default function ResidentDashboard() {
                 <div className="rd-bookings">
                   {upcoming.map((b) => (
                     <BookingCard
-                      key={b.id}
+                      key={b._id}
                       booking={b}
                       onCancel={cancelBooking}
                     />
@@ -366,6 +340,7 @@ export default function ResidentDashboard() {
                 </div>
               </>
             )}
+
             {past.length > 0 && (
               <>
                 <h2
@@ -377,7 +352,7 @@ export default function ResidentDashboard() {
                 <div className="rd-bookings">
                   {past.map((b) => (
                     <BookingCard
-                      key={b.id}
+                      key={b._id}
                       booking={b}
                       onCancel={cancelBooking}
                     />
@@ -385,6 +360,7 @@ export default function ResidentDashboard() {
                 </div>
               </>
             )}
+
             {bookings.length === 0 && (
               <div className="rd-empty">
                 <p>No bookings yet.</p>
@@ -399,13 +375,7 @@ export default function ResidentDashboard() {
         {/* ── AI Advisor ── */}
         {tab === "ai" && (
           <div className="rd-section">
-            <h1 className="rd-title">AI job advisor</h1>
-            <p className="rd-sub">
-              Describe a household task and we'll tell you what's involved — and
-              whether to DIY or hire a pro.
-            </p>
             <div className="rd-ai-embed">
-              {/* Drop your AiQuery component here */}
               <AiQuery />
             </div>
           </div>
@@ -428,13 +398,10 @@ export default function ResidentDashboard() {
                 Save changes
               </button>
             </div>
-
             <div className="rd-profile-card">
-              {/* Avatar large */}
               <div className="rd-profile-avatar">
                 {initials(resident.firstName, resident.lastName)}
               </div>
-
               <div className="rd-profile-fields">
                 <div className="rd-row2">
                   <div className="rd-field">
