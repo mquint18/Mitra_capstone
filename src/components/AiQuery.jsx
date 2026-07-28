@@ -14,7 +14,7 @@ function AiQuery() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5001/api/ai-job", {
+      const res = await fetch("http://localhost:5001/api/ai/job", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
