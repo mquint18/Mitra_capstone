@@ -23,6 +23,7 @@ import BusinessLogin from "./components/BusinessLogin";
 import ResidentDashboard from "./Pages/ResidentDashboard";
 import BusinessDashboard from "./components/BusinessDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
+import AdminPanel from "./components/AdminPanel";
 
 function App() {
   return (
@@ -40,6 +41,15 @@ function App() {
           <Route path="/business-register" element={<BusinessRegister />} />
           <Route path="/login" element={<ResidentLogin />} />
           <Route path="/business/login" element={<BusinessLogin />} />
+
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute role="admin">
+                <AdminPanel />
+              </ProtectedRoute>
+            }
+          />
 
           {/* ── Resident protected ── */}
           <Route

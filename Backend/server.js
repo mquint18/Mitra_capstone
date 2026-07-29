@@ -11,6 +11,7 @@ import searchRoutes from "./routes/search-route.js";
 import businessRoutes from "./routes/business-routes.js";
 import bookingRoutes from "./routes/bookings.js";
 import aiRoutes from "./routes/ai.js";
+import adminRoutes from "./routes/admin.js";
 
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -40,6 +41,7 @@ app.use("/api/search", searchRoutes);
 app.use("/api/business", businessRoutes);
 app.use("/api/bookings", bookingRoutes);
 app.use("/api/ai", aiRoutes);
+app.use("/api/admin", adminRoutes);
 
 // ── Health check ──
 app.get("/test", (_, res) => res.json({ message: "Server is working!" }));

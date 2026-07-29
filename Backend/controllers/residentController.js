@@ -10,11 +10,9 @@ export async function registerResident(req, res) {
       req.body;
 
     if (!firstName || !lastName || !email || !password) {
-      return res
-        .status(400)
-        .json({
-          message: "First name, last name, email and password are required",
-        });
+      return res.status(400).json({
+        message: "First name, last name, email and password are required",
+      });
     }
 
     if (password.length < 8) {
@@ -65,10 +63,10 @@ export async function loginResident(req, res) {
     }
 
     // Explicitly fetch password field (select: false by default)
-    const resident = await Resident.findOne({ email, active: true }).select(
-      "+password",
-    );
 
+    const resident = await Resident.findOne({ email, active: true }).select(
+      "+password role",
+    );
     if (!resident) {
       return res.status(401).json({ message: "Invalid email or password" });
     }
@@ -80,7 +78,7 @@ export async function loginResident(req, res) {
 
     // Sign JWT
     const token = jwt.sign(
-      { id: resident._id, role: "resident" },
+      { id: resident._id, role: resident.role },
       process.env.JWT_SECRET,
       { expiresIn: "7d" },
     );
