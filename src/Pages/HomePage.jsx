@@ -57,7 +57,7 @@ function HomePage() {
             Help each other out.
           </h1>
           <p className="home-lead">
-            Mitra brings your block together — find trusted local businesses,
+            Mitra brings your block together! Find trusted local businesses,
             book services, and build the kind of neighborhood where everyone
             looks out for each other.
           </p>
