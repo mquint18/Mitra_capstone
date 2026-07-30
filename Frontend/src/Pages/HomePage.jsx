@@ -38,9 +38,9 @@ function HomePage() {
           </div>
         </div>
         <img
-          className="welcome-image"
+          className="home-hero-img"
           src={townImg}
-          alt="A friendly neighbourhood street"
+          alt="A friendly neighborhood street"
         />
       </div>
 
