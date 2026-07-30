@@ -7,6 +7,7 @@ function BusinessLogin() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+  const API = import.meta.env.VITE_API_URL || "http://localhost:5001";
 
   function set(field) {
     return (e) => {
@@ -35,7 +36,7 @@ function BusinessLogin() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5001/api/business/login", {
+      const res = await fetch(`${API}/api/business/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: form.email, password: form.password }),

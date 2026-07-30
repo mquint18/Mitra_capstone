@@ -3,6 +3,8 @@ import { useState, useEffect, useRef } from "react";
 import { useBusinessSearch } from "../hooks/useBusinessSearch";
 import "./BusinessSearch.css";
 
+const API = import.meta.env.VITE_API_URL || "http://localhost:5001";
+
 // ── Business card ─────────────────────────────────────────
 function BusinessCard({ business, onBook }) {
   const [expanded, setExpanded] = useState(false);
@@ -243,7 +245,7 @@ export default function BusinessSearch() {
   async function handleConfirmBooking({ business, date, time, note }) {
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("http://localhost:5001/api/bookings", {
+      const res = await fetch(`${API}/api/bookings`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

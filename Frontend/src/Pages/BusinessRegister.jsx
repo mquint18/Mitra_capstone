@@ -13,6 +13,7 @@ const BUSINESS_TYPES = [
   "Arts & crafts",
   "Other",
 ];
+const API = import.meta.env.VITE_API_URL || "http://localhost:5001";
 
 function BusinessRegister() {
   const [business, setBusiness] = useState({
@@ -69,7 +70,7 @@ function BusinessRegister() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5001/api/business/register", {
+      const res = await fetch(`${API}/api/business/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

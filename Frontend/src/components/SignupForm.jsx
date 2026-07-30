@@ -15,6 +15,7 @@ function SignupForm() {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const API = import.meta.env.VITE_API_URL || "http://localhost:5001";
 
   function set(field) {
     return (e) => setForm((prev) => ({ ...prev, [field]: e.target.value }));
@@ -45,7 +46,7 @@ function SignupForm() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5001/api/auth/register", {
+      const res = await fetch(`${API}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -65,8 +66,7 @@ function SignupForm() {
       }
 
       setSuccess(true);
-    } catch (err) {
-      console.error(err);
+    } catch (_) {
       setErrors({ server: "Unable to connect to the server." });
     } finally {
       setLoading(false);

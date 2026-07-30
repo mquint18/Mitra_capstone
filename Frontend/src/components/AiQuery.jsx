@@ -8,6 +8,7 @@ function AiQuery() {
   const [expertise, setExpertise] = useState("");
   const [response, setResponse] = useState("");
   const [loading, setLoading] = useState(false);
+  const API = import.meta.env.VITE_API_URL || "http://localhost:5001";
 
   async function askClaude() {
     if (!job.trim() || !expertise) return;
@@ -15,7 +16,7 @@ function AiQuery() {
     setResponse("");
 
     try {
-      const res = await fetch("http://localhost:5001/api/ai/job", {
+      const res = await fetch(`${API}/api/ai/job`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ job, expertise }),

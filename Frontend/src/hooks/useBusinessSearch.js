@@ -1,7 +1,7 @@
 // hooks/useBusinessSearch.js
 import { useState, useEffect, useCallback } from "react";
 
-const API = "http://localhost:5001/api/search";
+const API = `${import.meta.env.VITE_API_URL || "http://localhost:5001"}/api/search`;
 
 export function useBusinessSearch() {
   const [results, setResults] = useState([]);

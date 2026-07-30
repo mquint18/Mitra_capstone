@@ -34,7 +34,8 @@ function ResidentLogin() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5001/api/auth/login", {
+      const API = import.meta.env.VITE_API_URL || "http://localhost:5001";
+      const res = await fetch(`${API}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: form.email, password: form.password }),

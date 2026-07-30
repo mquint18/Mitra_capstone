@@ -8,11 +8,12 @@ function JobForm() {
   const [expertise, setExpertise] = useState("");
   const [response, setResponse] = useState("");
   const [loading, setLoading] = useState(false);
+  const API = import.meta.env.VITE_API_URL || "http://localhost:5001";
 
   async function submitJob(e) {
     e.preventDefault();
     try {
-      const result = await fetch("http://localhost:5001/api/ai-job", {
+      const result = await fetch(`${API}/api/ai/job`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -26,8 +27,7 @@ function JobForm() {
       const data = await result.json();
 
       setResponse(data.answer);
-    } catch (err) {
-      console.error(err);
+    } catch (_) {
       setResponse("Unable to contact the AI server.");
     } finally {
       setLoading(false);
