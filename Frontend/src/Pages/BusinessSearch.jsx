@@ -1,6 +1,6 @@
 // pages/BusinessSearch.jsx
 import { useState, useEffect, useRef } from "react";
-import { useBusinessSearch } from "./hooks/useBusinessSearch";
+import { useBusinessSearch } from "../hooks/useBusinessSearch";
 import "./BusinessSearch.css";
 
 // ── Business card ─────────────────────────────────────────
