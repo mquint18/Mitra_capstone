@@ -21,7 +21,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      process.env.CLIENT_URL, // your Vercel frontend URL
+      "https://mitra-capstone-sgbh.vercel.app",
     ].filter(Boolean),
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: false,
