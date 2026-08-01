@@ -1,6 +1,7 @@
 // SignupForm.jsx
 
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./SignupForm.css";
 
 function SignupForm() {
@@ -15,6 +16,7 @@ function SignupForm() {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const navigate = useNavigate();
   const API = import.meta.env.VITE_API_URL || "http://localhost:5001";
 
   function set(field) {
@@ -35,6 +37,7 @@ function SignupForm() {
       e.confirmPassword = "Passwords do not match";
     return e;
   }
+
   async function handleSubmit(e) {
     e.preventDefault();
     const errs = validate();
@@ -57,14 +60,11 @@ function SignupForm() {
           role: form.role,
         }),
       });
-
       const data = await res.json();
-
       if (!res.ok) {
         setErrors({ server: data.message || "Registration failed" });
         return;
       }
-
       setSuccess(true);
     } catch (_) {
       setErrors({ server: "Unable to connect to the server." });
@@ -83,10 +83,7 @@ function SignupForm() {
             Your account has been created. You can now log in and explore your
             neighborhood.
           </p>
-          <button
-            className="signup-btn"
-            onClick={() => (window.location.href = "/login")}
-          >
+          <button className="signup-btn" onClick={() => navigate("/login")}>
             Go to login
           </button>
         </div>
@@ -97,7 +94,6 @@ function SignupForm() {
   return (
     <div className="signup-wrap">
       <div className="signup-card">
-        {/* Logo */}
         <div className="signup-logo">
           <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true">
             <circle cx="16" cy="10" r="7" fill="#EF9F27" />
@@ -112,7 +108,6 @@ function SignupForm() {
         <h2 className="signup-title">Create your account</h2>
         <p className="signup-sub">Join your neighborhood on Mitra</p>
 
-        {/* Role toggle */}
         <div className="role-toggle">
           <button
             type="button"
@@ -124,13 +119,12 @@ function SignupForm() {
           <button
             type="button"
             className={`role-btn ${form.role === "business" ? "active" : ""}`}
-            onClick={() => (window.location.href = "/business-register")}
+            onClick={() => navigate("/business-register")}
           >
             I'm a business
           </button>
         </div>
 
-        {/* Server error */}
         {errors.server && <div className="error-banner">{errors.server}</div>}
 
         <form onSubmit={handleSubmit} noValidate>
@@ -219,10 +213,10 @@ function SignupForm() {
         </form>
 
         <p className="signin-link">
-          Already have an account? <a href="/login">Sign in</a>
+          Already have an account? <Link to="/login">Sign in</Link>
         </p>
         <p className="business-link">
-          Sign up as a business <a href="/business-register">Sign up</a>
+          Sign up as a business <Link to="/business-register">Sign up</Link>
         </p>
       </div>
     </div>

@@ -1,12 +1,14 @@
 //BusinessLogin.jsx
 
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./BusinessLogin.css";
 
 function BusinessLogin() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const API = import.meta.env.VITE_API_URL || "http://localhost:5001";
 
   function set(field) {
@@ -31,7 +33,6 @@ function BusinessLogin() {
       setErrors(errs);
       return;
     }
-
     setErrors({});
     setLoading(true);
 
@@ -41,21 +42,15 @@ function BusinessLogin() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: form.email, password: form.password }),
       });
-
       const data = await res.json();
-
       if (!res.ok) {
         setErrors({ server: data.message || "Invalid email or password" });
         return;
       }
-
-      // Persist token + business profile
       localStorage.setItem("token", data.token);
       localStorage.setItem("business", JSON.stringify(data.business));
-
-      // Go to dashboard
-      window.location.href = "/dashboard";
-    } catch (err) {
+      navigate("/dashboard");
+    } catch (_) {
       setErrors({ server: "Unable to connect to the server." });
     } finally {
       setLoading(false);
@@ -65,8 +60,7 @@ function BusinessLogin() {
   return (
     <div className="bl-wrap">
       <div className="bl-card">
-        {/* Logo */}
-        <a href="/" className="bl-logo">
+        <Link to="/" className="bl-logo">
           <svg width="36" height="36" viewBox="0 0 32 32" aria-hidden="true">
             <circle cx="16" cy="10" r="7" fill="#EF9F27" />
             <polygon points="2,16 16,3 30,16" fill="#3B6D11" />
@@ -79,16 +73,14 @@ function BusinessLogin() {
             <ellipse cx="16" cy="30" rx="4" ry="1.5" fill="#97C459" />
           </svg>
           <span className="bl-logo-text">mitra</span>
-        </a>
+        </Link>
 
-        {/* Heading */}
         <div className="bl-badge">Business portal</div>
         <h2 className="bl-title">Sign in to your dashboard</h2>
         <p className="bl-sub">
           Manage your listing, availability, and bookings.
         </p>
 
-        {/* Server error */}
         {errors.server && (
           <div className="bl-error-banner" role="alert">
             {errors.server}
@@ -118,9 +110,9 @@ function BusinessLogin() {
           <div className="bl-field">
             <div className="bl-password-row">
               <label htmlFor="password">Password</label>
-              <a href="/forgot-password" className="bl-forgot">
+              <Link to="/forgot-password" className="bl-forgot">
                 Forgot password?
-              </a>
+              </Link>
             </div>
             <input
               id="password"
@@ -153,13 +145,11 @@ function BusinessLogin() {
         <div className="bl-divider">
           <span>or</span>
         </div>
-
-        <a href="/business/register" className="bl-register-btn">
+        <Link to="/business-register" className="bl-register-btn">
           Register a new business
-        </a>
-
+        </Link>
         <p className="bl-resident-link">
-          Not a business? <a href="/login">Resident sign in →</a>
+          Not a business? <Link to="/login">Resident sign in →</Link>
         </p>
       </div>
     </div>

@@ -1,5 +1,7 @@
 // BusinessRegister.jsx
+
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./BusinessRegister.css";
 
 const BUSINESS_TYPES = [
@@ -13,7 +15,6 @@ const BUSINESS_TYPES = [
   "Arts & crafts",
   "Other",
 ];
-const API = import.meta.env.VITE_API_URL || "http://localhost:5001";
 
 function BusinessRegister() {
   const [business, setBusiness] = useState({
@@ -35,6 +36,8 @@ function BusinessRegister() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
+  const API = import.meta.env.VITE_API_URL || "http://localhost:5001";
 
   function set(field) {
     return (e) => {
@@ -65,7 +68,6 @@ function BusinessRegister() {
       setErrors(errs);
       return;
     }
-
     setErrors({});
     setLoading(true);
 
@@ -94,14 +96,11 @@ function BusinessRegister() {
           password: business.password,
         }),
       });
-
       const data = await res.json();
-
       if (!res.ok) {
         setErrors({ server: data.message || "Registration failed" });
         return;
       }
-
       setSuccess(true);
       setMessage(data.message);
     } catch (_) {
@@ -118,12 +117,11 @@ function BusinessRegister() {
           <div className="br-success-icon">🏪</div>
           <h2 className="br-success-title">You're on Mitra!</h2>
           <p className="br-success-sub">
-            {message ||
-              "Your business has been registered. You can now sign in to your dashboard."}
+            {message || "Your business has been registered."}
           </p>
           <button
             className="br-btn"
-            onClick={() => (window.location.href = "/business/login")}
+            onClick={() => navigate("/business/login")}
           >
             Go to sign in
           </button>
@@ -135,8 +133,7 @@ function BusinessRegister() {
   return (
     <div className="br-wrap">
       <div className="br-card">
-        {/* Logo */}
-        <a href="/" className="br-logo">
+        <Link to="/" className="br-logo">
           <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true">
             <circle cx="16" cy="10" r="7" fill="#EF9F27" />
             <polygon points="2,16 16,3 30,16" fill="#3B6D11" />
@@ -146,7 +143,7 @@ function BusinessRegister() {
             <ellipse cx="16" cy="30" rx="4" ry="1.5" fill="#97C459" />
           </svg>
           <span className="br-logo-text">mitra</span>
-        </a>
+        </Link>
 
         <div className="br-badge">Business portal</div>
         <h2 className="br-title">Register your business</h2>
@@ -161,7 +158,6 @@ function BusinessRegister() {
         )}
 
         <form onSubmit={registerBusiness} noValidate>
-          {/* ── Business info ── */}
           <p className="br-section-label">Business details</p>
 
           <div className="br-field">
@@ -201,7 +197,7 @@ function BusinessRegister() {
             <label>Description</label>
             <textarea
               name="description"
-              placeholder="Describe what your business offers in 2–3 sentences."
+              placeholder="Describe what your business offers."
               value={business.description}
               onChange={set("description")}
               rows={3}
@@ -217,12 +213,9 @@ function BusinessRegister() {
               value={business.keywords}
               onChange={set("keywords")}
             />
-            <span className="br-hint">
-              Separate keywords with commas — helps residents find you
-            </span>
+            <span className="br-hint">Separate keywords with commas</span>
           </div>
 
-          {/* ── Contact ── */}
           <p className="br-section-label">Contact & location</p>
 
           <div className="br-row2">
@@ -311,7 +304,6 @@ function BusinessRegister() {
             />
           </div>
 
-          {/* ── Account ── */}
           <p className="br-section-label">Account credentials</p>
 
           <div className="br-field">
@@ -352,10 +344,10 @@ function BusinessRegister() {
         </form>
 
         <p className="br-signin-link">
-          Already registered? <a href="/business/login">Sign in →</a>
+          Already registered? <Link to="/business/login">Sign in →</Link>
         </p>
         <p className="br-signin-link">
-          Not a business? <a href="/sign-up">Resident sign up →</a>
+          Not a business? <Link to="/sign-up">Resident sign up →</Link>
         </p>
       </div>
     </div>
