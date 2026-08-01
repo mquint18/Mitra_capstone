@@ -65,7 +65,7 @@ export async function loginResident(req, res) {
     // Explicitly fetch password field (select: false by default)
 
     const resident = await Resident.findOne({ email, active: true }).select(
-      "+password role",
+      "+password",
     );
     if (!resident) {
       return res.status(401).json({ message: "Invalid email or password" });
