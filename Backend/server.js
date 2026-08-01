@@ -22,6 +22,7 @@ app.use(
     origin: [
       "http://localhost:5173",
       "https://mitra-capstone-sgbh.vercel.app",
+      process.env.CLIENT_URL,
     ].filter(Boolean),
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: false,
