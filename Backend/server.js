@@ -17,12 +17,12 @@ const app = express();
 const PORT = process.env.PORT || 5001;
 
 // ── Middleware ──
+
 app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://mitra-capstone-sgbh.vercel.app",
-      process.env.CLIENT_URL,
+      "https://mitra-project.onrender.com",
     ].filter(Boolean),
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: false,
