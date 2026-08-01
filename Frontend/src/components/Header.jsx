@@ -1,11 +1,14 @@
+//Header.jsx
+
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./Header.css";
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const navigate = useNavigate();
 
-  // Read user from localStorage — works for both resident and business
   const residentRaw = localStorage.getItem("resident");
   const businessRaw = localStorage.getItem("business");
   const token = localStorage.getItem("token");
@@ -32,14 +35,14 @@ function Header() {
     localStorage.removeItem("token");
     localStorage.removeItem("resident");
     localStorage.removeItem("business");
-    window.location.href = "/login";
+    navigate("/login");
   }
 
   return (
     <header className="header">
       <div className="header-inner">
         {/* Logo */}
-        <a href="/" className="header-logo">
+        <Link to="/" className="header-logo">
           <svg width="40" height="40" viewBox="0 0 32 32" aria-hidden="true">
             <circle cx="16" cy="10" r="7" fill="#EF9F27" />
             <polygon points="2,16 16,3 30,16" fill="#3B6D11" />
@@ -52,22 +55,22 @@ function Header() {
             <ellipse cx="16" cy="30" rx="4" ry="1.5" fill="#97C459" />
           </svg>
           <span className="header-logo-text">mitra</span>
-        </a>
+        </Link>
 
         {/* Desktop nav */}
         <nav className="header-nav" aria-label="Main navigation">
-          <a href="/" className="nav-link">
+          <Link to="/" className="nav-link">
             Home
-          </a>
-          <a href="/search" className="nav-link">
+          </Link>
+          <Link to="/search" className="nav-link">
             Find a business
-          </a>
-          <a href="/ai-ask" className="nav-link">
+          </Link>
+          <Link to="/ai-ask" className="nav-link">
             Ask Mitra
-          </a>
-          <a href="/about" className="nav-link">
+          </Link>
+          <Link to="/about" className="nav-link">
             About
-          </a>
+          </Link>
         </nav>
 
         {/* Auth area */}
@@ -120,28 +123,28 @@ function Header() {
 
                     <div className="dropdown-divider" />
 
-                    <a
-                      href={dashboardUrl}
+                    <Link
+                      to={dashboardUrl}
                       className="dropdown-item"
                       onClick={() => setDropdownOpen(false)}
                     >
                       <span className="dropdown-icon">⊞</span> Dashboard
-                    </a>
-                    <a
-                      href="/profile"
+                    </Link>
+                    <Link
+                      to="/profile"
                       className="dropdown-item"
                       onClick={() => setDropdownOpen(false)}
                     >
                       <span className="dropdown-icon">👤</span> My profile
-                    </a>
+                    </Link>
                     {!isBusiness && (
-                      <a
-                        href="/search"
+                      <Link
+                        to="/search"
                         className="dropdown-item"
                         onClick={() => setDropdownOpen(false)}
                       >
                         <span className="dropdown-icon">◎</span> Find a business
-                      </a>
+                      </Link>
                     )}
 
                     <div className="dropdown-divider" />
@@ -158,12 +161,12 @@ function Header() {
             </div>
           ) : (
             <>
-              <a href="/login" className="btn-ghost">
+              <Link to="/login" className="btn-ghost">
                 Sign in
-              </a>
-              <a href="/sign-up" className="btn-join">
+              </Link>
+              <Link to="/sign-up" className="btn-join">
                 Join Free
-              </a>
+              </Link>
             </>
           )}
         </div>
@@ -184,53 +187,65 @@ function Header() {
       {/* Mobile menu */}
       {menuOpen && (
         <div className="mobile-menu">
-          <a
-            href="/"
+          <Link
+            to="/"
             className="mobile-link"
             onClick={() => setMenuOpen(false)}
           >
             Home
-          </a>
-          <a
-            href="/search"
+          </Link>
+          <Link
+            to="/search"
             className="mobile-link"
             onClick={() => setMenuOpen(false)}
           >
             Find a business
-          </a>
-          <a
-            href="/ai-ask"
+          </Link>
+          <Link
+            to="/ai-ask"
             className="mobile-link"
             onClick={() => setMenuOpen(false)}
           >
             Ask Mitra
-          </a>
-          <a
-            href="/about"
+          </Link>
+          <Link
+            to="/about"
             className="mobile-link"
             onClick={() => setMenuOpen(false)}
           >
             About
-          </a>
+          </Link>
 
           <div className="mobile-actions">
             {isLoggedIn ? (
               <>
-                <a href={dashboardUrl} className="btn-ghost-mobile">
+                <Link
+                  to={dashboardUrl}
+                  className="btn-ghost-mobile"
+                  onClick={() => setMenuOpen(false)}
+                >
                   Dashboard
-                </a>
+                </Link>
                 <button className="btn-primary-mobile" onClick={handleLogout}>
                   Sign out
                 </button>
               </>
             ) : (
               <>
-                <a href="/login" className="btn-ghost-mobile">
+                <Link
+                  to="/login"
+                  className="btn-ghost-mobile"
+                  onClick={() => setMenuOpen(false)}
+                >
                   Sign in
-                </a>
-                <a href="/sign-up" className="btn-primary-mobile">
+                </Link>
+                <Link
+                  to="/sign-up"
+                  className="btn-primary-mobile"
+                  onClick={() => setMenuOpen(false)}
+                >
                   Join free
-                </a>
+                </Link>
               </>
             )}
           </div>
