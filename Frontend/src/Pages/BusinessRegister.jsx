@@ -16,6 +16,13 @@ const BUSINESS_TYPES = [
   "Other",
 ];
 
+function formatPhone(value) {
+  const digits = value.replace(/\D/g, "").slice(0, 10);
+  if (digits.length < 4) return digits;
+  if (digits.length < 7) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+  return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+}
+
 function BusinessRegister() {
   const [business, setBusiness] = useState({
     businessName: "",
@@ -240,7 +247,12 @@ function BusinessRegister() {
                 type="tel"
                 placeholder="(555) 000-0000"
                 value={business.phone}
-                onChange={set("phone")}
+                onChange={(e) =>
+                  setBusiness((prev) => ({
+                    ...prev,
+                    phone: formatPhone(e.target.value),
+                  }))
+                }
                 className={errors.phone ? "br-input-error" : ""}
               />
               {errors.phone && (

@@ -6,6 +6,13 @@ import BusinessSearch from "./BusinessSearch";
 
 const API = import.meta.env.VITE_API_URL || "http://localhost:5001";
 
+function formatPhone(value) {
+  const digits = value.replace(/\D/g, "").slice(0, 10);
+  if (digits.length < 4) return digits;
+  if (digits.length < 7) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+  return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+}
+
 function authHeaders() {
   return {
     "Content-Type": "application/json",
@@ -423,6 +430,9 @@ export default function ResidentDashboard() {
                     type="tel"
                     defaultValue={resident.phone || ""}
                     placeholder="(555) 000-0000"
+                    onChange={(e) =>
+                      (e.target.value = formatPhone(e.target.value))
+                    }
                   />
                 </div>
                 <div className="rd-field">
