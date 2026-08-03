@@ -35,11 +35,9 @@ function Footer() {
           <Link to="/about" className="footer-link">
             About
           </Link>
-          <Link to="/search" className="footer-link">
-            Find a business
-          </Link>
+
           <Link to="/ai-ask" className="footer-link">
-            AI advisor
+            Ask Mitra
           </Link>
         </div>
 
@@ -47,16 +45,11 @@ function Footer() {
         <div className="footer-col">
           <p className="footer-col-title">Account</p>
           <Link to="/sign-up" className="footer-link">
-            Resident sign up
+            Resident signup
           </Link>
-          <Link to="/login" className="footer-link">
-            Resident sign in
-          </Link>
+
           <Link to="/business-register" className="footer-link">
             Register a business
-          </Link>
-          <Link to="/business/login" className="footer-link">
-            Business sign in
           </Link>
         </div>
 
@@ -67,12 +60,12 @@ function Footer() {
             hello@mitra.app
           </a>
           <a href="tel:+15550001234" className="footer-link">
-            (555) 000-1234
+            (555) 'GET'-HELP
           </a>
-          <p className="footer-link">123 Maple St, Maplewood NJ</p>
+
           <div className="footer-social">
             <a
-              href="https://github.com/mquint18"
+              href="https://github.com/mquint18/Mitra_capstone.git"
               target="_blank"
               rel="noreferrer"
               className="footer-social-link"
@@ -80,7 +73,7 @@ function Footer() {
               GitHub
             </a>
             <a
-              href="https://linkedin.com"
+              href="www.linkedin.com/in/michael-quint-516119415"
               target="_blank"
               rel="noreferrer"
               className="footer-social-link"
