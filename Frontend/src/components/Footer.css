@@ -1,4 +1,4 @@
-/* Footer.css */
+/* Footer.css — single-row condensed */
 
 .footer {
   background: #27500a;
@@ -8,125 +8,77 @@
 .footer-inner {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 2rem 1.5rem 1.5rem;
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 2rem;
-  align-items: start;
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 /* ── Brand ── */
-.footer-logo {
+.footer-brand {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 10px;
 }
 
 .footer-logo-text {
-  font-size: 20px;
+  font-size: 14px;
   font-weight: 500;
   color: white;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
 }
 
 .footer-tagline {
-  font-size: 13px;
-  font-weight: 500;
-  color: #97c459;
-  margin: 0;
-  letter-spacing: 0.04em;
-}
-
-/* ── Contact column ── */
-.footer-col {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.footer-col-title {
   font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
   color: #97c459;
-  margin: 0 0 4px;
+  margin-left: 4px;
+  padding-left: 10px;
+  border-left: 1px solid #3b6d11;
 }
 
+/* ── Contact ── */
+.footer-contact {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* ── Legal ── */
+.footer-legal {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 11px;
+  color: #6b9a48;
+}
+
+/* ── Shared link style ── */
 .footer-link {
-  font-size: 13px;
+  font-size: 11px;
   color: #a8c88a;
   text-decoration: none;
   transition: color 0.15s;
-  line-height: 1.5;
+  white-space: nowrap;
 }
 
 .footer-link:hover {
   color: white;
 }
 
-/* ── Social ── */
-.footer-social {
-  display: flex;
-  gap: 10px;
-  margin-top: 6px;
-}
-
-.footer-social-link {
-  font-size: 12px;
-  font-weight: 500;
-  color: #97c459;
-  text-decoration: none;
-  padding: 4px 10px;
-  border: 1px solid #3b6d11;
-  border-radius: 20px;
-  transition: all 0.15s;
-}
-
-.footer-social-link:hover {
-  background: #3b6d11;
-  color: white;
-}
-
-/* ── Bottom bar ── */
-.footer-bottom {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0.75rem 1.5rem;
-  border-top: 0.5px solid #3b6d11;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.footer-bottom p {
-  font-size: 12px;
-  color: #6b9a48;
-  margin: 0;
-}
-
-.footer-bottom-links {
-  display: flex;
-  gap: 16px;
-}
-
-.footer-bottom-link {
-  font-size: 12px;
-  color: #6b9a48;
-  text-decoration: none;
-  transition: color 0.15s;
-}
-
-.footer-bottom-link:hover {
-  color: white;
-}
-
 /* ── Responsive ── */
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .footer-inner {
-    grid-template-columns: 1fr;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 1rem 1.5rem;
+  }
+  .footer-tagline {
+    border-left: none;
+    padding-left: 0;
+    margin-left: 0;
+    display: block;
   }
 }

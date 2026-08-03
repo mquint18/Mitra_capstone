@@ -6,58 +6,50 @@ function Footer() {
   return (
     <footer className="footer">
       <div className="footer-inner">
-        {/* Brand */}
+        {/* Logo + tagline */}
         <div className="footer-brand">
-          <div className="footer-logo">
-            <svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true">
-              <circle cx="16" cy="10" r="7" fill="#EF9F27" />
-              <polygon points="2,16 16,3 30,16" fill="#3B6D11" />
-              <rect x="9" y="15" width="14" height="12" rx="2" fill="#639922" />
-              <rect x="13" y="20" width="6" height="8" rx="1" fill="#3B6D11" />
-              <rect x="9" y="26" width="14" height="3" rx="1" fill="#27500A" />
-              <ellipse cx="16" cy="30" rx="4" ry="1.5" fill="#97C459" />
-            </svg>
-            <span className="footer-logo-text">mitra</span>
-          </div>
-          <p className="footer-tagline">Your neighborhood, connected.</p>
+          <svg width="20" height="20" viewBox="0 0 32 32" aria-hidden="true">
+            <circle cx="16" cy="10" r="7" fill="#EF9F27" />
+            <polygon points="2,16 16,3 30,16" fill="#3B6D11" />
+            <rect x="9" y="15" width="14" height="12" rx="2" fill="#639922" />
+            <rect x="13" y="20" width="6" height="8" rx="1" fill="#3B6D11" />
+            <rect x="9" y="26" width="14" height="3" rx="1" fill="#27500A" />
+            <ellipse cx="16" cy="30" rx="4" ry="1.5" fill="#97C459" />
+          </svg>
+          <span className="footer-logo-text">mitra</span>
+          <span className="footer-tagline">Your neighborhood, connected.</span>
         </div>
 
         {/* Contact */}
-        <div className="footer-col">
-          <p className="footer-col-title">Contact</p>
+        <div className="footer-contact">
           <a href="mailto:hello@mitra.app" className="footer-link">
             hello@mitra.app
           </a>
-
-          <div className="footer-social">
-            <a
-              href="https://github.com/mquint18/Mitra_capstone.git"
-              target="_blank"
-              rel="noreferrer"
-              className="footer-social-link"
-            >
-              GitHub
-            </a>
-            <a
-              href="https://www.linkedin.com/in/michael-quint-516119415"
-              target="_blank"
-              rel="noreferrer"
-              className="footer-social-link"
-            >
-              LinkedIn
-            </a>
-          </div>
+          <a
+            href="https://github.com/mquint18/Mitra_capstone.git"
+            target="_blank"
+            rel="noreferrer"
+            className="footer-link"
+          >
+            GitHub
+          </a>
+          <a
+            href="https://www.linkedin.com/in/michael-quint-516119415"
+            target="_blank"
+            rel="noreferrer"
+            className="footer-link"
+          >
+            LinkedIn
+          </a>
         </div>
-      </div>
 
-      {/* Bottom bar */}
-      <div className="footer-bottom">
-        <p>© 2026 Michael Quint · Mitra</p>
-        <div className="footer-bottom-links">
-          <Link to="/privacy" className="footer-bottom-link">
+        {/* Copyright + legal */}
+        <div className="footer-legal">
+          <span>© 2026 Michael Quint</span>
+          <Link to="/privacy" className="footer-link">
             Privacy
           </Link>
-          <Link to="/terms" className="footer-bottom-link">
+          <Link to="/terms" className="footer-link">
             Terms
           </Link>
         </div>
