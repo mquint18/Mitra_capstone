@@ -102,11 +102,27 @@ export default function ResidentDashboard() {
   const [loading, setLoading] = useState(true);
   const [toast, setToast] = useState(null);
 
-  // Resident from localStorage
+  // Resident from localStorage — must be defined before profile state
   const stored = localStorage.getItem("resident");
   const resident = stored
     ? JSON.parse(stored)
-    : { firstName: "", lastName: "", email: "", suburb: "", phone: "" };
+    : {
+        firstName: "",
+        lastName: "",
+        email: "",
+        suburb: "",
+        phone: "",
+        address: "",
+      };
+
+  const [profile, setProfile] = useState({
+    firstName: resident.firstName || "",
+    lastName: resident.lastName || "",
+    email: resident.email || "",
+    phone: resident.phone || "",
+    address: resident.address || "",
+    suburb: resident.suburb || "",
+  });
 
   function showToast(msg) {
     setToast(msg);
@@ -141,15 +157,6 @@ export default function ResidentDashboard() {
     }
   }, []);
 
-  const [profile, setProfile] = useState({
-    firstName: resident.firstName || "",
-    lastName: resident.lastName || "",
-    email: resident.email || "",
-    phone: resident.phone || "",
-    address: resident.address || "",
-    suburb: resident.suburb || "",
-  });
-
   useEffect(() => {
     fetchBookings();
     fetchBusinesses();
@@ -173,6 +180,8 @@ export default function ResidentDashboard() {
       showToast("Failed to cancel booking");
     }
   }
+
+  // ── Save profile ──
   async function saveProfile() {
     try {
       const res = await fetch(`${API}/api/auth/profile`, {
@@ -194,6 +203,7 @@ export default function ResidentDashboard() {
       showToast("Unable to connect to server");
     }
   }
+
   function handleBook(business) {
     showToast(
       `Booking request sent to ${business.businessName || business.name}`,
@@ -439,16 +449,6 @@ export default function ResidentDashboard() {
                 <div className="rd-row2">
                   <div className="rd-field">
                     <label>First name</label>
-                    <input type="text" defaultValue={resident.firstName} />
-                  </div>
-                  <div className="rd-field">
-                    <label>Last name</label>
-                    <input type="text" defaultValue={resident.lastName} />
-                  </div>
-                </div>
-                <div className="rd-row2">
-                  <div className="rd-field">
-                    <label>First name</label>
                     <input
                       type="text"
                       value={profile.firstName}
@@ -484,7 +484,10 @@ export default function ResidentDashboard() {
                     type="tel"
                     value={profile.phone}
                     onChange={(e) =>
-                      setProfile((p) => ({ ...p, phone: e.target.value }))
+                      setProfile((p) => ({
+                        ...p,
+                        phone: formatPhone(e.target.value),
+                      }))
                     }
                     placeholder="(555) 000-0000"
                   />
@@ -511,36 +514,6 @@ export default function ResidentDashboard() {
                     placeholder="Maplewood"
                   />
                 </div>
-                {/* <div className="rd-field">
-                  <label>Email address</label>
-                  <input type="email" defaultValue={resident.email} />
-                </div>
-                <div className="rd-field">
-                  <label>Phone</label>
-                  <input
-                    type="tel"
-                    defaultValue={resident.phone || ""}
-                    placeholder="(555) 000-0000"
-                    onChange={(e) =>
-                      (e.target.value = formatPhone(e.target.value))
-                    }
-                  />
-                </div>
-                <div className="rd-field">
-                  <label>Address</label>
-                  <input
-                    type="text"
-                    defaultValue={resident.address || ""}
-                    placeholder="123 Maple St"
-                  />
-                </div>
-                <div className="rd-field">
-                  <label>Suburb</label>
-                  <input
-                    type="text"
-                    defaultValue={resident.suburb || ""}
-                    placeholder="Maplewood"
-                  /> */}
               </div>
             </div>
           </div>
