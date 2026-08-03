@@ -6,6 +6,7 @@ import {
   getResidentProfile,
 } from "../controllers/residentController.js";
 import { requireAuth } from "../middleware/auth.js";
+import Resident from "../models/Resident.js";
 
 const router = express.Router();
 
