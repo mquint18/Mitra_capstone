@@ -6,15 +6,6 @@ import BusinessSearch from "./BusinessSearch";
 
 const API = import.meta.env.VITE_API_URL || "http://localhost:5001";
 
-const [profile, setProfile] = useState({
-  firstName: resident.firstName || "",
-  lastName: resident.lastName || "",
-  email: resident.email || "",
-  phone: resident.phone || "",
-  address: resident.address || "",
-  suburb: resident.suburb || "",
-});
-
 function formatPhone(value) {
   const digits = value.replace(/\D/g, "").slice(0, 10);
   if (digits.length < 4) return digits;
@@ -149,6 +140,15 @@ export default function ResidentDashboard() {
       setLoading(false);
     }
   }, []);
+
+  const [profile, setProfile] = useState({
+    firstName: resident.firstName || "",
+    lastName: resident.lastName || "",
+    email: resident.email || "",
+    phone: resident.phone || "",
+    address: resident.address || "",
+    suburb: resident.suburb || "",
+  });
 
   useEffect(() => {
     fetchBookings();
