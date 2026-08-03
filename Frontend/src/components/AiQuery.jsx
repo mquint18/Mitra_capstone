@@ -100,6 +100,7 @@ function AiQuery() {
             <div className="spinner" />
             <h3>Mitra is evaluating your project…</h3>
             <p>Estimating difficulty, tools, time, and safety.</p>
+            <p>This may take a minute...</p>
           </div>
         )}
 
@@ -112,7 +113,7 @@ function AiQuery() {
 
         {!loading && response && (
           <>
-            <p className="ai-response-label">AI Recommendation</p>
+            <p className="ai-response-label">Mitra Recommendation</p>
             <div className="ai-response">
               <ReactMarkdown>{response}</ReactMarkdown>
             </div>
