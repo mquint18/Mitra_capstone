@@ -8,10 +8,11 @@
 .footer-inner {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 1.5rem 1.5rem 1rem;
+  padding: 2rem 1.5rem 1.5rem;
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 1.5rem;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  align-items: start;
 }
 
 /* ── Brand ── */
@@ -33,19 +34,11 @@
   font-size: 13px;
   font-weight: 500;
   color: #97c459;
-  margin: 0 0 8px;
+  margin: 0;
   letter-spacing: 0.04em;
 }
 
-.footer-desc {
-  font-size: 12px;
-  color: #6b9a48;
-  line-height: 1.5;
-  margin: 0;
-  max-width: 240px;
-}
-
-/* ── Columns ── */
+/* ── Contact column ── */
 .footer-col {
   display: flex;
   flex-direction: column;
@@ -132,16 +125,6 @@
 }
 
 /* ── Responsive ── */
-@media (max-width: 768px) {
-  .footer-inner {
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-  }
-  .footer-brand {
-    grid-column: 1 / -1;
-  }
-}
-
 @media (max-width: 480px) {
   .footer-inner {
     grid-template-columns: 1fr;

@@ -22,31 +22,6 @@ function Footer() {
           <p className="footer-tagline">Your neighborhood, connected.</p>
         </div>
 
-        {/* Navigation */}
-        <div className="footer-col">
-          <p className="footer-col-title">Explore</p>
-
-          <Link to="/about" className="footer-link">
-            About
-          </Link>
-
-          <Link to="/ai-ask" className="footer-link">
-            Ask Mitra
-          </Link>
-        </div>
-
-        {/* Account */}
-        <div className="footer-col">
-          <p className="footer-col-title">Account</p>
-          <Link to="/sign-up" className="footer-link">
-            Create account
-          </Link>
-
-          <Link to="/business-register" className="footer-link">
-            Register a business
-          </Link>
-        </div>
-
         {/* Contact */}
         <div className="footer-col">
           <p className="footer-col-title">Contact</p>
@@ -64,7 +39,7 @@ function Footer() {
               GitHub
             </a>
             <a
-              href="www.linkedin.com/in/michael-quint-516119415"
+              href="https://www.linkedin.com/in/michael-quint-516119415"
               target="_blank"
               rel="noreferrer"
               className="footer-social-link"
