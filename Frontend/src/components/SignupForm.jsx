@@ -22,13 +22,16 @@ function SignupForm() {
   function set(field) {
     return (e) => setForm((prev) => ({ ...prev, [field]: e.target.value }));
   }
-
+  function validateEmail(email) {
+    return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
+  }
   function validate() {
     const e = {};
     if (!form.firstName.trim()) e.firstName = "First name is required";
     if (!form.lastName.trim()) e.lastName = "Last name is required";
     if (!form.email.trim()) e.email = "Email is required";
-    else if (!/\S+@\S+\.\S+/.test(form.email)) e.email = "Enter a valid email";
+    else if (!validateEmail(form.email))
+      e.email = "Enter a valid email address";
     if (!form.password) e.password = "Password is required";
     else if (form.password.length < 8) e.password = "Minimum 8 characters";
     if (!form.confirmPassword)
@@ -166,9 +169,13 @@ function SignupForm() {
               type="email"
               placeholder="jane@example.com"
               value={form.email}
-              onChange={set("email")}
+              onChange={(e) => {
+                setForm((prev) => ({ ...prev, email: e.target.value }));
+                if (errors.email && validateEmail(e.target.value)) {
+                  setErrors((prev) => ({ ...prev, email: null }));
+                }
+              }}
               className={errors.email ? "input-error" : ""}
-              autoComplete="email"
             />
             {errors.email && (
               <span className="field-error">{errors.email}</span>

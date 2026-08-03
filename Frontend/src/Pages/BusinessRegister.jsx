@@ -23,6 +23,10 @@ function formatPhone(value) {
   return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
 }
 
+function validateEmail(email) {
+  return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
+}
+
 function BusinessRegister() {
   const [business, setBusiness] = useState({
     businessName: "",
@@ -59,8 +63,9 @@ function BusinessRegister() {
       e.businessName = "Business name is required";
     if (!business.businessType) e.businessType = "Business type is required";
     if (!business.email.trim()) e.email = "Email is required";
-    else if (!/\S+@\S+\.\S+/.test(business.email))
-      e.email = "Enter a valid email";
+    else if (!validateEmail(business.email))
+      e.email = "Enter a valid email address";
+
     if (!business.phone.trim()) e.phone = "Phone is required";
     if (!business.username.trim()) e.username = "Username is required";
     if (!business.password) e.password = "Password is required";
@@ -233,8 +238,13 @@ function BusinessRegister() {
                 type="email"
                 placeholder="hello@yourbusiness.com"
                 value={business.email}
-                onChange={set("email")}
-                className={errors.email ? "br-input-error" : ""}
+                onChange={(e) => {
+                  setBusiness((prev) => ({ ...prev, email: e.target.value }));
+                  if (errors.email && validateEmail(e.target.value)) {
+                    setErrors((prev) => ({ ...prev, email: null }));
+                  }
+                }}
+                className={errors.email ? "input-error" : ""}
               />
               {errors.email && (
                 <span className="br-field-error">{errors.email}</span>
