@@ -266,7 +266,7 @@ export default function ResidentDashboard() {
               label: "My bookings",
               count: upcoming.length,
             },
-            { id: "ai", icon: "✦", label: "AI advisor" },
+            { id: "ai", icon: "✦", label: "Ask Mitra" },
             { id: "profile", icon: "⊙", label: "My profile" },
           ].map(({ id, icon, label, count }) => (
             <button
@@ -446,7 +446,72 @@ export default function ResidentDashboard() {
                     <input type="text" defaultValue={resident.lastName} />
                   </div>
                 </div>
+                <div className="rd-row2">
+                  <div className="rd-field">
+                    <label>First name</label>
+                    <input
+                      type="text"
+                      value={profile.firstName}
+                      onChange={(e) =>
+                        setProfile((p) => ({ ...p, firstName: e.target.value }))
+                      }
+                    />
+                  </div>
+                  <div className="rd-field">
+                    <label>Last name</label>
+                    <input
+                      type="text"
+                      value={profile.lastName}
+                      onChange={(e) =>
+                        setProfile((p) => ({ ...p, lastName: e.target.value }))
+                      }
+                    />
+                  </div>
+                </div>
                 <div className="rd-field">
+                  <label>Email address</label>
+                  <input
+                    type="email"
+                    value={profile.email}
+                    onChange={(e) =>
+                      setProfile((p) => ({ ...p, email: e.target.value }))
+                    }
+                  />
+                </div>
+                <div className="rd-field">
+                  <label>Phone</label>
+                  <input
+                    type="tel"
+                    value={profile.phone}
+                    onChange={(e) =>
+                      setProfile((p) => ({ ...p, phone: e.target.value }))
+                    }
+                    placeholder="(555) 000-0000"
+                  />
+                </div>
+                <div className="rd-field">
+                  <label>Address</label>
+                  <input
+                    type="text"
+                    value={profile.address}
+                    onChange={(e) =>
+                      setProfile((p) => ({ ...p, address: e.target.value }))
+                    }
+                    placeholder="123 Maple St"
+                  />
+                </div>
+                <div className="rd-field">
+                  <label>Suburb</label>
+                  <input
+                    type="text"
+                    value={profile.suburb}
+                    onChange={(e) =>
+                      setProfile((p) => ({ ...p, suburb: e.target.value }))
+                    }
+                    placeholder="Maplewood"
+                  />
+                </div>
+                {/* <div className="rd-field">
                   <label>Email address</label>
                   <input type="email" defaultValue={resident.email} />
                 </div>
@@ -475,8 +540,7 @@ export default function ResidentDashboard() {
                     type="text"
                     defaultValue={resident.suburb || ""}
                     placeholder="Maplewood"
-                  />
-                </div>
+                  /> */}
               </div>
             </div>
           </div>
