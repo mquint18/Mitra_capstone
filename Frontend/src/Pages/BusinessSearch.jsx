@@ -51,7 +51,7 @@ function BusinessCard({ business, onBook }) {
             {expanded ? "Less" : "Details"}
           </button>
           <button className="bs-btn-book" onClick={() => onBook(business)}>
-            Book
+            Request Booking
           </button>
         </div>
       </div>

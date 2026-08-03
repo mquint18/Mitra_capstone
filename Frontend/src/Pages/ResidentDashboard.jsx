@@ -87,7 +87,7 @@ function BusinessCard({ business, onBook }) {
       </div>
       <div className="biz-right">
         <button className="btn-book" onClick={() => onBook(business)}>
-          Book
+          Request Booking
         </button>
       </div>
     </div>
