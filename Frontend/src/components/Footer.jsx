@@ -20,18 +20,12 @@ function Footer() {
             <span className="footer-logo-text">mitra</span>
           </div>
           <p className="footer-tagline">Your neighborhood, connected.</p>
-          <p className="footer-desc">
-            Mitra helps residents find trusted local businesses and book
-            services — all in one place.
-          </p>
         </div>
 
         {/* Navigation */}
         <div className="footer-col">
           <p className="footer-col-title">Explore</p>
-          <Link to="/" className="footer-link">
-            Home
-          </Link>
+
           <Link to="/about" className="footer-link">
             About
           </Link>
@@ -45,7 +39,7 @@ function Footer() {
         <div className="footer-col">
           <p className="footer-col-title">Account</p>
           <Link to="/sign-up" className="footer-link">
-            Resident signup
+            Create account
           </Link>
 
           <Link to="/business-register" className="footer-link">
@@ -58,9 +52,6 @@ function Footer() {
           <p className="footer-col-title">Contact</p>
           <a href="mailto:hello@mitra.app" className="footer-link">
             hello@mitra.app
-          </a>
-          <a href="tel:+15550001234" className="footer-link">
-            (555) 'GET'-HELP
           </a>
 
           <div className="footer-social">
