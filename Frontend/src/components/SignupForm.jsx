@@ -222,9 +222,6 @@ function SignupForm() {
         <p className="signin-link">
           Already have an account? <Link to="/login">Sign in</Link>
         </p>
-        <p className="business-link">
-          Sign up as a business <Link to="/business-register">Sign up</Link>
-        </p>
       </div>
     </div>
   );

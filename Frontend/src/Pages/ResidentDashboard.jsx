@@ -6,6 +6,15 @@ import BusinessSearch from "./BusinessSearch";
 
 const API = import.meta.env.VITE_API_URL || "http://localhost:5001";
 
+const [profile, setProfile] = useState({
+  firstName: resident.firstName || "",
+  lastName: resident.lastName || "",
+  email: resident.email || "",
+  phone: resident.phone || "",
+  address: resident.address || "",
+  suburb: resident.suburb || "",
+});
+
 function formatPhone(value) {
   const digits = value.replace(/\D/g, "").slice(0, 10);
   if (digits.length < 4) return digits;
@@ -164,7 +173,27 @@ export default function ResidentDashboard() {
       showToast("Failed to cancel booking");
     }
   }
-
+  async function saveProfile() {
+    try {
+      const res = await fetch(`${API}/api/auth/profile`, {
+        method: "PUT",
+        headers: authHeaders(),
+        body: JSON.stringify(profile),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        localStorage.setItem(
+          "resident",
+          JSON.stringify({ ...resident, ...profile }),
+        );
+        showToast("Profile saved ✓");
+      } else {
+        showToast(data.message || "Failed to save");
+      }
+    } catch (_) {
+      showToast("Unable to connect to server");
+    }
+  }
   function handleBook(business) {
     showToast(
       `Booking request sent to ${business.businessName || business.name}`,
@@ -398,10 +427,7 @@ export default function ResidentDashboard() {
                   Update your contact details and address.
                 </p>
               </div>
-              <button
-                className="btn-primary"
-                onClick={() => showToast("Profile saved ✓")}
-              >
+              <button className="btn-primary" onClick={saveProfile}>
                 Save changes
               </button>
             </div>

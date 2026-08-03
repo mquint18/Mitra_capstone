@@ -14,3 +14,23 @@ router.post("/login", loginResident); // POST /api/auth/login
 router.get("/me", requireAuth, getResidentProfile); // GET  /api/auth/me
 
 export default router;
+
+// PUT /api/auth/profile — update resident profile
+router.put("/profile", requireAuth, async (req, res) => {
+  try {
+    const { firstName, lastName, email, phone, address, suburb } = req.body;
+    const resident = await Resident.findByIdAndUpdate(
+      req.user.id,
+      { firstName, lastName, email, phone, address, suburb },
+      { returnDocument: "after" },
+    ).select("-password");
+
+    if (!resident)
+      return res.status(404).json({ message: "Resident not found" });
+
+    res.json({ message: "Profile updated", user: resident });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to update profile" });
+  }
+});
