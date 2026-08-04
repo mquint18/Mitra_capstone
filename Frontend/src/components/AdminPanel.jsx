@@ -512,7 +512,11 @@ export default function AdminPanel() {
 
   return (
     <div className="ap-wrap">
-      {toast && <div className="ap-toast">{toast}</div>}
+      {toast && (
+        <div className="ap-toast" role="status" aria-live="polite">
+          {toast}
+        </div>
+      )}
 
       {/* Sidebar */}
       <aside className="ap-sidebar">

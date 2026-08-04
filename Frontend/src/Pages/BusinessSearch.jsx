@@ -272,7 +272,11 @@ export default function BusinessSearch() {
 
   return (
     <div className="bs-wrap">
-      {toast && <div className="bs-toast">{toast}</div>}
+      {toast && (
+        <div className="bs-toast" role="status" aria-live="polite">
+          {toast}
+        </div>
+      )}
 
       {/* Header */}
       <div className="bs-header">

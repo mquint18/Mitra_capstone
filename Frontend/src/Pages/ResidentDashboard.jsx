@@ -214,7 +214,11 @@ export default function ResidentDashboard() {
 
   return (
     <div className="rd-wrap">
-      {toast && <div className="rd-toast">{toast}</div>}
+      {toast && (
+        <div className="toast" role="status" aria-live="polite">
+          {toast}
+        </div>
+      )}
 
       <aside className="rd-sidebar">
         <div className="rd-sidebar-logo">
