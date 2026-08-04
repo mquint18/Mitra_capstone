@@ -4,6 +4,10 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./SignupForm.css";
 
+function isValidName(name) {
+  return /^[a-zA-Z\s'-]{1,50}$/.test(name);
+}
+
 function SignupForm() {
   const [form, setForm] = useState({
     firstName: "",
@@ -28,10 +32,15 @@ function SignupForm() {
   function validate() {
     const e = {};
     if (!form.firstName.trim()) e.firstName = "First name is required";
+    else if (!isValidName(form.firstName))
+      e.firstName = "Letters only, max 50 characters";
+
     if (!form.lastName.trim()) e.lastName = "Last name is required";
+    else if (!isValidName(form.lastName))
+      e.lastName = "Letters only, max 50 characters";
+
     if (!form.email.trim()) e.email = "Email is required";
-    else if (!validateEmail(form.email))
-      e.email = "Enter a valid email address";
+    else if (!/\S+@\S+\.\S+/.test(form.email)) e.email = "Enter a valid email";
     if (!form.password) e.password = "Password is required";
     else if (form.password.length < 8) e.password = "Minimum 8 characters";
     if (!form.confirmPassword)
@@ -139,7 +148,12 @@ function SignupForm() {
                 type="text"
                 placeholder="Jane"
                 value={form.firstName}
-                onChange={set("firstName")}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (/^[a-zA-Z\s'-]*$/.test(value) && value.length <= 50) {
+                    set("firstName")(e);
+                  }
+                }}
                 className={errors.firstName ? "input-error" : ""}
               />
               {errors.firstName && (
@@ -153,7 +167,12 @@ function SignupForm() {
                 type="text"
                 placeholder="Smith"
                 value={form.lastName}
-                onChange={set("lastName")}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (/^[a-zA-Z\s'-]*$/.test(value) && value.length <= 50) {
+                    set("firstName")(e);
+                  }
+                }}
                 className={errors.lastName ? "input-error" : ""}
               />
               {errors.lastName && (

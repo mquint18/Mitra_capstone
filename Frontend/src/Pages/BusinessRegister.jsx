@@ -26,6 +26,9 @@ function formatPhone(value) {
 function validateEmail(email) {
   return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
 }
+function isValidBusinessName(name) {
+  return name.trim().length > 0 && name.length <= 80;
+}
 
 function BusinessRegister() {
   const [business, setBusiness] = useState({
@@ -61,6 +64,8 @@ function BusinessRegister() {
     const e = {};
     if (!business.businessName.trim())
       e.businessName = "Business name is required";
+    else if (business.businessName.length > 80)
+      e.businessName = "Maximum 80 characters";
     if (!business.businessType) e.businessType = "Business type is required";
     if (!business.email.trim()) e.email = "Email is required";
     else if (!validateEmail(business.email))
