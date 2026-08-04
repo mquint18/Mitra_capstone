@@ -6,6 +6,7 @@ import BusinessSearch from "./BusinessSearch";
 import MitraLogo from "../components/MitraLogo";
 import { API, authHeaders } from "../utils/api";
 import { formatPhone, initials } from "../utils/format";
+import { useSearchParams } from "react-router-dom";
 
 function statusClass(s) {
   return (
@@ -76,7 +77,9 @@ function BusinessCard({ business, onBook }) {
 }
 
 export default function ResidentDashboard() {
-  const [tab, setTab] = useState("home");
+  const [searchParams] = useSearchParams();
+  const initialTab = searchParams.get("tab") || "home";
+  const [tab, setTab] = useState(initialTab);
   const [bookings, setBookings] = useState([]);
   const [businesses, setBusinesses] = useState([]);
   const [loading, setLoading] = useState(true);

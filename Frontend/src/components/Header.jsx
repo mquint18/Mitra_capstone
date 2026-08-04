@@ -124,12 +124,13 @@ function Header() {
                     <div className="dropdown-divider" />
 
                     <Link
-                      to={dashboardUrl}
+                      to="/resident-dashboard?tab=profile"
                       className="dropdown-item"
                       onClick={() => setDropdownOpen(false)}
                     >
-                      <span className="dropdown-icon">⊞</span> Dashboard
+                      <span className="dropdown-icon">👤</span> My profile
                     </Link>
+
                     <Link
                       to="/profile"
                       className="dropdown-item"
