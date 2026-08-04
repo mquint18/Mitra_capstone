@@ -170,7 +170,7 @@ function SignupForm() {
                 onChange={(e) => {
                   const value = e.target.value;
                   if (/^[a-zA-Z\s'-]*$/.test(value) && value.length <= 50) {
-                    set("firstName")(e);
+                    set("lastName")(e);
                   }
                 }}
                 className={errors.lastName ? "input-error" : ""}
