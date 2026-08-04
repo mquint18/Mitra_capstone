@@ -1,22 +1,22 @@
-/* BusinessDashboard.css — all scoped to .dash-wrap */
+/* BusinessDashboard.css — warm terracotta/gold theme, scoped to .dash-wrap */
 :root {
-  --green: #639922;
-  --dark: #27500a;
-  --mid: #3b6d11;
-  --light: #eaf3de;
-  --sage: #97c459;
+  --biz-orange: #d85a30;
+  --biz-dark: #712b13;
+  --biz-mid: #993c1d;
+  --biz-light: #faeeda;
+  --biz-sand: #f0c89a;
   --gold: #ef9f27;
-  --muted: #888780;
-  --border: #d3d1c7;
-  --bg: #f7f6f2;
+  --muted: #a17a5c;
+  --border: #e8cbb3;
+  --bg: #fff8f0;
   --white: #ffffff;
   --text: #2c2c2a;
   --error: #e24b4a;
 }
 
-/* ── Layout ── */
 .dash-wrap {
   display: flex;
+  min-height: 100vh;
   font-family: system-ui, sans-serif;
   color: var(--text);
   box-sizing: border-box;
@@ -59,7 +59,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.12);
   border-radius: 10px;
   padding: 10px;
   margin-bottom: 1.5rem;
@@ -70,7 +70,7 @@
   height: 36px;
   border-radius: 50%;
   background: var(--gold);
-  color: var(--dark);
+  color: var(--biz-dark);
   font-size: 16px;
   font-weight: 600;
   display: flex;
@@ -88,7 +88,7 @@
 
 .dash-wrap .sidebar-biz-cat {
   font-size: 11px;
-  color: var(--sage);
+  color: var(--biz-sand);
 }
 
 .dash-wrap .sidebar-nav {
@@ -106,7 +106,7 @@
   border-radius: 8px;
   font-size: 13px;
   font-weight: 400;
-  color: #c0dd97;
+  color: var(--biz-sand);
   background: none;
   border: none;
   cursor: pointer;
@@ -117,11 +117,11 @@
 }
 
 .dash-wrap .nav-item:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.12);
   color: white;
 }
 .dash-wrap .nav-item-active {
-  background: rgba(255, 255, 255, 0.15) !important;
+  background: rgba(255, 255, 255, 0.18) !important;
   color: white !important;
   font-weight: 500;
 }
@@ -134,7 +134,7 @@
 .dash-wrap .nav-badge {
   margin-left: auto;
   background: var(--gold);
-  color: var(--dark);
+  color: var(--biz-dark);
   font-size: 10px;
   font-weight: 700;
   border-radius: 10px;
@@ -143,17 +143,19 @@
 
 .dash-wrap .sidebar-logout {
   font-size: 13px;
-  color: #97c459;
-  text-decoration: none;
+  color: var(--biz-sand);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
   padding: 8px 12px;
   border-radius: 8px;
-  transition: background 0.15s;
+  text-align: left;
+  transition: all 0.15s;
   margin-top: 1rem;
-  display: block;
 }
-
 .dash-wrap .sidebar-logout:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.12);
   color: white;
 }
 
@@ -178,7 +180,7 @@
 .dash-wrap .dash-title {
   font-size: 24px;
   font-weight: 500;
-  color: var(--dark);
+  color: var(--biz-dark);
   margin-bottom: 4px;
 }
 
@@ -205,7 +207,7 @@
 .dash-wrap .stat-value {
   font-size: 28px;
   font-weight: 500;
-  color: var(--dark);
+  color: var(--biz-dark);
   margin-bottom: 4px;
 }
 .dash-wrap .stat-label {
@@ -221,7 +223,7 @@
 .dash-wrap .section-title {
   font-size: 16px;
   font-weight: 500;
-  color: var(--dark);
+  color: var(--biz-dark);
   margin-bottom: 1rem;
 }
 
@@ -268,7 +270,7 @@
 
 .dash-wrap .btn-confirm {
   padding: 5px 12px;
-  background: var(--green);
+  background: var(--biz-orange);
   color: white;
   border: none;
   border-radius: 6px;
@@ -279,7 +281,7 @@
   transition: background 0.15s;
 }
 .dash-wrap .btn-confirm:hover {
-  background: var(--mid);
+  background: var(--biz-mid);
 }
 
 .dash-wrap .btn-decline {
@@ -307,8 +309,8 @@
   text-transform: capitalize;
 }
 .dash-wrap .badge-confirmed {
-  background: var(--light);
-  color: var(--dark);
+  background: var(--biz-light);
+  color: var(--biz-dark);
 }
 .dash-wrap .badge-pending {
   background: #fef3dc;
@@ -321,7 +323,7 @@
 
 .dash-wrap .see-all {
   font-size: 13px;
-  color: var(--green);
+  color: var(--biz-orange);
   background: none;
   border: none;
   cursor: pointer;
@@ -354,11 +356,10 @@
   justify-content: space-between;
   margin-bottom: 1rem;
 }
-
 .dash-wrap .cal-month {
   font-size: 15px;
   font-weight: 500;
-  color: var(--dark);
+  color: var(--biz-dark);
 }
 
 .dash-wrap .cal-nav {
@@ -376,8 +377,8 @@
   transition: all 0.15s;
 }
 .dash-wrap .cal-nav:hover {
-  border-color: var(--green);
-  color: var(--dark);
+  border-color: var(--biz-orange);
+  color: var(--biz-dark);
 }
 
 .dash-wrap .cal-grid {
@@ -386,7 +387,6 @@
   gap: 3px;
   text-align: center;
 }
-
 .dash-wrap .cal-day-label {
   font-size: 10px;
   font-weight: 500;
@@ -413,7 +413,7 @@
 }
 
 .dash-wrap .cal-cell:hover:not(.past):not(.empty) {
-  background: var(--light);
+  background: var(--biz-light);
 }
 .dash-wrap .cal-cell.empty {
   pointer-events: none;
@@ -423,11 +423,11 @@
   cursor: default;
 }
 .dash-wrap .cal-cell.today {
-  border-color: var(--sage);
+  border-color: var(--gold);
   font-weight: 600;
 }
 .dash-wrap .cal-cell.sel {
-  background: var(--dark);
+  background: var(--biz-dark);
   color: white;
 }
 .dash-wrap .cal-cell.has-booking {
@@ -464,11 +464,11 @@
   background: var(--gold);
 }
 .dash-wrap .today-demo {
-  border: 1.5px solid var(--sage);
+  border: 1.5px solid var(--gold);
   background: none;
 }
 .dash-wrap .sel-demo {
-  background: var(--dark);
+  background: var(--biz-dark);
 }
 
 .dash-wrap .day-panel {
@@ -488,7 +488,7 @@
 .dash-wrap .day-panel-header h4 {
   font-size: 14px;
   font-weight: 500;
-  color: var(--dark);
+  color: var(--biz-dark);
 }
 .dash-wrap .day-avail-label {
   font-size: 12px;
@@ -523,12 +523,12 @@
   font-family: inherit;
 }
 .dash-wrap .slot:hover:not(:disabled) {
-  border-color: var(--sage);
-  color: var(--dark);
+  border-color: var(--gold);
+  color: var(--biz-dark);
 }
 .dash-wrap .slot-on {
-  background: var(--green);
-  border-color: var(--green);
+  background: var(--biz-orange);
+  border-color: var(--biz-orange);
   color: white;
 }
 .dash-wrap .slot-booked {
@@ -555,7 +555,7 @@
 .dash-wrap .day-booking-time {
   font-size: 12px;
   font-weight: 500;
-  color: var(--dark);
+  color: var(--biz-dark);
   width: 56px;
   flex-shrink: 0;
 }
@@ -610,7 +610,7 @@
   cursor: pointer;
 }
 .dash-wrap .tog input:checked + .tog-track {
-  background: var(--green);
+  background: var(--biz-orange);
 }
 .dash-wrap .tog-thumb {
   position: absolute;
@@ -641,7 +641,7 @@
   display: block;
   font-size: 12px;
   font-weight: 500;
-  color: var(--dark);
+  color: var(--biz-dark);
   margin-bottom: 5px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -658,8 +658,8 @@
   color: var(--text);
 }
 .dash-wrap .profile-field input:focus {
-  border-color: var(--green);
-  box-shadow: 0 0 0 3px #63992220;
+  border-color: var(--biz-orange);
+  box-shadow: 0 0 0 3px #d85a3020;
 }
 .dash-wrap .keywords-display {
   display: flex;
@@ -667,8 +667,8 @@
   gap: 6px;
 }
 .dash-wrap .keyword-tag {
-  background: var(--light);
-  color: var(--dark);
+  background: var(--biz-light);
+  color: var(--biz-dark);
   border-radius: 20px;
   padding: 4px 12px;
   font-size: 12px;
@@ -698,7 +698,7 @@
 /* ── Buttons ── */
 .dash-wrap .btn-primary {
   padding: 9px 20px;
-  background: var(--green);
+  background: var(--biz-orange);
   color: white;
   border: none;
   border-radius: 8px;
@@ -710,7 +710,7 @@
   white-space: nowrap;
 }
 .dash-wrap .btn-primary:hover {
-  background: var(--mid);
+  background: var(--biz-mid);
 }
 .dash-wrap .filter-row {
   display: flex;
@@ -728,9 +728,11 @@
   font-family: inherit;
   transition: all 0.15s;
 }
-.dash-wrap .filter-btn:hover {
-  border-color: var(--green);
-  color: var(--dark);
+.dash-wrap .filter-btn:hover,
+.dash-wrap .filter-btn-active {
+  border-color: var(--biz-orange);
+  color: var(--biz-dark);
+  background: var(--biz-light);
 }
 
 /* ── Toast ── */
@@ -738,7 +740,7 @@
   position: fixed;
   bottom: 1.5rem;
   right: 1.5rem;
-  background: var(--dark);
+  background: var(--biz-dark);
   color: white;
   padding: 10px 18px;
   border-radius: 8px;
