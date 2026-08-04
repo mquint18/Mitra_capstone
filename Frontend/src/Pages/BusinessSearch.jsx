@@ -3,8 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { useBusinessSearch } from "../hooks/useBusinessSearch";
 import "./BusinessSearch.css";
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:5001";
-
+import { API, authHeaders } from "../utils/api";
 // ── Business card ─────────────────────────────────────────
 function BusinessCard({ business, onBook }) {
   const [expanded, setExpanded] = useState(false);

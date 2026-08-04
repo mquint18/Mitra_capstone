@@ -4,20 +4,13 @@ import "./ResidentDashboard.css";
 import AiQuery from "../components/AiQuery";
 import BusinessSearch from "./BusinessSearch";
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:5001";
+import { API, authHeaders } from "../utils/api";
 
 function formatPhone(value) {
   const digits = value.replace(/\D/g, "").slice(0, 10);
   if (digits.length < 4) return digits;
   if (digits.length < 7) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
   return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
-}
-
-function authHeaders() {
-  return {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${localStorage.getItem("token")}`,
-  };
 }
 
 // ── Helpers ──────────────────────────────────────────────

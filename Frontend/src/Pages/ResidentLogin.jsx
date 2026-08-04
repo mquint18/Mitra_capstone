@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./ResidentLogin.css";
+import { API, authHeaders } from "../utils/api";
 
 function ResidentLogin() {
   const [form, setForm] = useState({ email: "", password: "" });

@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import "./BusinessDashboard.css";
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:5001";
+import { API, authHeaders } from "../utils/api";
 
 // ── Helpers ──────────────────────────────────────────────
 const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -41,13 +41,6 @@ function getDaysInMonth(year, month) {
 }
 function getFirstDay(year, month) {
   return new Date(year, month, 1).getDay();
-}
-
-function authHeaders() {
-  return {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${localStorage.getItem("token")}`,
-  };
 }
 
 // ── Sub-components ────────────────────────────────────────

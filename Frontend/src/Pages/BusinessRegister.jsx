@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./BusinessRegister.css";
+import { API, authHeaders } from "../utils/api";
 
 const BUSINESS_TYPES = [
   "Home services",

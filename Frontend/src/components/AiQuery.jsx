@@ -2,13 +2,12 @@
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import "./AiQuery.css";
-
+import { API, authHeaders } from "../utils/api";
 function AiQuery() {
   const [job, setJob] = useState("");
   const [expertise, setExpertise] = useState("");
   const [response, setResponse] = useState("");
   const [loading, setLoading] = useState(false);
-  const API = import.meta.env.VITE_API_URL || "http://localhost:5001";
 
   async function askClaude() {
     if (!job.trim() || !expertise) return;

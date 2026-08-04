@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./SignupForm.css";
+import { API, authHeaders } from "../utils/api";
 
 function isValidName(name) {
   return /^[a-zA-Z\s'-]{1,50}$/.test(name);

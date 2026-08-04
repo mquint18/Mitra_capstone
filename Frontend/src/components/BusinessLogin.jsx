@@ -3,13 +3,13 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./BusinessLogin.css";
+import { API, authHeaders } from "../utils/api";
 
 function BusinessLogin() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const API = import.meta.env.VITE_API_URL || "http://localhost:5001";
 
   function set(field) {
     return (e) => {
