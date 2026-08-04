@@ -2,10 +2,9 @@
 
 import { useState, useEffect, useCallback } from "react";
 import "./BusinessDashboard.css";
-
+import MitraLogo from "./MitraLogo";
 import { API, authHeaders } from "../utils/api";
 
-// ── Helpers ──────────────────────────────────────────────
 const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const MONTHS = [
   "January",
@@ -43,7 +42,6 @@ function getFirstDay(year, month) {
   return new Date(year, month, 1).getDay();
 }
 
-// ── Sub-components ────────────────────────────────────────
 function StatCard({ label, value, sub }) {
   return (
     <div className="stat-card">
@@ -319,7 +317,6 @@ function Calendar({ bookings, availability, onSlotToggle, onDayToggle }) {
   );
 }
 
-// ── Main Dashboard ────────────────────────────────────────
 export default function BusinessDashboard() {
   const [tab, setTab] = useState("overview");
   const [business, setBusiness] = useState(null);
@@ -333,7 +330,6 @@ export default function BusinessDashboard() {
   const [toast, setToast] = useState(null);
   const [filter, setFilter] = useState("all");
 
-  // Load business profile from localStorage
   const storedBusiness = JSON.parse(localStorage.getItem("business") || "{}");
 
   function showToast(msg) {
@@ -341,7 +337,6 @@ export default function BusinessDashboard() {
     setTimeout(() => setToast(null), 3000);
   }
 
-  // ── Fetch business profile from DB ──
   const fetchBusiness = useCallback(async () => {
     try {
       const res = await fetch(`${API}/api/business/${storedBusiness.id}`, {
@@ -350,17 +345,14 @@ export default function BusinessDashboard() {
       const data = await res.json();
       if (res.ok) {
         setBusiness(data.business);
-        if (data.business.availability) {
+        if (data.business.availability)
           setAvailability(data.business.availability);
-        }
       }
     } catch (_) {
-      // fall back to localStorage
       setBusiness(storedBusiness);
     }
   }, [storedBusiness.id]);
 
-  // ── Fetch bookings from DB ──
   const fetchBookings = useCallback(async () => {
     try {
       const res = await fetch(`${API}/api/bookings/business`, {
@@ -380,7 +372,6 @@ export default function BusinessDashboard() {
     fetchBookings();
   }, [fetchBusiness, fetchBookings]);
 
-  // ── Update booking status ──
   async function updateBooking(id, status) {
     try {
       const res = await fetch(`${API}/api/bookings/${id}`, {
@@ -401,7 +392,6 @@ export default function BusinessDashboard() {
     }
   }
 
-  // ── Save availability ──
   async function saveAvailability() {
     try {
       const res = await fetch(
@@ -460,7 +450,7 @@ export default function BusinessDashboard() {
         className="dash-wrap"
         style={{ alignItems: "center", justifyContent: "center" }}
       >
-        <p style={{ color: "#888780", fontFamily: "system-ui" }}>
+        <p style={{ color: "#A17A5C", fontFamily: "system-ui" }}>
           Loading dashboard…
         </p>
       </div>
@@ -471,17 +461,9 @@ export default function BusinessDashboard() {
     <div className="dash-wrap">
       {toast && <div className="toast">{toast}</div>}
 
-      {/* Sidebar */}
       <aside className="sidebar">
         <div className="sidebar-logo">
-          <svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true">
-            <circle cx="16" cy="10" r="7" fill="#EF9F27" />
-            <polygon points="2,16 16,3 30,16" fill="#3B6D11" />
-            <rect x="9" y="15" width="14" height="12" rx="2" fill="#639922" />
-            <rect x="13" y="20" width="6" height="8" rx="1" fill="#3B6D11" />
-            <rect x="9" y="26" width="14" height="3" rx="1" fill="#27500A" />
-            <ellipse cx="16" cy="30" rx="4" ry="1.5" fill="#97C459" />
-          </svg>
+          <MitraLogo size={28} />
           <span className="sidebar-logo-text">mitra</span>
         </div>
 
@@ -520,9 +502,7 @@ export default function BusinessDashboard() {
         </button>
       </aside>
 
-      {/* Main */}
       <main className="dash-main">
-        {/* ── Overview ── */}
         {tab === "overview" && (
           <div className="dash-section">
             <div className="dash-header">
@@ -562,7 +542,7 @@ export default function BusinessDashboard() {
                 />
               ))}
               {bookings.length === 0 && (
-                <p style={{ color: "#888780", fontSize: "14px" }}>
+                <p style={{ color: "#A17A5C", fontSize: "14px" }}>
                   No bookings yet.
                 </p>
               )}
@@ -575,7 +555,6 @@ export default function BusinessDashboard() {
           </div>
         )}
 
-        {/* ── Calendar ── */}
         {tab === "calendar" && (
           <div className="dash-section">
             <div className="dash-header">
@@ -598,7 +577,6 @@ export default function BusinessDashboard() {
           </div>
         )}
 
-        {/* ── Bookings ── */}
         {tab === "bookings" && (
           <div className="dash-section">
             <div className="dash-header">
@@ -631,7 +609,7 @@ export default function BusinessDashboard() {
                 />
               ))}
               {filteredBookings.length === 0 && (
-                <p style={{ color: "#888780", fontSize: "14px" }}>
+                <p style={{ color: "#A17A5C", fontSize: "14px" }}>
                   No {filter === "all" ? "" : filter} bookings.
                 </p>
               )}
@@ -639,7 +617,6 @@ export default function BusinessDashboard() {
           </div>
         )}
 
-        {/* ── Profile ── */}
         {tab === "profile" && (
           <div className="dash-section">
             <div className="dash-header">
@@ -685,7 +662,6 @@ export default function BusinessDashboard() {
           </div>
         )}
 
-        {/* ── Settings ── */}
         {tab === "settings" && (
           <div className="dash-section">
             <h1 className="dash-title">Settings</h1>

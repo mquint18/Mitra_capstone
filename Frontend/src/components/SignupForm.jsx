@@ -3,11 +3,9 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./SignupForm.css";
-import { API, authHeaders } from "../utils/api";
-
-function isValidName(name) {
-  return /^[a-zA-Z\s'-]{1,50}$/.test(name);
-}
+import MitraLogo from "./MitraLogo";
+import { API } from "../utils/api";
+import { isValidEmail, isValidName } from "../utils/format";
 
 function SignupForm() {
   const [form, setForm] = useState({
@@ -22,26 +20,30 @@ function SignupForm() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
-  const API = import.meta.env.VITE_API_URL || "http://localhost:5001";
 
   function set(field) {
     return (e) => setForm((prev) => ({ ...prev, [field]: e.target.value }));
   }
-  function validateEmail(email) {
-    return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
+
+  function setName(field) {
+    return (e) => {
+      const value = e.target.value;
+      if (/^[a-zA-Z\s'-]*$/.test(value) && value.length <= 50) {
+        setForm((prev) => ({ ...prev, [field]: value }));
+      }
+    };
   }
+
   function validate() {
     const e = {};
     if (!form.firstName.trim()) e.firstName = "First name is required";
     else if (!isValidName(form.firstName))
       e.firstName = "Letters only, max 50 characters";
-
     if (!form.lastName.trim()) e.lastName = "Last name is required";
     else if (!isValidName(form.lastName))
       e.lastName = "Letters only, max 50 characters";
-
     if (!form.email.trim()) e.email = "Email is required";
-    else if (!/\S+@\S+\.\S+/.test(form.email)) e.email = "Enter a valid email";
+    else if (!isValidEmail(form.email)) e.email = "Enter a valid email address";
     if (!form.password) e.password = "Password is required";
     else if (form.password.length < 8) e.password = "Minimum 8 characters";
     if (!form.confirmPassword)
@@ -108,13 +110,7 @@ function SignupForm() {
     <div className="signup-wrap">
       <div className="signup-card">
         <div className="signup-logo">
-          <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true">
-            <circle cx="16" cy="10" r="7" fill="#EF9F27" />
-            <polygon points="2,16 16,3 30,16" fill="#3B6D11" />
-            <rect x="9" y="15" width="14" height="12" rx="2" fill="#639922" />
-            <rect x="13" y="20" width="6" height="8" rx="1" fill="#3B6D11" />
-            <rect x="9" y="26" width="14" height="3" rx="1" fill="#27500A" />
-          </svg>
+          <MitraLogo size={32} />
           <span className="signup-logo-text">mitra</span>
         </div>
 
@@ -149,12 +145,7 @@ function SignupForm() {
                 type="text"
                 placeholder="Jane"
                 value={form.firstName}
-                onChange={(e) => {
-                  const value = e.target.value;
-                  if (/^[a-zA-Z\s'-]*$/.test(value) && value.length <= 50) {
-                    set("firstName")(e);
-                  }
-                }}
+                onChange={setName("firstName")}
                 className={errors.firstName ? "input-error" : ""}
               />
               {errors.firstName && (
@@ -168,12 +159,7 @@ function SignupForm() {
                 type="text"
                 placeholder="Smith"
                 value={form.lastName}
-                onChange={(e) => {
-                  const value = e.target.value;
-                  if (/^[a-zA-Z\s'-]*$/.test(value) && value.length <= 50) {
-                    set("lastName")(e);
-                  }
-                }}
+                onChange={setName("lastName")}
                 className={errors.lastName ? "input-error" : ""}
               />
               {errors.lastName && (
@@ -189,13 +175,9 @@ function SignupForm() {
               type="email"
               placeholder="jane@example.com"
               value={form.email}
-              onChange={(e) => {
-                setForm((prev) => ({ ...prev, email: e.target.value }));
-                if (errors.email && validateEmail(e.target.value)) {
-                  setErrors((prev) => ({ ...prev, email: null }));
-                }
-              }}
+              onChange={set("email")}
               className={errors.email ? "input-error" : ""}
+              autoComplete="email"
             />
             {errors.email && (
               <span className="field-error">{errors.email}</span>
@@ -241,6 +223,9 @@ function SignupForm() {
 
         <p className="signin-link">
           Already have an account? <Link to="/login">Sign in</Link>
+        </p>
+        <p className="business-link">
+          Sign up as a business <Link to="/business-register">Sign up</Link>
         </p>
       </div>
     </div>

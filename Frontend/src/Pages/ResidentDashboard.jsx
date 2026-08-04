@@ -3,17 +3,10 @@ import { useState, useEffect, useCallback } from "react";
 import "./ResidentDashboard.css";
 import AiQuery from "../components/AiQuery";
 import BusinessSearch from "./BusinessSearch";
-
+import MitraLogo from "../components/MitraLogo";
 import { API, authHeaders } from "../utils/api";
+import { formatPhone, initials } from "../utils/format";
 
-function formatPhone(value) {
-  const digits = value.replace(/\D/g, "").slice(0, 10);
-  if (digits.length < 4) return digits;
-  if (digits.length < 7) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
-  return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
-}
-
-// ── Helpers ──────────────────────────────────────────────
 function statusClass(s) {
   return (
     {
@@ -25,11 +18,6 @@ function statusClass(s) {
   );
 }
 
-function initials(first, last) {
-  return `${(first || "?")[0]}${(last || "")[0]}`.toUpperCase();
-}
-
-// ── Sub-components ────────────────────────────────────────
 function BookingCard({ booking, onCancel }) {
   const businessName =
     booking.businessId?.businessName ||
@@ -80,14 +68,13 @@ function BusinessCard({ business, onBook }) {
       </div>
       <div className="biz-right">
         <button className="btn-book" onClick={() => onBook(business)}>
-          Request Appointment
+          Request
         </button>
       </div>
     </div>
   );
 }
 
-// ── Main Dashboard ────────────────────────────────────────
 export default function ResidentDashboard() {
   const [tab, setTab] = useState("home");
   const [bookings, setBookings] = useState([]);
@@ -95,7 +82,6 @@ export default function ResidentDashboard() {
   const [loading, setLoading] = useState(true);
   const [toast, setToast] = useState(null);
 
-  // Resident from localStorage — must be defined before profile state
   const stored = localStorage.getItem("resident");
   const resident = stored
     ? JSON.parse(stored)
@@ -122,7 +108,6 @@ export default function ResidentDashboard() {
     setTimeout(() => setToast(null), 3000);
   }
 
-  // ── Fetch resident bookings ──
   const fetchBookings = useCallback(async () => {
     try {
       const res = await fetch(`${API}/api/bookings/my`, {
@@ -135,7 +120,6 @@ export default function ResidentDashboard() {
     }
   }, []);
 
-  // ── Fetch nearby businesses ──
   const fetchBusinesses = useCallback(async () => {
     try {
       const res = await fetch(`${API}/api/search?limit=6`, {
@@ -155,7 +139,6 @@ export default function ResidentDashboard() {
     fetchBusinesses();
   }, [fetchBookings, fetchBusinesses]);
 
-  // ── Cancel booking ──
   async function cancelBooking(id) {
     try {
       const res = await fetch(`${API}/api/bookings/${id}`, {
@@ -174,7 +157,6 @@ export default function ResidentDashboard() {
     }
   }
 
-  // ── Save profile ──
   async function saveProfile() {
     try {
       const res = await fetch(`${API}/api/auth/profile`, {
@@ -231,17 +213,9 @@ export default function ResidentDashboard() {
     <div className="rd-wrap">
       {toast && <div className="rd-toast">{toast}</div>}
 
-      {/* Sidebar */}
       <aside className="rd-sidebar">
         <div className="rd-sidebar-logo">
-          <svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true">
-            <circle cx="16" cy="10" r="7" fill="#EF9F27" />
-            <polygon points="2,16 16,3 30,16" fill="#3B6D11" />
-            <rect x="9" y="15" width="14" height="12" rx="2" fill="#639922" />
-            <rect x="13" y="20" width="6" height="8" rx="1" fill="#3B6D11" />
-            <rect x="9" y="26" width="14" height="3" rx="1" fill="#27500A" />
-            <ellipse cx="16" cy="30" rx="4" ry="1.5" fill="#97C459" />
-          </svg>
+          <MitraLogo size={28} />
           <span className="rd-sidebar-logo-text">mitra</span>
         </div>
 
@@ -289,9 +263,7 @@ export default function ResidentDashboard() {
         </button>
       </aside>
 
-      {/* Main */}
       <main className="rd-main">
-        {/* ── Home ── */}
         {tab === "home" && (
           <div className="rd-section">
             <div className="rd-header">
@@ -354,10 +326,8 @@ export default function ResidentDashboard() {
           </div>
         )}
 
-        {/* ── Search ── */}
         {tab === "search" && <BusinessSearch />}
 
-        {/* ── Bookings ── */}
         {tab === "bookings" && (
           <div className="rd-section">
             <h1 className="rd-title">My bookings</h1>
@@ -411,7 +381,6 @@ export default function ResidentDashboard() {
           </div>
         )}
 
-        {/* ── AI Advisor ── */}
         {tab === "ai" && (
           <div className="rd-section">
             <div className="rd-ai-embed">
@@ -420,7 +389,6 @@ export default function ResidentDashboard() {
           </div>
         )}
 
-        {/* ── Profile ── */}
         {tab === "profile" && (
           <div className="rd-section">
             <div className="rd-header">

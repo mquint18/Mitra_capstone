@@ -1,9 +1,9 @@
-// BusinessRegister.jsx
-
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./BusinessRegister.css";
-import { API, authHeaders } from "../utils/api";
+import MitraLogo from "../components/MitraLogo";
+import { API } from "../utils/api";
+import { formatPhone, isValidEmail } from "../utils/format";
 
 const BUSINESS_TYPES = [
   "Home services",
@@ -16,20 +16,6 @@ const BUSINESS_TYPES = [
   "Arts & crafts",
   "Other",
 ];
-
-function formatPhone(value) {
-  const digits = value.replace(/\D/g, "").slice(0, 10);
-  if (digits.length < 4) return digits;
-  if (digits.length < 7) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
-  return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
-}
-
-function validateEmail(email) {
-  return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
-}
-function isValidBusinessName(name) {
-  return name.trim().length > 0 && name.length <= 80;
-}
 
 function BusinessRegister() {
   const [business, setBusiness] = useState({
@@ -52,7 +38,6 @@ function BusinessRegister() {
   const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
-  const API = import.meta.env.VITE_API_URL || "http://localhost:5001";
 
   function set(field) {
     return (e) => {
@@ -69,9 +54,8 @@ function BusinessRegister() {
       e.businessName = "Maximum 80 characters";
     if (!business.businessType) e.businessType = "Business type is required";
     if (!business.email.trim()) e.email = "Email is required";
-    else if (!validateEmail(business.email))
+    else if (!isValidEmail(business.email))
       e.email = "Enter a valid email address";
-
     if (!business.phone.trim()) e.phone = "Phone is required";
     if (!business.username.trim()) e.username = "Username is required";
     if (!business.password) e.password = "Password is required";
@@ -152,14 +136,7 @@ function BusinessRegister() {
     <div className="br-wrap">
       <div className="br-card">
         <Link to="/" className="br-logo">
-          <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true">
-            <circle cx="16" cy="10" r="7" fill="#EF9F27" />
-            <polygon points="2,16 16,3 30,16" fill="#3B6D11" />
-            <rect x="9" y="15" width="14" height="12" rx="2" fill="#639922" />
-            <rect x="13" y="20" width="6" height="8" rx="1" fill="#3B6D11" />
-            <rect x="9" y="26" width="14" height="3" rx="1" fill="#27500A" />
-            <ellipse cx="16" cy="30" rx="4" ry="1.5" fill="#97C459" />
-          </svg>
+          <MitraLogo size={32} />
           <span className="br-logo-text">mitra</span>
         </Link>
 
@@ -244,13 +221,8 @@ function BusinessRegister() {
                 type="email"
                 placeholder="hello@yourbusiness.com"
                 value={business.email}
-                onChange={(e) => {
-                  setBusiness((prev) => ({ ...prev, email: e.target.value }));
-                  if (errors.email && validateEmail(e.target.value)) {
-                    setErrors((prev) => ({ ...prev, email: null }));
-                  }
-                }}
-                className={errors.email ? "input-error" : ""}
+                onChange={set("email")}
+                className={errors.email ? "br-input-error" : ""}
               />
               {errors.email && (
                 <span className="br-field-error">{errors.email}</span>
