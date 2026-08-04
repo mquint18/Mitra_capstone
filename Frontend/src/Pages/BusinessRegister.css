@@ -59,9 +59,14 @@
 }
 .br-sub {
   font-size: 14px;
-  color: #a17a5c;
+
   margin: 0 0 1.5rem;
   line-height: 1.5;
+}
+.br-sub,
+.br-hint,
+.br-signin-link {
+  color: #8a6547; /* darker, passes 4.5:1 on white */
 }
 
 .br-error-banner {

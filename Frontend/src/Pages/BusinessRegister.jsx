@@ -171,8 +171,9 @@ function BusinessRegister() {
           </div>
 
           <div className="br-field">
-            <label>Business type *</label>
+            <label htmlFor="businessType">Business type *</label>
             <select
+              id="businessType"
               name="businessType"
               value={business.businessType}
               onChange={set("businessType")}
