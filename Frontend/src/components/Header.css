@@ -63,12 +63,28 @@
     background 0.15s,
     color 0.15s;
 }
+.nav-link-ask {
+  padding: 6px 14px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #27500a;
+  text-decoration: none;
+  border-radius: 6px;
+
+  background-color: #e0f5c3;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
 
 .nav-link:hover {
   background: rgba(255, 255, 255, 0.1);
   color: white;
 }
-
+.nav-link-ask:hover {
+  background: #ef9f27;
+  color: white;
+}
 .nav-link.active {
   color: white;
   font-weight: 500;

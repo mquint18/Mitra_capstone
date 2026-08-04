@@ -65,7 +65,7 @@ function Header() {
           <Link to="/search" className="nav-link">
             Find a business
           </Link>
-          <Link to="/ai-ask" className="nav-link">
+          <Link to="/ai-ask" className="nav-link-ask">
             Ask Mitra
           </Link>
           <Link to="/about" className="nav-link">

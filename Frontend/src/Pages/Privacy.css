@@ -1,0 +1,97 @@
+/* Privacy.css — scoped to .privacy-wrap */
+
+.privacy-wrap {
+  font-family: system-ui, sans-serif;
+  color: #2c2c2a;
+  background: #f7f6f2;
+  padding: 2.5rem 1.5rem 3rem;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.privacy-wrap *,
+.privacy-wrap *::before,
+.privacy-wrap *::after {
+  box-sizing: border-box;
+}
+
+/* ── Hero ── */
+.privacy-hero {
+  margin-bottom: 1.5rem;
+}
+
+.privacy-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #639922;
+  margin: 0 0 8px;
+}
+
+.privacy-title {
+  font-size: 32px;
+  font-weight: 500;
+  color: #27500a;
+  margin: 0 0 6px;
+  letter-spacing: -0.01em;
+}
+
+.privacy-updated {
+  font-size: 13px;
+  color: #888780;
+  margin: 0;
+}
+
+/* ── Sections ── */
+.privacy-section {
+  background: white;
+  border: 0.5px solid #d3d1c7;
+  border-radius: 14px;
+  padding: 1.5rem 1.75rem;
+  margin-bottom: 1rem;
+}
+
+.privacy-section-title {
+  font-size: 17px;
+  font-weight: 500;
+  color: #27500a;
+  margin: 0 0 10px;
+}
+
+.privacy-body {
+  font-size: 14px;
+  color: #5f5e5a;
+  line-height: 1.75;
+  margin: 0;
+}
+
+.privacy-list {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.privacy-list li {
+  font-size: 14px;
+  color: #5f5e5a;
+  line-height: 1.8;
+}
+
+.privacy-link {
+  color: #639922;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.privacy-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 520px) {
+  .privacy-title {
+    font-size: 26px;
+  }
+  .privacy-section {
+    padding: 1.25rem;
+  }
+}

@@ -1,0 +1,102 @@
+/* Terms.css — scoped to .terms-wrap */
+
+.terms-wrap {
+  font-family: system-ui, sans-serif;
+  color: #2c2c2a;
+  background: #f7f6f2;
+  padding: 2.5rem 1.5rem 3rem;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.terms-wrap *,
+.terms-wrap *::before,
+.terms-wrap *::after {
+  box-sizing: border-box;
+}
+
+/* ── Hero ── */
+.terms-hero {
+  margin-bottom: 1.5rem;
+}
+
+.terms-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #639922;
+  margin: 0 0 8px;
+}
+
+.terms-title {
+  font-size: 32px;
+  font-weight: 500;
+  color: #27500a;
+  margin: 0 0 6px;
+  letter-spacing: -0.01em;
+}
+
+.terms-updated {
+  font-size: 13px;
+  color: #888780;
+  margin: 0;
+}
+
+/* ── Sections ── */
+.terms-section {
+  background: white;
+  border: 0.5px solid #d3d1c7;
+  border-radius: 14px;
+  padding: 1.5rem 1.75rem;
+  margin-bottom: 1rem;
+}
+
+.terms-section-title {
+  font-size: 17px;
+  font-weight: 500;
+  color: #27500a;
+  margin: 0 0 10px;
+}
+
+.terms-body {
+  font-size: 14px;
+  color: #5f5e5a;
+  line-height: 1.75;
+  margin: 0;
+}
+
+.terms-list {
+  margin: 10px 0 0;
+  padding-left: 20px;
+}
+
+.terms-list li {
+  font-size: 14px;
+  color: #5f5e5a;
+  line-height: 1.75;
+  margin-bottom: 8px;
+}
+
+.terms-list li:last-child {
+  margin-bottom: 0;
+}
+
+.terms-link {
+  color: #639922;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.terms-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 520px) {
+  .terms-title {
+    font-size: 26px;
+  }
+  .terms-section {
+    padding: 1.25rem;
+  }
+}

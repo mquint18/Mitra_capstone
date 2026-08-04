@@ -22,8 +22,8 @@ function Footer() {
 
         {/* Contact */}
         <div className="footer-contact">
-          <a href="mailto:hello@mitra.app" className="footer-link">
-            hello@mitra.app
+          <a href="mailto:MichaelQuint@gmail.com" className="footer-link">
+            Contact Us
           </a>
           <a
             href="https://github.com/mquint18/Mitra_capstone.git"

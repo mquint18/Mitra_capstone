@@ -24,6 +24,8 @@ import ResidentDashboard from "./Pages/ResidentDashboard";
 import BusinessDashboard from "./components/BusinessDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminPanel from "./components/AdminPanel";
+import Privacy from "./Pages/Privacy";
+import Terms from "./Pages/Terms";
 
 function App() {
   return (
@@ -41,6 +43,8 @@ function App() {
           <Route path="/business-register" element={<BusinessRegister />} />
           <Route path="/login" element={<ResidentLogin />} />
           <Route path="/business/login" element={<BusinessLogin />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
 
           <Route
             path="/admin"
