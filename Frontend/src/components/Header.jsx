@@ -131,13 +131,6 @@ function Header() {
                       <span className="dropdown-icon">👤</span> My profile
                     </Link>
 
-                    <Link
-                      to="/profile"
-                      className="dropdown-item"
-                      onClick={() => setDropdownOpen(false)}
-                    >
-                      <span className="dropdown-icon">👤</span> My profile
-                    </Link>
                     {!isBusiness && (
                       <Link
                         to="/search"
