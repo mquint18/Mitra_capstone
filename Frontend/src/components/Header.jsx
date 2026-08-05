@@ -124,7 +124,7 @@ function Header() {
                     <div className="dropdown-divider" />
 
                     <Link
-                      to="/resident-dashboard?tab=profile"
+                      to={dashboardUrl}
                       className="dropdown-item"
                       onClick={() => setDropdownOpen(false)}
                     >
