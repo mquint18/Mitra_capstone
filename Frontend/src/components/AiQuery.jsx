@@ -1,7 +1,8 @@
 // AiQuery.jsx
 import { useState } from "react";
-import ReactMarkdown from "react-markdown";
 import "./AiQuery.css";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { API, authHeaders } from "../utils/api";
 function AiQuery() {
   const [job, setJob] = useState("");
@@ -114,7 +115,9 @@ function AiQuery() {
           <>
             <p className="ai-response-label">Mitra Recommendation</p>
             <div className="ai-response">
-              <ReactMarkdown>{response}</ReactMarkdown>
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {response}
+              </ReactMarkdown>
             </div>
           </>
         )}

@@ -326,3 +326,22 @@
     position: static;
   }
 }
+.ai-response table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0;
+  font-size: 13px;
+}
+
+.ai-response th,
+.ai-response td {
+  border: 1px solid #d3d1c7;
+  padding: 6px 10px;
+  text-align: left;
+}
+
+.ai-response th {
+  background: #eaf3de;
+  color: #27500a;
+  font-weight: 600;
+}
