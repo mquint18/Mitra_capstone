@@ -215,10 +215,22 @@ function Header() {
               <>
                 <Link
                   to={dashboardUrl}
-                  className="btn-ghost-mobile"
-                  onClick={() => setMenuOpen(false)}
+                  className="dropdown-item"
+                  onClick={() => setDropdownOpen(false)}
                 >
-                  Dashboard
+                  <span className="dropdown-icon">⊞</span> Dashboard
+                </Link>
+
+                <Link
+                  to={
+                    isBusiness
+                      ? dashboardUrl
+                      : "/resident-dashboard?tab=profile"
+                  }
+                  className="dropdown-item"
+                  onClick={() => setDropdownOpen(false)}
+                >
+                  <span className="dropdown-icon">👤</span> My profile
                 </Link>
                 <button className="btn-primary-mobile" onClick={handleLogout}>
                   Sign out
