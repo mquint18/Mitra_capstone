@@ -3,60 +3,31 @@ import mongoose from "mongoose";
 
 const residentSchema = new mongoose.Schema(
   {
-    firstName: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    lastName: {
-      type: String,
-      required: true,
-      trim: true,
-    },
+    firstName: { type: String, required: true, trim: true },
+    lastName:  { type: String, required: true, trim: true },
     email: {
-      type: String,
-      required: true,
-      unique: true,
+      type:      String,
+      required:  true,
+      unique:    true,
       lowercase: true,
-      trim: true,
+      trim:      true,
     },
     password: {
-      type: String,
+      type:     String,
       required: true,
-      select: false, // never returned in queries unless explicitly requested
+      select:   false,
     },
-    address: {
-      type: String,
-      trim: true,
-      default: "",
-    },
-    suburb: {
-      type: String,
-      trim: true,
-      default: "",
-    },
-    phone: {
-      type: String,
-      trim: true,
-      default: "",
-    },
-    role: {
-      type: String,
-      default: "resident",
-      enum: ["resident", "admin"],
-    },
-    active: {
-      type: Boolean,
-      default: true,
-    },
-    bookings: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Booking",
-      },
-    ],
+    address: { type: String, trim: true, default: "" },
+
+    // Renamed from "suburb" — now selected from the admin-managed neighborhood list
+    neighborhood: { type: String, trim: true, default: "" },
+
+    phone: { type: String, trim: true, default: "" },
+    role: { type: String, default: "resident", enum: ["resident", "admin"] },
+    active: { type: Boolean, default: true },
+    bookings: [{ type: mongoose.Schema.Types.ObjectId, ref: "Booking" }],
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
 export default mongoose.model("Resident", residentSchema);

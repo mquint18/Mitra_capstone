@@ -47,3 +47,19 @@ router.put("/:id/availability", requireAuth, async (req, res) => {
     res.status(500).json({ message: "Failed to update availability" });
   }
 });
+// PUT /api/business/:id/neighborhoods — update neighborhoods served
+router.put("/:id/neighborhoods", requireAuth, async (req, res) => {
+  try {
+    const business = await Business.findByIdAndUpdate(
+      req.params.id,
+      { $set: { neighborhoods: req.body.neighborhoods } },
+      { returnDocument: "after" },
+    ).select("-password -username");
+
+    if (!business) return res.status(404).json({ message: "Not found" });
+    res.json({ business });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to update neighborhoods" });
+  }
+});

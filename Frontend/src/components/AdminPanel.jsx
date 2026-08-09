@@ -1,6 +1,7 @@
 // AdminPanel.jsx
 import { useState, useEffect, useCallback } from "react";
 import "./AdminPanel.css";
+import NeighborhoodsTab from "./NeighborhoodsTab";
 
 const API = import.meta.env.VITE_API_URL || "http://localhost:5001";
 
@@ -508,6 +509,7 @@ export default function AdminPanel() {
     { id: "businesses", icon: "🏪", label: "Businesses" },
     { id: "residents", icon: "👤", label: "Residents" },
     { id: "bookings", icon: "📅", label: "Bookings" },
+    { id: "neighborhoods", icon: "📍", label: "Neighborhoods" },
   ];
 
   return (
@@ -621,6 +623,7 @@ export default function AdminPanel() {
         {tab === "businesses" && <BusinessesTab showToast={showToast} />}
         {tab === "residents" && <ResidentsTab showToast={showToast} />}
         {tab === "bookings" && <BookingsTab showToast={showToast} />}
+        {tab === "neighborhoods" && <NeighborhoodsTab showToast={showToast} />}
       </main>
     </div>
   );

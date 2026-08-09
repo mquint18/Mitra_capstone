@@ -4,6 +4,8 @@ import { useState, useEffect, useCallback } from "react";
 import "./BusinessDashboard.css";
 import MitraLogo from "./MitraLogo";
 import { API, authHeaders } from "../utils/api";
+import NeighborhoodChecklist from "./NeighborhoodChecklist";
+import "./NeighborhoodChecklist.css";
 
 const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const MONTHS = [
@@ -329,6 +331,7 @@ export default function BusinessDashboard() {
   const [loading, setLoading] = useState(true);
   const [toast, setToast] = useState(null);
   const [filter, setFilter] = useState("all");
+  const [neighborhoods, setNeighborhoods] = useState([]);
 
   const storedBusiness = JSON.parse(localStorage.getItem("business") || "{}");
 
@@ -345,6 +348,7 @@ export default function BusinessDashboard() {
       const data = await res.json();
       if (res.ok) {
         setBusiness(data.business);
+        setNeighborhoods(data.business.neighborhoods || []);
         if (data.business.availability)
           setAvailability(data.business.availability);
       }
@@ -406,6 +410,22 @@ export default function BusinessDashboard() {
       else showToast("Failed to save availability");
     } catch (_) {
       showToast("Failed to save availability");
+    }
+  }
+  async function saveNeighborhoods() {
+    try {
+      const res = await fetch(
+        `${API}/api/business/${storedBusiness.id}/neighborhoods`,
+        {
+          method: "PUT",
+          headers: authHeaders(),
+          body: JSON.stringify({ neighborhoods }),
+        },
+      );
+      if (res.ok) showToast("Neighborhoods saved ✓");
+      else showToast("Failed to save neighborhoods");
+    } catch (_) {
+      showToast("Failed to save neighborhoods");
     }
   }
 
@@ -659,6 +679,21 @@ export default function BusinessDashboard() {
                       {k}
                     </span>
                   ))}
+                </div>
+                <div className="profile-field">
+                  <label>Neighborhoods served</label>
+                  <NeighborhoodChecklist
+                    selected={neighborhoods}
+                    onChange={setNeighborhoods}
+                  />
+                  <button
+                    type="button"
+                    className="btn-primary"
+                    style={{ marginTop: "10px" }}
+                    onClick={saveNeighborhoods}
+                  >
+                    Save neighborhoods
+                  </button>
                 </div>
               </div>
             </div>

@@ -521,3 +521,34 @@
     overflow-x: auto;
   }
 }
+
+/* ── Neighborhoods tab additions ── */
+
+.ap-neighborhood-input {
+  border: 1px solid transparent;
+  background: transparent;
+  font-size: 13px;
+  font-family: inherit;
+  color: #2c2c2a;
+  padding: 4px 6px;
+  border-radius: 6px;
+  width: 100%;
+  outline: none;
+  transition: border 0.15s;
+}
+
+.ap-neighborhood-input:focus {
+  border: 1px solid #639922;
+  background: white;
+}
+
+.ap-add-form {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 1.25rem;
+}
+
+.ap-add-form input {
+  flex: 1;
+  min-width: auto;
+}

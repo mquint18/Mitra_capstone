@@ -1,5 +1,4 @@
-// Business.jsx
-
+// models/Business.js
 import mongoose from "mongoose";
 
 const businessSchema = new mongoose.Schema(
@@ -21,6 +20,13 @@ const businessSchema = new mongoose.Schema(
       zip: String,
     },
 
+    // Multi-select list of neighborhoods this business serves,
+    // chosen from the admin-managed Neighborhood list
+    neighborhoods: {
+      type: [String],
+      default: [],
+    },
+
     website: String,
 
     phone: String,
@@ -35,6 +41,12 @@ const businessSchema = new mongoose.Schema(
 
     keywords: [String],
 
+    availability: {
+      days:                { type: [String], default: [] },
+      timeSlots:           { type: [String], default: [] },
+      appointmentDuration: { type: Number,   default: 60  },
+    },
+
     username: {
       type: String,
       required: true,
@@ -44,18 +56,13 @@ const businessSchema = new mongoose.Schema(
     password: {
       type: String,
       required: true,
-      select: false,
-    },
-    availability: {
-      days: { type: [String], default: [] },
-      timeSlots: { type: [String], default: [] },
-      appointmentDuration: { type: Number, default: 60 },
     },
   },
   {
     timestamps: true,
   },
 );
+
 businessSchema.index({
   businessName: "text",
   description: "text",

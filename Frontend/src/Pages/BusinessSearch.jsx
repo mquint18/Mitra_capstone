@@ -1,9 +1,11 @@
 // pages/BusinessSearch.jsx
 import { useState, useEffect, useRef } from "react";
-import { useBusinessSearch } from "../hooks/useBusinessSearch";
+import { useBusinessSearch } from "../utils/useBusinessSearch";
+import { useNeighborhoods } from "../utils/useNeighborhoods";
 import "./BusinessSearch.css";
 
-import { API, authHeaders } from "../utils/api";
+import { API } from "../utils/api";
+
 // ── Business card ─────────────────────────────────────────
 function BusinessCard({ business, onBook }) {
   const [expanded, setExpanded] = useState(false);
@@ -19,7 +21,9 @@ function BusinessCard({ business, onBook }) {
         {/* Info */}
         <div className="bs-info">
           <p className="bs-name">{business.businessName || business.name}</p>
-          <p className="bs-category">{business.category}</p>
+          <p className="bs-category">
+            {business.category || business.businessType}
+          </p>
           {business.address && (
             <p className="bs-address">
               📍{" "}
@@ -31,6 +35,15 @@ function BusinessCard({ business, onBook }) {
                 .filter(Boolean)
                 .join(", ")}
             </p>
+          )}
+          {business.neighborhoods?.length > 0 && (
+            <div className="bs-neighborhoods">
+              {business.neighborhoods.map((n) => (
+                <span key={n} className="bs-neighborhood-pill">
+                  📍 {n}
+                </span>
+              ))}
+            </div>
           )}
           <div className="bs-keywords">
             {(business.keywords || []).slice(0, 4).map((k) => (
@@ -115,7 +128,6 @@ function BookingModal({ business, onClose, onConfirm }) {
   const [time, setTime] = useState("");
   const [note, setNote] = useState("");
 
-  const slots = business.availability?.timeSlots || [];
   const minDate = new Date().toISOString().split("T")[0];
 
   function handleSubmit(e) {
@@ -157,7 +169,6 @@ function BookingModal({ business, onClose, onConfirm }) {
                 const totalMinutes = i * 15;
                 const hours = Math.floor(totalMinutes / 60);
 
-                // Only show 8 AM (480 min) to 7 PM (1140 min)
                 if (totalMinutes < 480 || totalMinutes > 1140) return null;
 
                 const minutes = totalMinutes % 60;
@@ -207,9 +218,12 @@ function BookingModal({ business, onClose, onConfirm }) {
 export default function BusinessSearch() {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("all");
+  const [neighborhood, setNeighborhood] = useState("all");
   const [booking, setBooking] = useState(null);
   const [toast, setToast] = useState(null);
   const debounceRef = useRef(null);
+
+  const { neighborhoods } = useNeighborhoods();
 
   const {
     search,
@@ -227,14 +241,14 @@ export default function BusinessSearch() {
     search();
   }, []);
 
-  // Debounced search on query/category change
+  // Debounced search on query/category/neighborhood change
   useEffect(() => {
     clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(() => {
-      search({ q: query, category, pageNum: 1 });
+      search({ q: query, category, neighborhood, pageNum: 1 });
     }, 350);
     return () => clearTimeout(debounceRef.current);
-  }, [query, category]);
+  }, [query, category, neighborhood]);
 
   function showToast(msg) {
     setToast(msg);
@@ -244,6 +258,12 @@ export default function BusinessSearch() {
   async function handleConfirmBooking({ business, date, time, note }) {
     try {
       const token = localStorage.getItem("token");
+      if (!token) {
+        showToast("Please sign in to request a booking");
+        setTimeout(() => (window.location.href = "/login"), 1200);
+        return;
+      }
+
       const res = await fetch(`${API}/api/bookings`, {
         method: "POST",
         headers: {
@@ -283,12 +303,12 @@ export default function BusinessSearch() {
         <div>
           <h1 className="bs-title">Find a business</h1>
           <p className="bs-sub">
-            Search local services by name, category, or keyword.
+            Search local services by name, category, keyword, or neighborhood.
           </p>
         </div>
       </div>
 
-      {/* Search bar + category filter */}
+      {/* Search bar + filters */}
       <div className="bs-controls">
         <input
           className="bs-search"
@@ -302,12 +322,37 @@ export default function BusinessSearch() {
           value={category}
           onChange={(e) => {
             setCategory(e.target.value);
-            search({ q: query, category: e.target.value, pageNum: 1 });
+            search({
+              q: query,
+              category: e.target.value,
+              neighborhood,
+              pageNum: 1,
+            });
           }}
         >
           {categories.map((c) => (
             <option key={c} value={c}>
               {c === "all" ? "All categories" : c}
+            </option>
+          ))}
+        </select>
+        <select
+          className="bs-category-select"
+          value={neighborhood}
+          onChange={(e) => {
+            setNeighborhood(e.target.value);
+            search({
+              q: query,
+              category,
+              neighborhood: e.target.value,
+              pageNum: 1,
+            });
+          }}
+        >
+          <option value="all">All neighborhoods</option>
+          {neighborhoods.map((n) => (
+            <option key={n._id} value={n.name}>
+              {n.name}
             </option>
           ))}
         </select>
@@ -319,6 +364,7 @@ export default function BusinessSearch() {
           {total} business{total !== 1 ? "es" : ""} found
           {query && ` for "${query}"`}
           {category !== "all" && ` in ${category}`}
+          {neighborhood !== "all" && ` near ${neighborhood}`}
         </p>
       )}
 
@@ -351,6 +397,7 @@ export default function BusinessSearch() {
                 onClick={() => {
                   setQuery("");
                   setCategory("all");
+                  setNeighborhood("all");
                   search();
                 }}
               >
@@ -367,7 +414,9 @@ export default function BusinessSearch() {
           <button
             className="bs-page-btn"
             disabled={page === 1}
-            onClick={() => search({ q: query, category, pageNum: page - 1 })}
+            onClick={() =>
+              search({ q: query, category, neighborhood, pageNum: page - 1 })
+            }
           >
             ← Previous
           </button>
@@ -377,7 +426,9 @@ export default function BusinessSearch() {
           <button
             className="bs-page-btn"
             disabled={page === totalPages}
-            onClick={() => search({ q: query, category, pageNum: page + 1 })}
+            onClick={() =>
+              search({ q: query, category, neighborhood, pageNum: page + 1 })
+            }
           >
             Next →
           </button>

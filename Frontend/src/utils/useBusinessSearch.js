@@ -1,6 +1,6 @@
-// hooks/useBusinessSearch.js
+// utils/useBusinessSearch.js
 import { useState, useEffect, useCallback } from "react";
-import { API } from "../utils/api";
+import { API } from "./api";
 
 export function useBusinessSearch() {
   const [results, setResults] = useState([]);
@@ -11,15 +11,12 @@ export function useBusinessSearch() {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  const token = localStorage.getItem("token");
   const SEARCH_API = `${API}/api/search`;
 
   useEffect(() => {
     async function fetchCategories() {
       try {
-        const res = await fetch(`${SEARCH_API}/categories`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const res = await fetch(`${SEARCH_API}/categories`);
         const data = await res.json();
         if (res.ok) setCategories(data.categories);
       } catch {
@@ -27,23 +24,27 @@ export function useBusinessSearch() {
       }
     }
     fetchCategories();
-  }, [token]);
+  }, []);
 
   const search = useCallback(
-    async ({ q = "", category = "all", pageNum = 1 } = {}) => {
+    async ({
+      q = "",
+      category = "all",
+      neighborhood = "all",
+      pageNum = 1,
+    } = {}) => {
       setLoading(true);
       setError(null);
 
       const params = new URLSearchParams();
       if (q.trim()) params.set("q", q.trim());
       if (category !== "all") params.set("category", category);
+      if (neighborhood !== "all") params.set("neighborhood", neighborhood);
       params.set("page", pageNum);
       params.set("limit", 10);
 
       try {
-        const res = await fetch(`${SEARCH_API}?${params}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const res = await fetch(`${SEARCH_API}?${params}`);
         const data = await res.json();
 
         if (!res.ok) {
@@ -61,7 +62,7 @@ export function useBusinessSearch() {
         setLoading(false);
       }
     },
-    [token],
+    [],
   );
 
   return {

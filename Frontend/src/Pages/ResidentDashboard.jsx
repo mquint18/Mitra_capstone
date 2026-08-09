@@ -7,6 +7,7 @@ import MitraLogo from "../components/MitraLogo";
 import { API, authHeaders } from "../utils/api";
 import { formatPhone, initials } from "../utils/format";
 import { useSearchParams } from "react-router-dom";
+import { useNeighborhoods } from "../utils/useNeighborhoods";
 
 function statusClass(s) {
   return (
@@ -79,6 +80,7 @@ export default function ResidentDashboard() {
   const [businesses, setBusinesses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [toast, setToast] = useState(null);
+  const { neighborhoods } = useNeighborhoods();
 
   const stored = localStorage.getItem("resident");
   const resident = stored
@@ -87,7 +89,7 @@ export default function ResidentDashboard() {
         firstName: "",
         lastName: "",
         email: "",
-        suburb: "",
+        Neighborhood: "",
         phone: "",
         address: "",
       };
@@ -98,7 +100,7 @@ export default function ResidentDashboard() {
     email: resident.email || "",
     phone: resident.phone || "",
     address: resident.address || "",
-    suburb: resident.suburb || "",
+    neighborhood: resident.neighborhood || "",
   });
 
   function showToast(msg) {
@@ -229,8 +231,8 @@ export default function ResidentDashboard() {
             <p className="rd-sidebar-name">
               {resident.firstName} {resident.lastName}
             </p>
-            <p className="rd-sidebar-suburb">
-              {resident.suburb || resident.address || "Resident"}
+            <p className="rd-sidebar-neighborhood">
+              {resident.neighborhood || resident.address || "Resident"}
             </p>
           </div>
         </div>
@@ -467,15 +469,23 @@ export default function ResidentDashboard() {
                   />
                 </div>
                 <div className="rd-field">
-                  <label>Suburb</label>
-                  <input
-                    type="text"
-                    value={profile.suburb}
+                  <label>Neighborhood</label>
+                  <select
+                    value={profile.neighborhood}
                     onChange={(e) =>
-                      setProfile((p) => ({ ...p, suburb: e.target.value }))
+                      setProfile((p) => ({
+                        ...p,
+                        neighborhood: e.target.value,
+                      }))
                     }
-                    placeholder="Maplewood"
-                  />
+                  >
+                    <option value="">Select your neighborhood</option>
+                    {neighborhoods.map((n) => (
+                      <option key={n._id} value={n.name}>
+                        {n.name}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               </div>
             </div>

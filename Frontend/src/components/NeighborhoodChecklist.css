@@ -1,0 +1,31 @@
+.neighborhood-checklist {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+  max-height: 220px;
+  overflow-y: auto;
+  border: 1px solid #D3D1C7;
+  border-radius: 8px;
+  padding: 10px 12px;
+  background: white;
+}
+
+.neighborhood-check-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #2C2C2A;
+  cursor: pointer;
+}
+
+.neighborhood-check-item input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  accent-color: #639922;
+  cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  .neighborhood-checklist { grid-template-columns: 1fr; }
+}

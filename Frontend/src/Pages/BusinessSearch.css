@@ -1,19 +1,23 @@
 /* BusinessSearch.css */
 :root {
-  --green:  #639922;
-  --dark:   #27500A;
-  --mid:    #3B6D11;
-  --light:  #EAF3DE;
-  --sage:   #97C459;
-  --gold:   #EF9F27;
-  --muted:  #888780;
-  --border: #D3D1C7;
-  --bg:     #F7F6F2;
-  --white:  #ffffff;
-  --text:   #2C2C2A;
+  --green: #639922;
+  --dark: #27500a;
+  --mid: #3b6d11;
+  --light: #eaf3de;
+  --sage: #97c459;
+  --gold: #ef9f27;
+  --muted: #888780;
+  --border: #d3d1c7;
+  --bg: #f7f6f2;
+  --white: #ffffff;
+  --text: #2c2c2a;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 .bs-wrap {
   max-width: 800px;
@@ -58,7 +62,9 @@
   outline: none;
   background: var(--white);
   color: var(--text);
-  transition: border 0.15s, box-shadow 0.15s;
+  transition:
+    border 0.15s,
+    box-shadow 0.15s;
 }
 
 .bs-search:focus {
@@ -94,12 +100,12 @@
 
 /* ── Error ── */
 .bs-error {
-  background: #FCEBEB;
-  border: 0.5px solid #E24B4A;
+  background: #fcebeb;
+  border: 0.5px solid #e24b4a;
   border-radius: 8px;
   padding: 10px 14px;
   font-size: 13px;
-  color: #791F1F;
+  color: #791f1f;
   margin-bottom: 1rem;
 }
 
@@ -120,7 +126,11 @@
   margin: 0 auto 12px;
 }
 
-@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 
 /* ── Results ── */
 .bs-results {
@@ -140,7 +150,7 @@
 }
 
 .bs-card:hover {
-  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
 }
 
 .bs-card-main {
@@ -164,7 +174,10 @@
   flex-shrink: 0;
 }
 
-.bs-info { flex: 1; min-width: 0; }
+.bs-info {
+  flex: 1;
+  min-width: 0;
+}
 
 .bs-name {
   font-size: 15px;
@@ -246,7 +259,9 @@
   text-decoration: none;
 }
 
-.bs-detail-link:hover { text-decoration: underline; }
+.bs-detail-link:hover {
+  text-decoration: underline;
+}
 
 .bs-days {
   display: flex;
@@ -278,8 +293,13 @@
   white-space: nowrap;
 }
 
-.bs-btn-book:hover:not(:disabled) { background: var(--mid); }
-.bs-btn-book:disabled { opacity: 0.5; cursor: not-allowed; }
+.bs-btn-book:hover:not(:disabled) {
+  background: var(--mid);
+}
+.bs-btn-book:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 
 .bs-btn-outline {
   padding: 7px 16px;
@@ -295,7 +315,10 @@
   white-space: nowrap;
 }
 
-.bs-btn-outline:hover { border-color: var(--green); color: var(--dark); }
+.bs-btn-outline:hover {
+  border-color: var(--green);
+  color: var(--dark);
+}
 
 /* ── Empty ── */
 .bs-empty {
@@ -306,7 +329,11 @@
   text-align: center;
 }
 
-.bs-empty p { font-size: 14px; color: var(--muted); margin-bottom: 10px; }
+.bs-empty p {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
 
 .bs-link {
   font-size: 13px;
@@ -318,7 +345,9 @@
   font-weight: 500;
 }
 
-.bs-link:hover { text-decoration: underline; }
+.bs-link:hover {
+  text-decoration: underline;
+}
 
 /* ── Pagination ── */
 .bs-pagination {
@@ -342,8 +371,13 @@
   transition: all 0.15s;
 }
 
-.bs-page-btn:hover:not(:disabled) { border-color: var(--green); }
-.bs-page-btn:disabled { opacity: 0.4; cursor: default; }
+.bs-page-btn:hover:not(:disabled) {
+  border-color: var(--green);
+}
+.bs-page-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
 
 .bs-page-info {
   font-size: 13px;
@@ -354,7 +388,7 @@
 .bs-modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -368,7 +402,7 @@
   width: 100%;
   max-width: 440px;
   padding: 1.5rem;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
 }
 
 .bs-modal-header {
@@ -427,7 +461,9 @@
   box-shadow: 0 0 0 3px #63992220;
 }
 
-.bs-modal-field textarea { resize: vertical; }
+.bs-modal-field textarea {
+  resize: vertical;
+}
 
 .bs-slot-grid {
   display: grid;
@@ -448,8 +484,15 @@
   transition: all 0.12s;
 }
 
-.bs-slot:hover       { border-color: var(--sage); color: var(--dark); }
-.bs-slot-active      { background: var(--green); border-color: var(--green); color: white; }
+.bs-slot:hover {
+  border-color: var(--sage);
+  color: var(--dark);
+}
+.bs-slot-active {
+  background: var(--green);
+  border-color: var(--green);
+  color: white;
+}
 
 .bs-modal-actions {
   display: flex;
@@ -458,7 +501,11 @@
 }
 
 .bs-modal-actions .bs-btn-outline,
-.bs-modal-actions .bs-btn-book { flex: 1; padding: 11px 0; font-size: 14px; }
+.bs-modal-actions .bs-btn-book {
+  flex: 1;
+  padding: 11px 0;
+  font-size: 14px;
+}
 
 /* ── Toast ── */
 .bs-toast {
@@ -471,19 +518,72 @@
   border-radius: 8px;
   font-size: 13px;
   font-weight: 500;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
   z-index: 999;
   animation: slideUp 0.2s ease;
 }
 
 @keyframes slideUp {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (max-width: 520px) {
-  .bs-card-main   { flex-wrap: wrap; }
-  .bs-actions     { flex-direction: row; width: 100%; }
+  .bs-card-main {
+    flex-wrap: wrap;
+  }
+  .bs-actions {
+    flex-direction: row;
+    width: 100%;
+  }
   .bs-btn-book,
-  .bs-btn-outline { flex: 1; }
+  .bs-btn-outline {
+    flex: 1;
+  }
+}
+/* ── Neighborhood feature additions ── */
+
+/* Allow three controls (search + 2 selects) to wrap nicely */
+.bs-controls {
+  flex-wrap: wrap;
+}
+
+.bs-category-select {
+  min-width: 160px;
+  flex: 1;
+}
+
+@media (max-width: 640px) {
+  .bs-controls {
+    flex-direction: column;
+  }
+  .bs-search,
+  .bs-category-select {
+    width: 100%;
+  }
+}
+
+/* Neighborhood pills on business cards */
+.bs-neighborhoods {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+.bs-neighborhood-pill {
+  background: var(--light);
+  color: var(--dark);
+  font-size: 11px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 20px;
+  white-space: nowrap;
 }

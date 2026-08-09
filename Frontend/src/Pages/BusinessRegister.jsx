@@ -4,6 +4,8 @@ import "./BusinessRegister.css";
 import MitraLogo from "../components/MitraLogo";
 import { API } from "../utils/api";
 import { formatPhone, isValidEmail } from "../utils/format";
+import NeighborhoodChecklist from "../components/NeighborhoodChecklist";
+import "../components/NeighborhoodChecklist.css";
 
 const BUSINESS_TYPES = [
   "Home services",
@@ -38,6 +40,7 @@ function BusinessRegister() {
   const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
+  const [neighborhoods, setNeighborhoods] = useState([]);
 
   function set(field) {
     return (e) => {
@@ -85,6 +88,7 @@ function BusinessRegister() {
             city: business.city,
             state: business.state,
             zip: business.zip,
+            neighborhoods,
           },
           website: business.website,
           phone: business.phone,
@@ -247,6 +251,16 @@ function BusinessRegister() {
               {errors.phone && (
                 <span className="br-field-error">{errors.phone}</span>
               )}
+              <div className="br-field">
+                <label>Neighborhoods served</label>
+                <NeighborhoodChecklist
+                  selected={neighborhoods}
+                  onChange={setNeighborhoods}
+                />
+                <span className="br-hint">
+                  Select every neighborhood your business serves
+                </span>
+              </div>
             </div>
           </div>
 
