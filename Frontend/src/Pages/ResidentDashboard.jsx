@@ -4,6 +4,7 @@ import "./ResidentDashboard.css";
 import AiQuery from "../components/AiQuery";
 import BusinessSearch from "./BusinessSearch";
 import MitraLogo from "../components/MitraLogo";
+import ReviewModal from "../components/ReviewModal";
 import { API, authHeaders } from "../utils/api";
 import { formatPhone, initials } from "../utils/format";
 import { useSearchParams } from "react-router-dom";
@@ -20,11 +21,14 @@ function statusClass(s) {
   );
 }
 
-function BookingCard({ booking, onCancel }) {
+function BookingCard({ booking, onCancel, onReview, reviewedIds }) {
   const businessName =
     booking.businessId?.businessName ||
     booking.businessName ||
     "Unknown business";
+
+  const alreadyReviewed = reviewedIds.includes(booking._id);
+
   return (
     <div className="booking-card">
       <div className="booking-card-left">
@@ -44,6 +48,18 @@ function BookingCard({ booking, onCancel }) {
           <button className="btn-cancel" onClick={() => onCancel(booking._id)}>
             Cancel
           </button>
+        )}
+        {booking.status === "completed" && !alreadyReviewed && (
+          <button
+            className="btn-cancel"
+            style={{ color: "#639922", borderColor: "#639922" }}
+            onClick={() => onReview(booking)}
+          >
+            Leave a review
+          </button>
+        )}
+        {booking.status === "completed" && alreadyReviewed && (
+          <span style={{ fontSize: "12px", color: "#888780" }}>✓ Reviewed</span>
         )}
       </div>
     </div>
@@ -80,6 +96,8 @@ export default function ResidentDashboard() {
   const [businesses, setBusinesses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [toast, setToast] = useState(null);
+  const [reviewingBooking, setReviewingBooking] = useState(null);
+  const [reviewedIds, setReviewedIds] = useState([]);
   const { neighborhoods } = useNeighborhoods();
 
   const stored = localStorage.getItem("resident");
@@ -89,7 +107,7 @@ export default function ResidentDashboard() {
         firstName: "",
         lastName: "",
         email: "",
-        Neighborhood: "",
+        neighborhood: "",
         phone: "",
         address: "",
       };
@@ -134,10 +152,23 @@ export default function ResidentDashboard() {
     }
   }, []);
 
+  const fetchReviewedIds = useCallback(async () => {
+    try {
+      const res = await fetch(`${API}/api/reviews/mine`, {
+        headers: authHeaders(),
+      });
+      const data = await res.json();
+      if (res.ok) setReviewedIds(data.reviewedBookingIds || []);
+    } catch (_) {
+      console.error("Failed to load reviewed bookings");
+    }
+  }, []);
+
   useEffect(() => {
     fetchBookings();
     fetchBusinesses();
-  }, [fetchBookings, fetchBusinesses]);
+    fetchReviewedIds();
+  }, [fetchBookings, fetchBusinesses, fetchReviewedIds]);
 
   async function cancelBooking(id) {
     try {
@@ -154,6 +185,26 @@ export default function ResidentDashboard() {
       }
     } catch (_) {
       showToast("Failed to cancel booking");
+    }
+  }
+
+  async function submitReview({ bookingId, rating, comment }) {
+    try {
+      const res = await fetch(`${API}/api/reviews`, {
+        method: "POST",
+        headers: authHeaders(),
+        body: JSON.stringify({ bookingId, rating, comment }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setReviewedIds((prev) => [...prev, bookingId]);
+        setReviewingBooking(null);
+        showToast("Review submitted ✓");
+      } else {
+        showToast(data.message || "Failed to submit review");
+      }
+    } catch (_) {
+      showToast("Unable to connect to server");
     }
   }
 
@@ -215,6 +266,14 @@ export default function ResidentDashboard() {
         <div className="toast" role="status" aria-live="polite">
           {toast}
         </div>
+      )}
+
+      {reviewingBooking && (
+        <ReviewModal
+          booking={reviewingBooking}
+          onClose={() => setReviewingBooking(null)}
+          onSubmit={submitReview}
+        />
       )}
 
       <aside className="rd-sidebar">
@@ -305,6 +364,8 @@ export default function ResidentDashboard() {
                       key={b._id}
                       booking={b}
                       onCancel={cancelBooking}
+                      onReview={setReviewingBooking}
+                      reviewedIds={reviewedIds}
                     />
                   ))}
                 </div>
@@ -348,6 +409,8 @@ export default function ResidentDashboard() {
                       key={b._id}
                       booking={b}
                       onCancel={cancelBooking}
+                      onReview={setReviewingBooking}
+                      reviewedIds={reviewedIds}
                     />
                   ))}
                 </div>
@@ -368,6 +431,8 @@ export default function ResidentDashboard() {
                       key={b._id}
                       booking={b}
                       onCancel={cancelBooking}
+                      onReview={setReviewingBooking}
+                      reviewedIds={reviewedIds}
                     />
                   ))}
                 </div>

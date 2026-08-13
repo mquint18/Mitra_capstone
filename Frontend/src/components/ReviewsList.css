@@ -1,0 +1,53 @@
+/* ReviewsList.css */
+
+.rvl-stars {
+  color: #EF9F27;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+.rvl-loading,
+.rvl-empty {
+  font-size: 13px;
+  color: #888780;
+  padding: 8px 0;
+}
+
+.rvl-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.rvl-item {
+  border-bottom: 0.5px solid #D3D1C7;
+  padding-bottom: 12px;
+}
+
+.rvl-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+.rvl-item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.rvl-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: #2C2C2A;
+}
+
+.rvl-comment {
+  font-size: 13px;
+  color: #444441;
+  line-height: 1.6;
+  margin: 4px 0;
+}
+
+.rvl-date {
+  font-size: 11px;
+  color: #888780;
+  margin: 0;
+}

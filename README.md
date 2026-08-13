@@ -160,3 +160,7 @@ Beyond the AI advisor feature described above, AI assistance (Claude, via Claude
 - Review and fix CSS scoping issues where global selectors in one page's stylesheet were unintentionally affecting other pages
 
 All AI generated code was reviewed, tested, and adjusted before being committed. The 32 passing automated tests in the `tests/` directory were used as a checkpoint throughout development to confirm that AI assisted changes did not break existing functionality.
+
+cd Backend
+BASE_URL=https://mitra-backend-djc8.onrender.com node --test tests/smoke.test.js
+BASE_URL=https://mitra-backend-djc8.onrender.com node --test tests/booking-flow.test.js

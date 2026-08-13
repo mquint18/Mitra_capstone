@@ -1,0 +1,140 @@
+/* ReviewModal.css */
+
+.rv-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  padding: 1rem;
+}
+
+.rv-modal {
+  background: white;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 420px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  font-family: system-ui, sans-serif;
+}
+
+.rv-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.rv-modal-header h3 {
+  font-size: 16px;
+  font-weight: 500;
+  color: #27500A;
+  margin: 0;
+}
+
+.rv-modal-close {
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: #888780;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+}
+
+.rv-field { margin-bottom: 1.1rem; }
+
+.rv-field label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: #27500A;
+  margin-bottom: 8px;
+}
+
+/* Stars */
+.rv-star-picker {
+  display: flex;
+  gap: 4px;
+}
+
+.rv-star {
+  background: none;
+  border: none;
+  font-size: 32px;
+  line-height: 1;
+  color: #EF9F27;
+  cursor: pointer;
+  padding: 2px;
+  transition: transform 0.1s;
+}
+
+.rv-star:hover { transform: scale(1.15); }
+
+/* Comment */
+.rv-field textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #D3D1C7;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  resize: vertical;
+  color: #2C2C2A;
+  transition: border 0.15s, box-shadow 0.15s;
+}
+
+.rv-field textarea:focus {
+  border-color: #639922;
+  box-shadow: 0 0 0 3px #63992220;
+}
+
+.rv-char-count {
+  display: block;
+  text-align: right;
+  font-size: 11px;
+  color: #888780;
+  margin-top: 4px;
+}
+
+/* Actions */
+.rv-modal-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 1.25rem;
+}
+
+.rv-btn-outline {
+  flex: 1;
+  padding: 11px 0;
+  background: transparent;
+  border: 1px solid #D3D1C7;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #888780;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+.rv-btn-outline:hover { border-color: #27500A; color: #27500A; }
+
+.rv-btn-submit {
+  flex: 1;
+  padding: 11px 0;
+  background: #639922;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s;
+}
+.rv-btn-submit:hover:not(:disabled) { background: #3B6D11; }
+.rv-btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }

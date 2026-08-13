@@ -2,6 +2,10 @@
 import { useState, useEffect, useRef } from "react";
 import { useBusinessSearch } from "../utils/useBusinessSearch";
 import { useNeighborhoods } from "../utils/useNeighborhoods";
+import ReviewsList, {
+  StarRating,
+  useReviewSummary,
+} from "../components/ReviewsList";
 import "./BusinessSearch.css";
 
 import { API } from "../utils/api";
@@ -9,6 +13,7 @@ import { API } from "../utils/api";
 // ── Business card ─────────────────────────────────────────
 function BusinessCard({ business, onBook }) {
   const [expanded, setExpanded] = useState(false);
+  const summary = useReviewSummary(business._id);
 
   return (
     <div className="bs-card">
@@ -24,6 +29,17 @@ function BusinessCard({ business, onBook }) {
           <p className="bs-category">
             {business.category || business.businessType}
           </p>
+
+          {summary.count > 0 && (
+            <div className="bs-rating-summary">
+              <StarRating rating={Math.round(summary.avgRating)} />
+              <span className="bs-rating-text">
+                {summary.avgRating} ({summary.count} review
+                {summary.count !== 1 ? "s" : ""})
+              </span>
+            </div>
+          )}
+
           {business.address && (
             <p className="bs-address">
               📍{" "}
@@ -116,6 +132,11 @@ function BusinessCard({ business, onBook }) {
               </div>
             </div>
           )}
+
+          <div className="bs-detail-block">
+            <p className="bs-detail-label">Reviews</p>
+            <ReviewsList businessId={business._id} />
+          </div>
         </div>
       )}
     </div>
@@ -236,12 +257,10 @@ export default function BusinessSearch() {
     totalPages,
   } = useBusinessSearch();
 
-  // Load all on mount
   useEffect(() => {
     search();
   }, []);
 
-  // Debounced search on query/category/neighborhood change
   useEffect(() => {
     clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(() => {
@@ -298,7 +317,6 @@ export default function BusinessSearch() {
         </div>
       )}
 
-      {/* Header */}
       <div className="bs-header">
         <div>
           <h1 className="bs-title">Find a business</h1>
@@ -308,7 +326,6 @@ export default function BusinessSearch() {
         </div>
       </div>
 
-      {/* Search bar + filters */}
       <div className="bs-controls">
         <input
           className="bs-search"
@@ -358,7 +375,6 @@ export default function BusinessSearch() {
         </select>
       </div>
 
-      {/* Results count */}
       {!loading && (
         <p className="bs-count">
           {total} business{total !== 1 ? "es" : ""} found
@@ -368,10 +384,8 @@ export default function BusinessSearch() {
         </p>
       )}
 
-      {/* Error */}
       {error && <div className="bs-error">{error}</div>}
 
-      {/* Loading */}
       {loading && (
         <div className="bs-loading">
           <div className="bs-spinner" />
@@ -379,7 +393,6 @@ export default function BusinessSearch() {
         </div>
       )}
 
-      {/* Results */}
       {!loading && (
         <div className="bs-results">
           {results.map((b) => (
@@ -408,7 +421,6 @@ export default function BusinessSearch() {
         </div>
       )}
 
-      {/* Pagination */}
       {totalPages > 1 && (
         <div className="bs-pagination">
           <button
@@ -435,7 +447,6 @@ export default function BusinessSearch() {
         </div>
       )}
 
-      {/* Booking modal */}
       {booking && (
         <BookingModal
           business={booking}
