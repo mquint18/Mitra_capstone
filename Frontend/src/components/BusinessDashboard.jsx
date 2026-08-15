@@ -54,7 +54,7 @@ function StatCard({ label, value, sub }) {
   );
 }
 
-function BookingRow({ booking, onConfirm, onDecline }) {
+function BookingRow({ booking, onConfirm, onDecline, onComplete }) {
   const residentName = booking.residentId
     ? `${booking.residentId.firstName || ""} ${booking.residentId.lastName || ""}`.trim()
     : booking.resident || "Unknown";
@@ -64,6 +64,8 @@ function BookingRow({ booking, onConfirm, onDecline }) {
       confirmed: "badge-confirmed",
       pending: "badge-pending",
       declined: "badge-declined",
+      completed: "badge-confirmed",
+      cancelled: "badge-declined",
     }[booking.status] || "";
 
   return (
@@ -76,6 +78,7 @@ function BookingRow({ booking, onConfirm, onDecline }) {
       </div>
       <div className="booking-right">
         <span className={`badge ${statusClass}`}>{booking.status}</span>
+
         {booking.status === "pending" && (
           <div className="booking-actions">
             <button
@@ -89,6 +92,17 @@ function BookingRow({ booking, onConfirm, onDecline }) {
               onClick={() => onDecline(booking._id)}
             >
               Decline
+            </button>
+          </div>
+        )}
+
+        {booking.status === "confirmed" && (
+          <div className="booking-actions">
+            <button
+              className="btn-confirm"
+              onClick={() => onComplete(booking._id)}
+            >
+              Mark complete
             </button>
           </div>
         )}
@@ -387,9 +401,12 @@ export default function BusinessDashboard() {
         setBookings((bs) =>
           bs.map((b) => (b._id === id ? { ...b, status } : b)),
         );
-        showToast(
-          status === "confirmed" ? "Booking confirmed ✓" : "Booking declined",
-        );
+        const messages = {
+          confirmed: "Booking confirmed ✓",
+          declined: "Booking declined",
+          completed: "Booking marked complete ✓",
+        };
+        showToast(messages[status] || "Booking updated");
       }
     } catch (_) {
       showToast("Failed to update booking");
@@ -412,6 +429,7 @@ export default function BusinessDashboard() {
       showToast("Failed to save availability");
     }
   }
+
   async function saveNeighborhoods() {
     try {
       const res = await fetch(
@@ -562,6 +580,7 @@ export default function BusinessDashboard() {
                   booking={b}
                   onConfirm={(id) => updateBooking(id, "confirmed")}
                   onDecline={(id) => updateBooking(id, "declined")}
+                  onComplete={(id) => updateBooking(id, "completed")}
                 />
               ))}
               {bookings.length === 0 && (
@@ -610,16 +629,18 @@ export default function BusinessDashboard() {
                 </p>
               </div>
               <div className="filter-row">
-                {["all", "pending", "confirmed", "declined"].map((f) => (
-                  <button
-                    key={f}
-                    className={`filter-btn ${filter === f ? "filter-btn-active" : ""}`}
-                    style={{ textTransform: "capitalize" }}
-                    onClick={() => setFilter(f)}
-                  >
-                    {f}
-                  </button>
-                ))}
+                {["all", "pending", "confirmed", "completed", "declined"].map(
+                  (f) => (
+                    <button
+                      key={f}
+                      className={`filter-btn ${filter === f ? "filter-btn-active" : ""}`}
+                      style={{ textTransform: "capitalize" }}
+                      onClick={() => setFilter(f)}
+                    >
+                      {f}
+                    </button>
+                  ),
+                )}
               </div>
             </div>
             <div className="bookings-list">
@@ -629,6 +650,7 @@ export default function BusinessDashboard() {
                   booking={b}
                   onConfirm={(id) => updateBooking(id, "confirmed")}
                   onDecline={(id) => updateBooking(id, "declined")}
+                  onComplete={(id) => updateBooking(id, "completed")}
                 />
               ))}
               {filteredBookings.length === 0 && (
