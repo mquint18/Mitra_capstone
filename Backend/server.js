@@ -13,6 +13,7 @@ import bookingRoutes from "./routes/bookings.js";
 import aiRoutes from "./routes/ai.js";
 import adminRoutes from "./routes/admin.js";
 import neighborhoodRoutes from "./routes/neighborhoods.js";
+import reviewRoutes from "./routes/reviews.js";
 
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -55,3 +56,5 @@ app.get("/test", (_, res) => res.json({ message: "Server is working!" }));
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 app.use("/api/neighborhoods", neighborhoodRoutes);
+
+app.use("/api/reviews", reviewRoutes);
